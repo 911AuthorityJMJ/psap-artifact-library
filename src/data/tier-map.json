@@ -1,0 +1,34 @@
+{
+  "tiers": [
+    {
+      "number": 1,
+      "name": "Governance, Risk & Strategy",
+      "categories": ["1.A", "1.B", "1.C", "1.D"]
+    },
+    {
+      "number": 2,
+      "name": "Data, Access & Physical Foundation",
+      "categories": ["3.A", "10.A", "11.B", "2.A", "13.C", "10.D"]
+    },
+    {
+      "number": 3,
+      "name": "Operational Planning & Technical Baseline",
+      "categories": ["5.A", "6.A", "9.B", "8.A", "9.A", "12.A", "11.A", "13.A", "2.B"]
+    },
+    {
+      "number": 4,
+      "name": "Technical Implementation",
+      "categories": ["7.A", "7.D", "4.A", "5.B", "5.C", "6.B", "6.C", "3.B", "2.C", "2.D", "2.E", "9.C", "9.D", "10.B", "10.C", "11.C", "11.D", "12.B", "13.B"]
+    },
+    {
+      "number": 5,
+      "name": "Advanced Monitoring & Response",
+      "categories": ["7.B", "8.B", "8.C", "3.C", "2.F", "4.B", "4.C", "4.D", "4.E", "4.F", "5.D", "10.E"]
+    },
+    {
+      "number": 6,
+      "name": "Continuous Validation",
+      "categories": ["7.C"]
+    }
+  ]
+}

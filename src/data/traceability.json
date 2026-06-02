@@ -1,0 +1,4066 @@
+{
+  "questionMap": {
+    "1A-1": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.A",
+      "category": "A. Executive Leadership & Resource Allocation",
+      "artifactIds": [
+        "A-001",
+        "A-002",
+        "A-032"
+      ]
+    },
+    "1A-2": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.A",
+      "category": "A. Executive Leadership & Resource Allocation",
+      "artifactIds": [
+        "A-001",
+        "A-027"
+      ]
+    },
+    "1A-3": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.A",
+      "category": "A. Executive Leadership & Resource Allocation",
+      "artifactIds": [
+        "A-091",
+        "A-028",
+        "A-023"
+      ]
+    },
+    "1B-1": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.B",
+      "category": "B. Policy & Asset Inventory Management",
+      "artifactIds": [
+        "A-002",
+        "A-029"
+      ]
+    },
+    "1B-2": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.B",
+      "category": "B. Policy & Asset Inventory Management",
+      "artifactIds": [
+        "A-002",
+        "A-003"
+      ]
+    },
+    "1B-3": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.B",
+      "category": "B. Policy & Asset Inventory Management",
+      "artifactIds": [
+        "A-092",
+        "A-004"
+      ]
+    },
+    "1C-1": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.C",
+      "category": "C. Role Definition & Governance Oversight",
+      "artifactIds": [
+        "A-007",
+        "A-005",
+        "A-006",
+        "A-031"
+      ]
+    },
+    "1C-2": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.C",
+      "category": "C. Role Definition & Governance Oversight",
+      "artifactIds": [
+        "A-012",
+        "A-007",
+        "A-043"
+      ]
+    },
+    "1C-3": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.C",
+      "category": "C. Role Definition & Governance Oversight",
+      "artifactIds": [
+        "A-030",
+        "A-005"
+      ]
+    },
+    "1C-4": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.C",
+      "category": "C. Role Definition & Governance Oversight",
+      "artifactIds": [
+        "A-010",
+        "A-024",
+        "A-155"
+      ]
+    },
+    "1C-5": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.C",
+      "category": "C. Role Definition & Governance Oversight",
+      "artifactIds": [
+        "A-117",
+        "A-057",
+        "A-014",
+        "A-032",
+        "A-083"
+      ]
+    },
+    "1D-1": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.D",
+      "category": "D. Risk Assessment & Management Strategy",
+      "artifactIds": [
+        "A-032"
+      ]
+    },
+    "1D-2": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.D",
+      "category": "D. Risk Assessment & Management Strategy",
+      "artifactIds": [
+        "A-004",
+        "A-012"
+      ]
+    },
+    "1D-3": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.D",
+      "category": "D. Risk Assessment & Management Strategy",
+      "artifactIds": [
+        "A-032"
+      ]
+    },
+    "1D-4": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.D",
+      "category": "D. Risk Assessment & Management Strategy",
+      "artifactIds": [
+        "A-008",
+        "A-009"
+      ]
+    },
+    "1D-5": {
+      "domain": "1. Governance, Risk & Strategy",
+      "catId": "1.D",
+      "category": "D. Risk Assessment & Management Strategy",
+      "artifactIds": [
+        "A-008",
+        "A-009",
+        "A-033"
+      ]
+    },
+    "2A-1": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.A",
+      "category": "A. Access Control Governance & Management",
+      "artifactIds": [
+        "A-010"
+      ]
+    },
+    "2A-2": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.A",
+      "category": "A. Access Control Governance & Management",
+      "artifactIds": [
+        "A-035",
+        "A-093",
+        "A-094"
+      ]
+    },
+    "2A-3": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.A",
+      "category": "A. Access Control Governance & Management",
+      "artifactIds": [
+        "A-039"
+      ]
+    },
+    "2A-4": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.A",
+      "category": "A. Access Control Governance & Management",
+      "artifactIds": [
+        "A-038",
+        "A-011"
+      ]
+    },
+    "2A-5": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.A",
+      "category": "A. Access Control Governance & Management",
+      "artifactIds": [
+        "A-050",
+        "A-080"
+      ]
+    },
+    "2A-6": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.A",
+      "category": "A. Access Control Governance & Management",
+      "artifactIds": [
+        "A-010"
+      ]
+    },
+    "2B-1": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.B",
+      "category": "B. Account & Credential Lifecycle Management",
+      "artifactIds": [
+        "A-037",
+        "A-011"
+      ]
+    },
+    "2B-2": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.B",
+      "category": "B. Account & Credential Lifecycle Management",
+      "artifactIds": [
+        "A-038",
+        "A-011"
+      ]
+    },
+    "2B-3": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.B",
+      "category": "B. Account & Credential Lifecycle Management",
+      "artifactIds": [
+        "A-039"
+      ]
+    },
+    "2B-4": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.B",
+      "category": "B. Account & Credential Lifecycle Management",
+      "artifactIds": [
+        "A-042"
+      ]
+    },
+    "2B-5": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.B",
+      "category": "B. Account & Credential Lifecycle Management",
+      "artifactIds": [
+        "A-037",
+        "A-038"
+      ]
+    },
+    "2C-1": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.C",
+      "category": "C. Authentication & Credential Governance",
+      "artifactIds": [
+        "A-039",
+        "A-048"
+      ]
+    },
+    "2C-2": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.C",
+      "category": "C. Authentication & Credential Governance",
+      "artifactIds": [
+        "A-039",
+        "A-041"
+      ]
+    },
+    "2C-3": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.C",
+      "category": "C. Authentication & Credential Governance",
+      "artifactIds": [
+        "A-039"
+      ]
+    },
+    "2C-4": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.C",
+      "category": "C. Authentication & Credential Governance",
+      "artifactIds": [
+        "A-039"
+      ]
+    },
+    "2C-5": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.C",
+      "category": "C. Authentication & Credential Governance",
+      "artifactIds": [
+        "A-040",
+        "A-039"
+      ]
+    },
+    "2D-1": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.D",
+      "category": "D. Authorization & Least Privilege Enforcement",
+      "artifactIds": [
+        "A-093",
+        "A-094"
+      ]
+    },
+    "2D-2": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.D",
+      "category": "D. Authorization & Least Privilege Enforcement",
+      "artifactIds": [
+        "A-093"
+      ]
+    },
+    "2D-3": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.D",
+      "category": "D. Authorization & Least Privilege Enforcement",
+      "artifactIds": [
+        "A-042",
+        "A-098",
+        "A-104"
+      ]
+    },
+    "2D-4": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.D",
+      "category": "D. Authorization & Least Privilege Enforcement",
+      "artifactIds": [
+        "A-093",
+        "A-102"
+      ]
+    },
+    "2E-1": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.E",
+      "category": "E. Privileged Access Governance & Monitoring",
+      "artifactIds": [
+        "A-095",
+        "A-025",
+        "A-162"
+      ]
+    },
+    "2E-2": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.E",
+      "category": "E. Privileged Access Governance & Monitoring",
+      "artifactIds": [
+        "A-042",
+        "A-095",
+        "A-034"
+      ]
+    },
+    "2E-3": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.E",
+      "category": "E. Privileged Access Governance & Monitoring",
+      "artifactIds": [
+        "A-040",
+        "A-095",
+        "A-117"
+      ]
+    },
+    "2E-4": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.E",
+      "category": "E. Privileged Access Governance & Monitoring",
+      "artifactIds": [
+        "A-096",
+        "A-094"
+      ]
+    },
+    "2E-5": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.E",
+      "category": "E. Privileged Access Governance & Monitoring",
+      "artifactIds": [
+        "A-096",
+        "A-098"
+      ]
+    },
+    "2F-1": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.F",
+      "category": "F. Session Management & Monitoring",
+      "artifactIds": [
+        "A-097"
+      ]
+    },
+    "2F-2": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.F",
+      "category": "F. Session Management & Monitoring",
+      "artifactIds": [
+        "A-097",
+        "A-098"
+      ]
+    },
+    "2F-3": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.F",
+      "category": "F. Session Management & Monitoring",
+      "artifactIds": [
+        "A-097"
+      ]
+    },
+    "2F-4": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.F",
+      "category": "F. Session Management & Monitoring",
+      "artifactIds": [
+        "A-097",
+        "A-098",
+        "A-050"
+      ]
+    },
+    "2F-5": {
+      "domain": "2. Identity, Authentication & Access Management",
+      "catId": "2.F",
+      "category": "F. Session Management & Monitoring",
+      "artifactIds": [
+        "A-098",
+        "A-134"
+      ]
+    },
+    "3A-1": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.A",
+      "category": "A. Data Classification & Labeling",
+      "artifactIds": [
+        "A-012",
+        "A-099"
+      ]
+    },
+    "3A-2": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.A",
+      "category": "A. Data Classification & Labeling",
+      "artifactIds": [
+        "A-012",
+        "A-099",
+        "A-102"
+      ]
+    },
+    "3A-3": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.A",
+      "category": "A. Data Classification & Labeling",
+      "artifactIds": [
+        "A-099",
+        "A-044"
+      ]
+    },
+    "3B-1": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.B",
+      "category": "B. Data Protection & Lifecycle Management",
+      "artifactIds": [
+        "A-043",
+        "A-044",
+        "A-166"
+      ]
+    },
+    "3B-2": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.B",
+      "category": "B. Data Protection & Lifecycle Management",
+      "artifactIds": [
+        "A-056",
+        "A-100",
+        "A-129"
+      ]
+    },
+    "3B-3": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.B",
+      "category": "B. Data Protection & Lifecycle Management",
+      "artifactIds": [
+        "A-045",
+        "A-100",
+        "A-166"
+      ]
+    },
+    "3B-4": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.B",
+      "category": "B. Data Protection & Lifecycle Management",
+      "artifactIds": [
+        "A-166"
+      ]
+    },
+    "3B-5": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.B",
+      "category": "B. Data Protection & Lifecycle Management",
+      "artifactIds": [
+        "A-058",
+        "A-057",
+        "A-101"
+      ]
+    },
+    "3B-6": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.B",
+      "category": "B. Data Protection & Lifecycle Management",
+      "artifactIds": [
+        "A-045",
+        "A-101"
+      ]
+    },
+    "3C-1": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.C",
+      "category": "C. Data Access Monitoring & Disclosure Management",
+      "artifactIds": [
+        "A-167",
+        "A-171"
+      ]
+    },
+    "3C-2": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.C",
+      "category": "C. Data Access Monitoring & Disclosure Management",
+      "artifactIds": [
+        "A-046",
+        "A-014"
+      ]
+    },
+    "3C-3": {
+      "domain": "3. Data Security & Lifecycle Management",
+      "catId": "3.C",
+      "category": "C. Data Access Monitoring & Disclosure Management",
+      "artifactIds": [
+        "A-102",
+        "A-059"
+      ]
+    },
+    "4A-1": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.A",
+      "category": "A. Network Infrastructure & Boundary Controls",
+      "artifactIds": [
+        "A-104",
+        "A-047"
+      ]
+    },
+    "4A-2": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.A",
+      "category": "A. Network Infrastructure & Boundary Controls",
+      "artifactIds": [
+        "A-103",
+        "A-106"
+      ]
+    },
+    "4A-3": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.A",
+      "category": "A. Network Infrastructure & Boundary Controls",
+      "artifactIds": [
+        "A-103",
+        "A-104",
+        "A-106"
+      ]
+    },
+    "4A-4": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.A",
+      "category": "A. Network Infrastructure & Boundary Controls",
+      "artifactIds": [
+        "A-103",
+        "A-117",
+        "A-118"
+      ]
+    },
+    "4A-5": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.A",
+      "category": "A. Network Infrastructure & Boundary Controls",
+      "artifactIds": [
+        "A-104"
+      ]
+    },
+    "4B-1": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.B",
+      "category": "B. Network Traffic & Threat Controls",
+      "artifactIds": [
+        "A-047",
+        "A-104",
+        "A-105"
+      ]
+    },
+    "4B-2": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.B",
+      "category": "B. Network Traffic & Threat Controls",
+      "artifactIds": [
+        "A-103",
+        "A-105"
+      ]
+    },
+    "4B-3": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.B",
+      "category": "B. Network Traffic & Threat Controls",
+      "artifactIds": [
+        "A-104"
+      ]
+    },
+    "4B-4": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.B",
+      "category": "B. Network Traffic & Threat Controls",
+      "artifactIds": [
+        "A-105",
+        "A-103"
+      ]
+    },
+    "4B-5": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.B",
+      "category": "B. Network Traffic & Threat Controls",
+      "artifactIds": [
+        "A-105",
+        "A-169"
+      ]
+    },
+    "4C-1": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.C",
+      "category": "C. DNS Governance & Security Controls",
+      "artifactIds": [
+        "A-108",
+        "A-109"
+      ]
+    },
+    "4C-2": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.C",
+      "category": "C. DNS Governance & Security Controls",
+      "artifactIds": [
+        "A-052",
+        "A-108"
+      ]
+    },
+    "4C-3": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.C",
+      "category": "C. DNS Governance & Security Controls",
+      "artifactIds": [
+        "A-108",
+        "A-052"
+      ]
+    },
+    "4C-4": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.C",
+      "category": "C. DNS Governance & Security Controls",
+      "artifactIds": [
+        "A-108",
+        "A-040",
+        "A-050"
+      ]
+    },
+    "4C-5": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.C",
+      "category": "C. DNS Governance & Security Controls",
+      "artifactIds": [
+        "A-054"
+      ]
+    },
+    "4C-6": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.C",
+      "category": "C. DNS Governance & Security Controls",
+      "artifactIds": [
+        "A-108",
+        "A-057",
+        "A-134"
+      ]
+    },
+    "4D-1": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.D",
+      "category": "D. Email System Security & Threat Protection",
+      "artifactIds": [
+        "A-049",
+        "A-111"
+      ]
+    },
+    "4D-2": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.D",
+      "category": "D. Email System Security & Threat Protection",
+      "artifactIds": [
+        "A-110",
+        "A-049",
+        "A-119"
+      ]
+    },
+    "4D-3": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.D",
+      "category": "D. Email System Security & Threat Protection",
+      "artifactIds": [
+        "A-049",
+        "A-093"
+      ]
+    },
+    "4D-4": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.D",
+      "category": "D. Email System Security & Threat Protection",
+      "artifactIds": [
+        "A-111"
+      ]
+    },
+    "4E-1": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.E",
+      "category": "E. Wireless & Cellular Communications Security",
+      "artifactIds": [
+        "A-112",
+        "A-113"
+      ]
+    },
+    "4E-2": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.E",
+      "category": "E. Wireless & Cellular Communications Security",
+      "artifactIds": [
+        "A-112",
+        "A-114"
+      ]
+    },
+    "4E-3": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.E",
+      "category": "E. Wireless & Cellular Communications Security",
+      "artifactIds": [
+        "A-112",
+        "A-114",
+        "A-113"
+      ]
+    },
+    "4E-4": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.E",
+      "category": "E. Wireless & Cellular Communications Security",
+      "artifactIds": [
+        "A-123",
+        "A-114"
+      ]
+    },
+    "4E-5": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.E",
+      "category": "E. Wireless & Cellular Communications Security",
+      "artifactIds": [
+        "A-114",
+        "A-056"
+      ]
+    },
+    "4F-1": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.F",
+      "category": "F. Device & Remote Connectivity Controls",
+      "artifactIds": [
+        "A-048",
+        "A-092",
+        "A-116"
+      ]
+    },
+    "4F-2": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.F",
+      "category": "F. Device & Remote Connectivity Controls",
+      "artifactIds": [
+        "A-103",
+        "A-048",
+        "A-115"
+      ]
+    },
+    "4F-3": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.F",
+      "category": "F. Device & Remote Connectivity Controls",
+      "artifactIds": [
+        "A-050",
+        "A-115"
+      ]
+    },
+    "4F-4": {
+      "domain": "4. Network & Communications Governance",
+      "catId": "4.F",
+      "category": "F. Device & Remote Connectivity Controls",
+      "artifactIds": [
+        "A-115",
+        "A-059"
+      ]
+    },
+    "5A-1": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.A",
+      "category": "A. Baseline Configuration & Asset Management",
+      "artifactIds": [
+        "A-003"
+      ]
+    },
+    "5A-2": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.A",
+      "category": "A. Baseline Configuration & Asset Management",
+      "artifactIds": [
+        "A-117"
+      ]
+    },
+    "5A-3": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.A",
+      "category": "A. Baseline Configuration & Asset Management",
+      "artifactIds": [
+        "A-052",
+        "A-119",
+        "A-120"
+      ]
+    },
+    "5A-4": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.A",
+      "category": "A. Baseline Configuration & Asset Management",
+      "artifactIds": [
+        "A-118"
+      ]
+    },
+    "5A-5": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.A",
+      "category": "A. Baseline Configuration & Asset Management",
+      "artifactIds": [
+        "A-104",
+        "A-117",
+        "A-052"
+      ]
+    },
+    "5B-1": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.B",
+      "category": "B. Service & Endpoint Hardening Controls",
+      "artifactIds": [
+        "A-119",
+        "A-117"
+      ]
+    },
+    "5B-2": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.B",
+      "category": "B. Service & Endpoint Hardening Controls",
+      "artifactIds": [
+        "A-121",
+        "A-119"
+      ]
+    },
+    "5B-3": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.B",
+      "category": "B. Service & Endpoint Hardening Controls",
+      "artifactIds": [
+        "A-119",
+        "A-117"
+      ]
+    },
+    "5B-4": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.B",
+      "category": "B. Service & Endpoint Hardening Controls",
+      "artifactIds": [
+        "A-120",
+        "A-119"
+      ]
+    },
+    "5B-5": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.B",
+      "category": "B. Service & Endpoint Hardening Controls",
+      "artifactIds": [
+        "A-106",
+        "A-135"
+      ]
+    },
+    "5C-1": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.C",
+      "category": "C. Configuration Change & Patch Management",
+      "artifactIds": [
+        "A-052",
+        "A-053",
+        "A-122"
+      ]
+    },
+    "5C-2": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.C",
+      "category": "C. Configuration Change & Patch Management",
+      "artifactIds": [
+        "A-052"
+      ]
+    },
+    "5C-3": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.C",
+      "category": "C. Configuration Change & Patch Management",
+      "artifactIds": [
+        "A-054",
+        "A-055",
+        "A-122"
+      ]
+    },
+    "5C-4": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.C",
+      "category": "C. Configuration Change & Patch Management",
+      "artifactIds": [
+        "A-052"
+      ]
+    },
+    "5C-5": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.C",
+      "category": "C. Configuration Change & Patch Management",
+      "artifactIds": [
+        "A-055",
+        "A-118",
+        "A-139"
+      ]
+    },
+    "5D-1": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.D",
+      "category": "D. Endpoint & Remote Device Security",
+      "artifactIds": [
+        "A-123",
+        "A-114"
+      ]
+    },
+    "5D-2": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.D",
+      "category": "D. Endpoint & Remote Device Security",
+      "artifactIds": [
+        "A-124",
+        "A-120",
+        "A-057"
+      ]
+    },
+    "5D-3": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.D",
+      "category": "D. Endpoint & Remote Device Security",
+      "artifactIds": [
+        "A-118",
+        "A-124",
+        "A-134"
+      ]
+    },
+    "5D-4": {
+      "domain": "5. Endpoint Security & Configuration Management",
+      "catId": "5.D",
+      "category": "D. Endpoint & Remote Device Security",
+      "artifactIds": [
+        "A-170"
+      ]
+    },
+    "6A-1": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.A",
+      "category": "A. Encryption & Cryptography Governance",
+      "artifactIds": [
+        "A-129",
+        "A-056"
+      ]
+    },
+    "6A-2": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.A",
+      "category": "A. Encryption & Cryptography Governance",
+      "artifactIds": [
+        "A-100",
+        "A-126"
+      ]
+    },
+    "6A-3": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.A",
+      "category": "A. Encryption & Cryptography Governance",
+      "artifactIds": [
+        "A-056",
+        "A-100"
+      ]
+    },
+    "6B-1": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.B",
+      "category": "B. PKI & Certificate Management",
+      "artifactIds": [
+        "A-129",
+        "A-127",
+        "A-128"
+      ]
+    },
+    "6B-2": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.B",
+      "category": "B. PKI & Certificate Management",
+      "artifactIds": [
+        "A-127",
+        "A-128",
+        "A-143"
+      ]
+    },
+    "6B-3": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.B",
+      "category": "B. PKI & Certificate Management",
+      "artifactIds": [
+        "A-128",
+        "A-134"
+      ]
+    },
+    "6C-1": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.C",
+      "category": "C. Cryptographic Key Governance & Availability",
+      "artifactIds": [
+        "A-129",
+        "A-100",
+        "A-130"
+      ]
+    },
+    "6C-2": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.C",
+      "category": "C. Cryptographic Key Governance & Availability",
+      "artifactIds": [
+        "A-131",
+        "A-132",
+        "A-130"
+      ]
+    },
+    "6C-3": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.C",
+      "category": "C. Cryptographic Key Governance & Availability",
+      "artifactIds": [
+        "A-130",
+        "A-139"
+      ]
+    },
+    "6C-4": {
+      "domain": "6. Cryptography, Encryption & Key Management Governance",
+      "catId": "6.C",
+      "category": "C. Cryptographic Key Governance & Availability",
+      "artifactIds": [
+        "A-134",
+        "A-130"
+      ]
+    },
+    "7A-1": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.A",
+      "category": "A. Logging Policy, Content & Review",
+      "artifactIds": [
+        "A-057",
+        "A-059"
+      ]
+    },
+    "7A-2": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.A",
+      "category": "A. Logging Policy, Content & Review",
+      "artifactIds": [
+        "A-057"
+      ]
+    },
+    "7A-3": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.A",
+      "category": "A. Logging Policy, Content & Review",
+      "artifactIds": [
+        "A-059",
+        "A-137"
+      ]
+    },
+    "7A-4": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.A",
+      "category": "A. Logging Policy, Content & Review",
+      "artifactIds": [
+        "A-058"
+      ]
+    },
+    "7B-1": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.B",
+      "category": "B. Continuous Monitoring & Threat Detection",
+      "artifactIds": [
+        "A-133"
+      ]
+    },
+    "7B-2": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.B",
+      "category": "B. Continuous Monitoring & Threat Detection",
+      "artifactIds": [
+        "A-134",
+        "A-133"
+      ]
+    },
+    "7B-3": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.B",
+      "category": "B. Continuous Monitoring & Threat Detection",
+      "artifactIds": [
+        "A-106",
+        "A-134",
+        "A-135"
+      ]
+    },
+    "7B-4": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.B",
+      "category": "B. Continuous Monitoring & Threat Detection",
+      "artifactIds": [
+        "A-134",
+        "A-133"
+      ]
+    },
+    "7B-5": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.B",
+      "category": "B. Continuous Monitoring & Threat Detection",
+      "artifactIds": [
+        "A-133",
+        "A-134"
+      ]
+    },
+    "7C-1": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.C",
+      "category": "C. Security Event Review & Detection",
+      "artifactIds": [
+        "A-136",
+        "A-134",
+        "A-015"
+      ]
+    },
+    "7C-2": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.C",
+      "category": "C. Security Event Review & Detection",
+      "artifactIds": [
+        "A-139",
+        "A-057"
+      ]
+    },
+    "7C-3": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.C",
+      "category": "C. Security Event Review & Detection",
+      "artifactIds": [
+        "A-136",
+        "A-137"
+      ]
+    },
+    "7C-4": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.C",
+      "category": "C. Security Event Review & Detection",
+      "artifactIds": [
+        "A-135",
+        "A-016",
+        "A-085"
+      ]
+    },
+    "7D-1": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.D",
+      "category": "D. Time Synchronization & Log Integrity",
+      "artifactIds": [
+        "A-138",
+        "A-140"
+      ]
+    },
+    "7D-2": {
+      "domain": "7. Logging, Monitoring & Event Detection",
+      "catId": "7.D",
+      "category": "D. Time Synchronization & Log Integrity",
+      "artifactIds": [
+        "A-140",
+        "A-139",
+        "A-138"
+      ]
+    },
+    "8A-1": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.A",
+      "category": "A. Incident Reponse Planning & Procedures",
+      "artifactIds": [
+        "A-014",
+        "A-015",
+        "A-016",
+        "A-017"
+      ]
+    },
+    "8A-2": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.A",
+      "category": "A. Incident Reponse Planning & Procedures",
+      "artifactIds": [
+        "A-086",
+        "A-087",
+        "A-018"
+      ]
+    },
+    "8B-1": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.B",
+      "category": "B. Incident Response Execution & Resilience",
+      "artifactIds": [
+        "A-018",
+        "A-061",
+        "A-014",
+        "A-060"
+      ]
+    },
+    "8B-2": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.B",
+      "category": "B. Incident Response Execution & Resilience",
+      "artifactIds": [
+        "A-168",
+        "A-060"
+      ]
+    },
+    "8B-3": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.B",
+      "category": "B. Incident Response Execution & Resilience",
+      "artifactIds": [
+        "A-095",
+        "A-014",
+        "A-041"
+      ]
+    },
+    "8B-4": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.B",
+      "category": "B. Incident Response Execution & Resilience",
+      "artifactIds": [
+        "A-169"
+      ]
+    },
+    "8C-1": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.C",
+      "category": "C. Forensic Readiness & Evidence Management",
+      "artifactIds": [
+        "A-062",
+        "A-098",
+        "A-139"
+      ]
+    },
+    "8C-2": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.C",
+      "category": "C. Forensic Readiness & Evidence Management",
+      "artifactIds": [
+        "A-062",
+        "A-064",
+        "A-063"
+      ]
+    },
+    "8C-3": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.C",
+      "category": "C. Forensic Readiness & Evidence Management",
+      "artifactIds": [
+        "A-141",
+        "A-142"
+      ]
+    },
+    "8C-4": {
+      "domain": "8. Response, Recovery, & Forensic Readiness",
+      "catId": "8.C",
+      "category": "C. Forensic Readiness & Evidence Management",
+      "artifactIds": [
+        "A-141",
+        "A-142"
+      ]
+    },
+    "9A-1": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.A",
+      "category": "A. Continuity Planning & Recovery",
+      "artifactIds": [
+        "A-019"
+      ]
+    },
+    "9A-2": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.A",
+      "category": "A. Continuity Planning & Recovery",
+      "artifactIds": [
+        "A-019",
+        "A-020",
+        "A-065"
+      ]
+    },
+    "9A-3": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.A",
+      "category": "A. Continuity Planning & Recovery",
+      "artifactIds": [
+        "A-019",
+        "A-143",
+        "A-144",
+        "A-017",
+        "A-021"
+      ]
+    },
+    "9A-4": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.A",
+      "category": "A. Continuity Planning & Recovery",
+      "artifactIds": [
+        "A-019"
+      ]
+    },
+    "9B-1": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.B",
+      "category": "B. Backup & Restoration Management",
+      "artifactIds": [
+        "A-022"
+      ]
+    },
+    "9B-2": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.B",
+      "category": "B. Backup & Restoration Management",
+      "artifactIds": [
+        "A-022",
+        "A-066"
+      ]
+    },
+    "9B-3": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.B",
+      "category": "B. Backup & Restoration Management",
+      "artifactIds": [
+        "A-020",
+        "A-066",
+        "A-067"
+      ]
+    },
+    "9B-4": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.B",
+      "category": "B. Backup & Restoration Management",
+      "artifactIds": [
+        "A-067"
+      ]
+    },
+    "9C-1": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.C",
+      "category": "C. Redundancy, Recovery & Resilience",
+      "artifactIds": [
+        "A-143",
+        "A-021"
+      ]
+    },
+    "9C-2": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.C",
+      "category": "C. Redundancy, Recovery & Resilience",
+      "artifactIds": [
+        "A-145",
+        "A-143"
+      ]
+    },
+    "9C-3": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.C",
+      "category": "C. Redundancy, Recovery & Resilience",
+      "artifactIds": [
+        "A-144",
+        "A-143"
+      ]
+    },
+    "9C-4": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.C",
+      "category": "C. Redundancy, Recovery & Resilience",
+      "artifactIds": [
+        "A-146",
+        "A-019",
+        "A-143"
+      ]
+    },
+    "9D-1": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.D",
+      "category": "D. Power & Environmental Resilience",
+      "artifactIds": [
+        "A-019",
+        "A-147"
+      ]
+    },
+    "9D-2": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.D",
+      "category": "D. Power & Environmental Resilience",
+      "artifactIds": [
+        "A-153",
+        "A-154"
+      ]
+    },
+    "9D-3": {
+      "domain": "9. Business Continuity & Environmental Resilience",
+      "catId": "9.D",
+      "category": "D. Power & Environmental Resilience",
+      "artifactIds": [
+        "A-068",
+        "A-147"
+      ]
+    },
+    "10A-1": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.A",
+      "category": "A. Facility Access Control & Perimeter Security",
+      "artifactIds": [
+        "A-069"
+      ]
+    },
+    "10A-2": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.A",
+      "category": "A. Facility Access Control & Perimeter Security",
+      "artifactIds": [
+        "A-155",
+        "A-156"
+      ]
+    },
+    "10A-3": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.A",
+      "category": "A. Facility Access Control & Perimeter Security",
+      "artifactIds": [
+        "A-162",
+        "A-069"
+      ]
+    },
+    "10A-4": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.A",
+      "category": "A. Facility Access Control & Perimeter Security",
+      "artifactIds": [
+        "A-069",
+        "A-070"
+      ]
+    },
+    "10A-5": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.A",
+      "category": "A. Facility Access Control & Perimeter Security",
+      "artifactIds": [
+        "A-069",
+        "A-148",
+        "A-150"
+      ]
+    },
+    "10A-6": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.A",
+      "category": "A. Facility Access Control & Perimeter Security",
+      "artifactIds": [
+        "A-150",
+        "A-070"
+      ]
+    },
+    "10B-1": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.B",
+      "category": "B. Visitor Management",
+      "artifactIds": [
+        "A-069",
+        "A-072"
+      ]
+    },
+    "10B-2": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.B",
+      "category": "B. Visitor Management",
+      "artifactIds": [
+        "A-071",
+        "A-073",
+        "A-069"
+      ]
+    },
+    "10C-1": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.C",
+      "category": "C. Physical Access Monitoring & Logging",
+      "artifactIds": [
+        "A-150",
+        "A-151"
+      ]
+    },
+    "10C-2": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.C",
+      "category": "C. Physical Access Monitoring & Logging",
+      "artifactIds": [
+        "A-150",
+        "A-151",
+        "A-058"
+      ]
+    },
+    "10C-3": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.C",
+      "category": "C. Physical Access Monitoring & Logging",
+      "artifactIds": [
+        "A-150",
+        "A-014",
+        "A-135"
+      ]
+    },
+    "10D-1": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.D",
+      "category": "D. Secure Placement & Physical Safeguards",
+      "artifactIds": [
+        "A-074",
+        "A-165"
+      ]
+    },
+    "10D-2": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.D",
+      "category": "D. Secure Placement & Physical Safeguards",
+      "artifactIds": [
+        "A-074"
+      ]
+    },
+    "10D-3": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.D",
+      "category": "D. Secure Placement & Physical Safeguards",
+      "artifactIds": [
+        "A-074"
+      ]
+    },
+    "10D-4": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.D",
+      "category": "D. Secure Placement & Physical Safeguards",
+      "artifactIds": [
+        "A-074"
+      ]
+    },
+    "10E-1": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.E",
+      "category": "E. Environmental Monitoring & Facility Protections",
+      "artifactIds": [
+        "A-008",
+        "A-009",
+        "A-165"
+      ]
+    },
+    "10E-2": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.E",
+      "category": "E. Environmental Monitoring & Facility Protections",
+      "artifactIds": [
+        "A-153",
+        "A-154"
+      ]
+    },
+    "10E-3": {
+      "domain": "10. Physical & Environmental Security Management",
+      "catId": "10.E",
+      "category": "E. Environmental Monitoring & Facility Protections",
+      "artifactIds": [
+        "A-153",
+        "A-154",
+        "A-019"
+      ]
+    },
+    "11A-1": {
+      "domain": "11. Third-Party Security & Supply Chain Management",
+      "catId": "11.A",
+      "category": "A. Third-Party & Hosted Service Security",
+      "artifactIds": [
+        "A-077",
+        "A-013",
+        "A-006"
+      ]
+    },
+    "11A-2": {
+      "domain": "11. Third-Party Security & Supply Chain Management",
+      "catId": "11.A",
+      "category": "A. Third-Party & Hosted Service Security",
+      "artifactIds": [
+        "A-076",
+        "A-078"
+      ]
+    },
+    "11B-1": {
+      "domain": "11. Third-Party Security & Supply Chain Management",
+      "catId": "11.B",
+      "category": "B. Third-Party Asset Inventory",
+      "artifactIds": [
+        "A-079",
+        "A-048"
+      ]
+    },
+    "11C-1": {
+      "domain": "11. Third-Party Security & Supply Chain Management",
+      "catId": "11.C",
+      "category": "C. Personnel Screening & Vetting",
+      "artifactIds": [
+        "A-155",
+        "A-156",
+        "A-026",
+        "A-088"
+      ]
+    },
+    "11D-1": {
+      "domain": "11. Third-Party Security & Supply Chain Management",
+      "catId": "11.D",
+      "category": "D. Procurement, Delivery & Supply Validation",
+      "artifactIds": [
+        "A-157",
+        "A-078",
+        "A-159"
+      ]
+    },
+    "11D-2": {
+      "domain": "11. Third-Party Security & Supply Chain Management",
+      "catId": "11.D",
+      "category": "D. Procurement, Delivery & Supply Validation",
+      "artifactIds": [
+        "A-158",
+        "A-157"
+      ]
+    },
+    "11D-3": {
+      "domain": "11. Third-Party Security & Supply Chain Management",
+      "catId": "11.D",
+      "category": "D. Procurement, Delivery & Supply Validation",
+      "artifactIds": [
+        "A-158",
+        "A-055"
+      ]
+    },
+    "12A-1": {
+      "domain": "12. Assessment, Testing, & Remediation Management",
+      "catId": "12.A",
+      "category": "A. Security Assessment & Vulnerability Management",
+      "artifactIds": [
+        "A-081",
+        "A-160",
+        "A-083"
+      ]
+    },
+    "12A-2": {
+      "domain": "12. Assessment, Testing, & Remediation Management",
+      "catId": "12.A",
+      "category": "A. Security Assessment & Vulnerability Management",
+      "artifactIds": [
+        "A-081",
+        "A-160"
+      ]
+    },
+    "12A-3": {
+      "domain": "12. Assessment, Testing, & Remediation Management",
+      "catId": "12.A",
+      "category": "A. Security Assessment & Vulnerability Management",
+      "artifactIds": [
+        "A-052",
+        "A-081"
+      ]
+    },
+    "12A-4": {
+      "domain": "12. Assessment, Testing, & Remediation Management",
+      "catId": "12.A",
+      "category": "A. Security Assessment & Vulnerability Management",
+      "artifactIds": [
+        "A-058",
+        "A-083",
+        "A-081"
+      ]
+    },
+    "12B-1": {
+      "domain": "12. Assessment, Testing, & Remediation Management",
+      "catId": "12.B",
+      "category": "B. Issue Tracking & Risk Response",
+      "artifactIds": [
+        "A-083",
+        "A-033",
+        "A-009",
+        "A-023"
+      ]
+    },
+    "12B-2": {
+      "domain": "12. Assessment, Testing, & Remediation Management",
+      "catId": "12.B",
+      "category": "B. Issue Tracking & Risk Response",
+      "artifactIds": [
+        "A-083"
+      ]
+    },
+    "13A-1": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.A",
+      "category": "A. Cybersecurity Training & Competency",
+      "artifactIds": [
+        "A-086",
+        "A-087"
+      ]
+    },
+    "13A-2": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.A",
+      "category": "A. Cybersecurity Training & Competency",
+      "artifactIds": [
+        "A-086",
+        "A-161"
+      ]
+    },
+    "13A-3": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.A",
+      "category": "A. Cybersecurity Training & Competency",
+      "artifactIds": [
+        "A-086",
+        "A-162"
+      ]
+    },
+    "13A-4": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.A",
+      "category": "A. Cybersecurity Training & Competency",
+      "artifactIds": [
+        "A-086",
+        "A-025",
+        "A-162"
+      ]
+    },
+    "13A-5": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.A",
+      "category": "A. Cybersecurity Training & Competency",
+      "artifactIds": [
+        "A-162",
+        "A-164"
+      ]
+    },
+    "13B-1": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.B",
+      "category": "B. Role-Specific Training & Handling Responsibilities",
+      "artifactIds": [
+        "A-162",
+        "A-087",
+        "A-164"
+      ]
+    },
+    "13B-2": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.B",
+      "category": "B. Role-Specific Training & Handling Responsibilities",
+      "artifactIds": [
+        "A-166",
+        "A-025",
+        "A-162"
+      ]
+    },
+    "13B-3": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.B",
+      "category": "B. Role-Specific Training & Handling Responsibilities",
+      "artifactIds": [
+        "A-162",
+        "A-074"
+      ]
+    },
+    "13C-1": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.C",
+      "category": "C. User Conduct Policies & Acknowledgements",
+      "artifactIds": [
+        "A-024",
+        "A-025",
+        "A-090"
+      ]
+    },
+    "13C-2": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.C",
+      "category": "C. User Conduct Policies & Acknowledgements",
+      "artifactIds": [
+        "A-024",
+        "A-086",
+        "A-089",
+        "A-088"
+      ]
+    },
+    "13C-3": {
+      "domain": "13. Training, Awareness & Behavioral Governance",
+      "catId": "13.C",
+      "category": "C. User Conduct Policies & Acknowledgements",
+      "artifactIds": [
+        "A-024"
+      ]
+    }
+  },
+  "artifactMap": {
+    "A-002": {
+      "id": "A-002",
+      "name": "Cybersecurity & Privacy Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-01",
+      "gate": true,
+      "classification": "Internal / CJIS",
+      "status": "Draft - In Progress"
+    },
+    "A-001": {
+      "id": "A-001",
+      "name": "Cybersecurity Charter / Leadership Designation Letter",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-02",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-032": {
+      "id": "A-032",
+      "name": "Risk Management Methodology Document",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-03",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-023": {
+      "id": "A-023",
+      "name": "Board / Leadership Security Reporting Template",
+      "type": "Report / Assessment",
+      "phase": "Tier 1",
+      "seqId": "T1-04",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-027": {
+      "id": "A-027",
+      "name": "Cybersecurity Budget & Resource Allocation Record",
+      "type": "Log / Record",
+      "phase": "Tier 1",
+      "seqId": "T1-05",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-028": {
+      "id": "A-028",
+      "name": "Leadership Security Review Meeting Minutes",
+      "type": "Log / Record",
+      "phase": "Tier 1",
+      "seqId": "T1-06",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-091": {
+      "id": "A-091",
+      "name": "Threat Intelligence Routing & Distribution Matrix",
+      "type": "Reference Matrix",
+      "phase": "Tier 1",
+      "seqId": "T1-07",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-003": {
+      "id": "A-003",
+      "name": "Master Asset Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-08",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-004": {
+      "id": "A-004",
+      "name": "Asset Criticality Ranking Matrix",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-09",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-029": {
+      "id": "A-029",
+      "name": "Policy Review & Approval Log",
+      "type": "Log / Record",
+      "phase": "Tier 1",
+      "seqId": "T1-10",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-092": {
+      "id": "A-092",
+      "name": "System Security Plans (per critical system)",
+      "type": "Plan",
+      "phase": "Tier 1",
+      "seqId": "T1-11",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-006": {
+      "id": "A-006",
+      "name": "IT Support Accountability Agreement (SLA / MOU)",
+      "type": "Agreement / Form",
+      "phase": "Tier 1",
+      "seqId": "T1-12",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-010": {
+      "id": "A-010",
+      "name": "Access Control Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-13",
+      "gate": true,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-012": {
+      "id": "A-012",
+      "name": "Data Classification Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-14",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-014": {
+      "id": "A-014",
+      "name": "Incident Response Plan (IRP)",
+      "type": "Plan",
+      "phase": "Tier 1",
+      "seqId": "T1-15",
+      "gate": true,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-024": {
+      "id": "A-024",
+      "name": "Acceptable Use Policy (AUP)",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-16",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-057": {
+      "id": "A-057",
+      "name": "Logging Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-17",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-007": {
+      "id": "A-007",
+      "name": "Cybersecurity Governance Charter",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-18",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-005": {
+      "id": "A-005",
+      "name": "RACI Matrix for Cybersecurity",
+      "type": "Reference Matrix",
+      "phase": "Tier 1",
+      "seqId": "T1-19",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-030": {
+      "id": "A-030",
+      "name": "Security Role Descriptions",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-20",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-031": {
+      "id": "A-031",
+      "name": "Governance Reporting Calendar",
+      "type": "Schedule",
+      "phase": "Tier 1",
+      "seqId": "T1-21",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-043": {
+      "id": "A-043",
+      "name": "Data Inventory / Data Map",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-22",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-083": {
+      "id": "A-083",
+      "name": "Risk / Finding Register (POA&M)",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-23",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-117": {
+      "id": "A-117",
+      "name": "System Configuration Baselines (per system type)",
+      "type": "Configuration Record",
+      "phase": "Tier 1",
+      "seqId": "T1-24",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-155": {
+      "id": "A-155",
+      "name": "Background Check & Screening Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-25",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-009": {
+      "id": "A-009",
+      "name": "Risk Register",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-26",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-008": {
+      "id": "A-008",
+      "name": "Risk Assessment Report",
+      "type": "Report / Assessment",
+      "phase": "Tier 1",
+      "seqId": "T1-27",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-033": {
+      "id": "A-033",
+      "name": "Risk Treatment / Acceptance Decisions Log",
+      "type": "Log / Record",
+      "phase": "Tier 1",
+      "seqId": "T1-28",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-044": {
+      "id": "A-044",
+      "name": "Data Retention Schedule",
+      "type": "Schedule",
+      "phase": "Tier 2",
+      "seqId": "T2-01",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-099": {
+      "id": "A-099",
+      "name": "Data Labeling Procedures",
+      "type": "Procedure",
+      "phase": "Tier 2",
+      "seqId": "T2-02",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-102": {
+      "id": "A-102",
+      "name": "Data Access Monitoring Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-03",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-069": {
+      "id": "A-069",
+      "name": "Physical Access Control Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-04",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-070": {
+      "id": "A-070",
+      "name": "Access Authorization List",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-05",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-148": {
+      "id": "A-148",
+      "name": "Controlled Area / Zone Map",
+      "type": "Architecture / Design",
+      "phase": "Tier 2",
+      "seqId": "T2-06",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-150": {
+      "id": "A-150",
+      "name": "Physical Access Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 2",
+      "seqId": "T2-07",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-156": {
+      "id": "A-156",
+      "name": "Screening Completion Records",
+      "type": "Log / Record",
+      "phase": "Tier 2",
+      "seqId": "T2-08",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-162": {
+      "id": "A-162",
+      "name": "Role-Specific Training Materials",
+      "type": "Training Material",
+      "phase": "Tier 2",
+      "seqId": "T2-09",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-048": {
+      "id": "A-048",
+      "name": "External Connection Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-10",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-079": {
+      "id": "A-079",
+      "name": "Vendor & Contractor Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-11",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-035": {
+      "id": "A-035",
+      "name": "Access Entitlement Matrix",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-12",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-011": {
+      "id": "A-011",
+      "name": "Account Provisioning & Deprovisioning Checklist",
+      "type": "Checklist",
+      "phase": "Tier 2",
+      "seqId": "T2-13",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-038": {
+      "id": "A-038",
+      "name": "Periodic Account Review / Certification Records",
+      "type": "Log / Record",
+      "phase": "Tier 2",
+      "seqId": "T2-14",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-039": {
+      "id": "A-039",
+      "name": "Password & Authentication Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-15",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-050": {
+      "id": "A-050",
+      "name": "Remote Access Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-16",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-080": {
+      "id": "A-080",
+      "name": "Third-Party Access Agreement",
+      "type": "Agreement / Form",
+      "phase": "Tier 2",
+      "seqId": "T2-17",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-093": {
+      "id": "A-093",
+      "name": "Role-Based Access Control (RBAC) Documentation",
+      "type": "Configuration Record",
+      "phase": "Tier 2",
+      "seqId": "T2-18",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-094": {
+      "id": "A-094",
+      "name": "Privilege Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 2",
+      "seqId": "T2-19",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-086": {
+      "id": "A-086",
+      "name": "Cybersecurity Training Plan",
+      "type": "Plan",
+      "phase": "Tier 2",
+      "seqId": "T2-20",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-025": {
+      "id": "A-025",
+      "name": "Signed Acknowledgment Records",
+      "type": "Agreement / Form",
+      "phase": "Tier 2",
+      "seqId": "T2-21",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-088": {
+      "id": "A-088",
+      "name": "New Employee Training Checklist (Pre-Access)",
+      "type": "Checklist",
+      "phase": "Tier 2",
+      "seqId": "T2-22",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-089": {
+      "id": "A-089",
+      "name": "Social Media & External Communications Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-23",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-090": {
+      "id": "A-090",
+      "name": "Policy Acknowledgment Tracking Log",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-24",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-074": {
+      "id": "A-074",
+      "name": "Physical Security Hardening Standard",
+      "type": "Standard",
+      "phase": "Tier 2",
+      "seqId": "T2-25",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-165": {
+      "id": "A-165",
+      "name": "Server Room / Equipment Area Hardening Assessment Record",
+      "type": "Report / Assessment",
+      "phase": "Tier 2",
+      "seqId": "T2-26",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-052": {
+      "id": "A-052",
+      "name": "Change Management Policy",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-01",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-104": {
+      "id": "A-104",
+      "name": "Network Segmentation Design Document",
+      "type": "Architecture / Design",
+      "phase": "Tier 3",
+      "seqId": "T3-02",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-118": {
+      "id": "A-118",
+      "name": "Configuration Drift Detection Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-03",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-120": {
+      "id": "A-120",
+      "name": "Endpoint Security Software Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 3",
+      "seqId": "T3-04",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-119": {
+      "id": "A-119",
+      "name": "Endpoint Hardening Checklist",
+      "type": "Checklist",
+      "phase": "Tier 3",
+      "seqId": "T3-05",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-056": {
+      "id": "A-056",
+      "name": "Encryption Policy",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-06",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-100": {
+      "id": "A-100",
+      "name": "Encryption Standards Document",
+      "type": "Standard",
+      "phase": "Tier 3",
+      "seqId": "T3-07",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-126": {
+      "id": "A-126",
+      "name": "Encryption Implementation Verification Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-08",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-129": {
+      "id": "A-129",
+      "name": "Key & Certificate Management Policy",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-09",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-020": {
+      "id": "A-020",
+      "name": "RTO/RPO Documentation",
+      "type": "Reference Matrix",
+      "phase": "Tier 3",
+      "seqId": "T3-10",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-022": {
+      "id": "A-022",
+      "name": "Backup Policy",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-11",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-066": {
+      "id": "A-066",
+      "name": "Backup Schedule & Media Inventory",
+      "type": "Schedule",
+      "phase": "Tier 3",
+      "seqId": "T3-12",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-067": {
+      "id": "A-067",
+      "name": "Restoration Test Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-13",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-017": {
+      "id": "A-017",
+      "name": "Backup Call-Handling / Dispatch Continuity Procedure",
+      "type": "Procedure",
+      "phase": "Tier 3",
+      "seqId": "T3-14",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-015": {
+      "id": "A-015",
+      "name": "Incident Classification & Severity Matrix",
+      "type": "Reference Matrix",
+      "phase": "Tier 3",
+      "seqId": "T3-15",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-016": {
+      "id": "A-016",
+      "name": "Incident Notification & Escalation Contact List",
+      "type": "Inventory / Register",
+      "phase": "Tier 3",
+      "seqId": "T3-16",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-018": {
+      "id": "A-018",
+      "name": "Tabletop Exercise Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-17",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-087": {
+      "id": "A-087",
+      "name": "Training Completion Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-18",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-019": {
+      "id": "A-019",
+      "name": "Continuity of Operations Plan (COOP)",
+      "type": "Plan",
+      "phase": "Tier 3",
+      "seqId": "T3-19",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-021": {
+      "id": "A-021",
+      "name": "Overflow Routing Agreement (Mutual Aid)",
+      "type": "Agreement / Form",
+      "phase": "Tier 3",
+      "seqId": "T3-20",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-065": {
+      "id": "A-065",
+      "name": "Continuity Plan Exercise Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-21",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-143": {
+      "id": "A-143",
+      "name": "System Redundancy Design Documentation",
+      "type": "Architecture / Design",
+      "phase": "Tier 3",
+      "seqId": "T3-22",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-144": {
+      "id": "A-144",
+      "name": "Failover Test Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-23",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-058": {
+      "id": "A-058",
+      "name": "Log Retention Schedule",
+      "type": "Schedule",
+      "phase": "Tier 3",
+      "seqId": "T3-24",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-081": {
+      "id": "A-081",
+      "name": "Vulnerability Assessment Reports",
+      "type": "Report / Assessment",
+      "phase": "Tier 3",
+      "seqId": "T3-25",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-160": {
+      "id": "A-160",
+      "name": "Vulnerability Scanning Schedule",
+      "type": "Schedule",
+      "phase": "Tier 3",
+      "seqId": "T3-26",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-013": {
+      "id": "A-013",
+      "name": "CJIS Data Handling Addendum",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-27",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-078": {
+      "id": "A-078",
+      "name": "Vendor Security Assessment Questionnaire",
+      "type": "Checklist",
+      "phase": "Tier 3",
+      "seqId": "T3-28",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-076": {
+      "id": "A-076",
+      "name": "Third-Party Risk Assessment Records",
+      "type": "Report / Assessment",
+      "phase": "Tier 3",
+      "seqId": "T3-29",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-077": {
+      "id": "A-077",
+      "name": "Security Requirements in Vendor Contracts / SLAs",
+      "type": "Agreement / Form",
+      "phase": "Tier 3",
+      "seqId": "T3-30",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-161": {
+      "id": "A-161",
+      "name": "Phishing Simulation Results",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-31",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-164": {
+      "id": "A-164",
+      "name": "Competency Assessment Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-32",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-037": {
+      "id": "A-037",
+      "name": "Account Provisioning & Deprovisioning Procedures",
+      "type": "Procedure",
+      "phase": "Tier 3",
+      "seqId": "T3-33",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-042": {
+      "id": "A-042",
+      "name": "Privileged & Service Account Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 3",
+      "seqId": "T3-34",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-059": {
+      "id": "A-059",
+      "name": "Log Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-01",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-137": {
+      "id": "A-137",
+      "name": "Event Review Meeting Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-02",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-138": {
+      "id": "A-138",
+      "name": "NTP Configuration Documentation",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-03",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-139": {
+      "id": "A-139",
+      "name": "Log Integrity Verification Procedures",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-04",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-140": {
+      "id": "A-140",
+      "name": "Time Synchronization Audit Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-05",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-047": {
+      "id": "A-047",
+      "name": "Network Architecture Diagram",
+      "type": "Architecture / Design",
+      "phase": "Tier 4",
+      "seqId": "T4-06",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-103": {
+      "id": "A-103",
+      "name": "Firewall Ruleset Documentation",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-07",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-106": {
+      "id": "A-106",
+      "name": "IDS/IPS Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-08",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-121": {
+      "id": "A-121",
+      "name": "Service / Port Disablement Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-09",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-135": {
+      "id": "A-135",
+      "name": "Alert Triage & Escalation Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-10",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-055": {
+      "id": "A-055",
+      "name": "Patch Testing Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-11",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-054": {
+      "id": "A-054",
+      "name": "Patch Management Schedule & Tracking Log",
+      "type": "Schedule",
+      "phase": "Tier 4",
+      "seqId": "T4-12",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-053": {
+      "id": "A-053",
+      "name": "Change Request & Approval Log",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-13",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-122": {
+      "id": "A-122",
+      "name": "Emergency Change Procedures",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-14",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-127": {
+      "id": "A-127",
+      "name": "Certificate Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 4",
+      "seqId": "T4-15",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-128": {
+      "id": "A-128",
+      "name": "Certificate Renewal & Revocation Procedures",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-16",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-134": {
+      "id": "A-134",
+      "name": "SIEM / Monitoring Tool Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-17",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-130": {
+      "id": "A-130",
+      "name": "Key Inventory & Custody Records",
+      "type": "Inventory / Register",
+      "phase": "Tier 4",
+      "seqId": "T4-18",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-132": {
+      "id": "A-132",
+      "name": "Key Escrow and Recovery Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-19",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-131": {
+      "id": "A-131",
+      "name": "Key Rotation Schedule",
+      "type": "Schedule",
+      "phase": "Tier 4",
+      "seqId": "T4-20",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-166": {
+      "id": "A-166",
+      "name": "Document Handling Standard",
+      "type": "Standard",
+      "phase": "Tier 4",
+      "seqId": "T4-21",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-045": {
+      "id": "A-045",
+      "name": "Secure Disposal Procedures",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-22",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-101": {
+      "id": "A-101",
+      "name": "Data Disposal / Destruction Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-23",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-040": {
+      "id": "A-040",
+      "name": "MFA Implementation Record",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-24",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-041": {
+      "id": "A-041",
+      "name": "Default Credential Remediation Log",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-25",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-098": {
+      "id": "A-098",
+      "name": "Session Monitoring Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-26",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-034": {
+      "id": "A-034",
+      "name": "System Access Request & Approval Forms",
+      "type": "Agreement / Form",
+      "phase": "Tier 4",
+      "seqId": "T4-27",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-095": {
+      "id": "A-095",
+      "name": "Privileged Access Management (PAM) Policy",
+      "type": "Policy",
+      "phase": "Tier 4",
+      "seqId": "T4-28",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-096": {
+      "id": "A-096",
+      "name": "Privileged Access Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-29",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-145": {
+      "id": "A-145",
+      "name": "Single-Point-of-Failure Assessment Record",
+      "type": "Report / Assessment",
+      "phase": "Tier 4",
+      "seqId": "T4-30",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-146": {
+      "id": "A-146",
+      "name": "RTO Compliance Matrix",
+      "type": "Report / Assessment",
+      "phase": "Tier 4",
+      "seqId": "T4-31",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-068": {
+      "id": "A-068",
+      "name": "UPS / Generator Test Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-32",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-147": {
+      "id": "A-147",
+      "name": "Power Resilience Configuration Documentation",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-33",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-153": {
+      "id": "A-153",
+      "name": "Environmental Sensor Inventory & Alert Configuration",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-34",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-154": {
+      "id": "A-154",
+      "name": "Environmental Monitoring Log",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-35",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-073": {
+      "id": "A-073",
+      "name": "Vendor Access Coordination Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-36",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-071": {
+      "id": "A-071",
+      "name": "Visitor Log",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-37",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-072": {
+      "id": "A-072",
+      "name": "Visitor Access Agreement Form",
+      "type": "Agreement / Form",
+      "phase": "Tier 4",
+      "seqId": "T4-38",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-151": {
+      "id": "A-151",
+      "name": "Camera and Sensor Maintenance Record",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-39",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-026": {
+      "id": "A-026",
+      "name": "CJIS Security Awareness Training Completion Record",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-40",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-157": {
+      "id": "A-157",
+      "name": "Supply Chain Security Policy",
+      "type": "Policy",
+      "phase": "Tier 4",
+      "seqId": "T4-41",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-159": {
+      "id": "A-159",
+      "name": "Approved Vendor / Product List",
+      "type": "Inventory / Register",
+      "phase": "Tier 4",
+      "seqId": "T4-42",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-158": {
+      "id": "A-158",
+      "name": "Hardware / Software Delivery Inspection Checklist",
+      "type": "Checklist",
+      "phase": "Tier 4",
+      "seqId": "T4-43",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-133": {
+      "id": "A-133",
+      "name": "Continuous Monitoring Plan",
+      "type": "Plan",
+      "phase": "Tier 5",
+      "seqId": "T5-01",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-169": {
+      "id": "A-169",
+      "name": "TDoS / DoS Response Procedure",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-02",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-061": {
+      "id": "A-061",
+      "name": "IRP Revision History / Update Log",
+      "type": "Log / Record",
+      "phase": "Tier 5",
+      "seqId": "T5-03",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-168": {
+      "id": "A-168",
+      "name": "Incident Log / Register",
+      "type": "Log / Record",
+      "phase": "Tier 5",
+      "seqId": "T5-04",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-060": {
+      "id": "A-060",
+      "name": "After-Action Reports",
+      "type": "Report / Assessment",
+      "phase": "Tier 5",
+      "seqId": "T5-05",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-141": {
+      "id": "A-141",
+      "name": "Forensic Readiness Plan",
+      "type": "Plan",
+      "phase": "Tier 5",
+      "seqId": "T5-06",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-062": {
+      "id": "A-062",
+      "name": "Evidence Collection & Chain-of-Custody Procedures",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-07",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-064": {
+      "id": "A-064",
+      "name": "System Isolation Procedure",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-08",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-063": {
+      "id": "A-063",
+      "name": "Evidence Preservation Checklist",
+      "type": "Checklist",
+      "phase": "Tier 5",
+      "seqId": "T5-09",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-142": {
+      "id": "A-142",
+      "name": "Forensic Tool Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 5",
+      "seqId": "T5-10",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-046": {
+      "id": "A-046",
+      "name": "Unauthorized Disclosure Response & Notification Procedures",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-11",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-167": {
+      "id": "A-167",
+      "name": "Data Sharing & Disclosure Approval Procedure",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-12",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-171": {
+      "id": "A-171",
+      "name": "Data Sharing Agreement (MOU) Template",
+      "type": "Agreement / Form",
+      "phase": "Tier 5",
+      "seqId": "T5-13",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-097": {
+      "id": "A-097",
+      "name": "Session Management Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-14",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-105": {
+      "id": "A-105",
+      "name": "Network Monitoring Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-15",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-109": {
+      "id": "A-109",
+      "name": "DNS Filtering Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-16",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-108": {
+      "id": "A-108",
+      "name": "DNS Security Configuration Record",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-17",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-049": {
+      "id": "A-049",
+      "name": "Email Security Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-18",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-110": {
+      "id": "A-110",
+      "name": "Email Authentication Configuration Records (SPF/DKIM/DMARC)",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-19",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-111": {
+      "id": "A-111",
+      "name": "Anti-Phishing / Spam Filter Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-20",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-112": {
+      "id": "A-112",
+      "name": "Wireless Network Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-21",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-114": {
+      "id": "A-114",
+      "name": "Cellular / Mobile Device Security Standards",
+      "type": "Standard",
+      "phase": "Tier 5",
+      "seqId": "T5-22",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-113": {
+      "id": "A-113",
+      "name": "Wireless Network Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 5",
+      "seqId": "T5-23",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-123": {
+      "id": "A-123",
+      "name": "Mobile Device Management (MDM) Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-24",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-116": {
+      "id": "A-116",
+      "name": "Authorized Remote Device Register",
+      "type": "Inventory / Register",
+      "phase": "Tier 5",
+      "seqId": "T5-25",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-115": {
+      "id": "A-115",
+      "name": "VPN / Remote Access Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-26",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-170": {
+      "id": "A-170",
+      "name": "Multimedia & File Ingestion Sanitization Procedure",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-27",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-124": {
+      "id": "A-124",
+      "name": "Remote Endpoint Security Audit Records",
+      "type": "Log / Record",
+      "phase": "Tier 5",
+      "seqId": "T5-28",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-085": {
+      "id": "A-085",
+      "name": "Issue Escalation Procedure",
+      "type": "Procedure",
+      "phase": "Tier 6",
+      "seqId": "T6-01",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-136": {
+      "id": "A-136",
+      "name": "Security Event Review Procedures",
+      "type": "Procedure",
+      "phase": "Tier 6",
+      "seqId": "T6-02",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    }
+  },
+  "artifactCategories": {
+    "A-001": [
+      "1.A"
+    ],
+    "A-002": [
+      "1.A",
+      "1.B"
+    ],
+    "A-032": [
+      "1.A",
+      "1.C",
+      "1.D"
+    ],
+    "A-027": [
+      "1.A"
+    ],
+    "A-091": [
+      "1.A"
+    ],
+    "A-028": [
+      "1.A"
+    ],
+    "A-023": [
+      "1.A",
+      "12.B"
+    ],
+    "A-029": [
+      "1.B"
+    ],
+    "A-003": [
+      "1.B",
+      "5.A"
+    ],
+    "A-092": [
+      "1.B",
+      "4.F"
+    ],
+    "A-004": [
+      "1.B",
+      "1.D"
+    ],
+    "A-007": [
+      "1.C"
+    ],
+    "A-005": [
+      "1.C"
+    ],
+    "A-006": [
+      "1.C",
+      "11.A"
+    ],
+    "A-031": [
+      "1.C"
+    ],
+    "A-012": [
+      "1.C",
+      "1.D",
+      "3.A"
+    ],
+    "A-043": [
+      "1.C",
+      "3.B"
+    ],
+    "A-030": [
+      "1.C"
+    ],
+    "A-010": [
+      "1.C",
+      "2.A"
+    ],
+    "A-024": [
+      "1.C",
+      "13.C"
+    ],
+    "A-155": [
+      "1.C",
+      "10.A",
+      "11.C"
+    ],
+    "A-117": [
+      "1.C",
+      "2.E",
+      "4.A",
+      "5.A",
+      "5.B"
+    ],
+    "A-057": [
+      "1.C",
+      "3.B",
+      "4.C",
+      "5.D",
+      "7.A",
+      "7.C"
+    ],
+    "A-014": [
+      "1.C",
+      "3.C",
+      "8.A",
+      "8.B",
+      "10.C"
+    ],
+    "A-083": [
+      "1.C",
+      "12.A",
+      "12.B"
+    ],
+    "A-008": [
+      "1.D",
+      "10.E"
+    ],
+    "A-009": [
+      "1.D",
+      "10.E",
+      "12.B"
+    ],
+    "A-033": [
+      "1.D",
+      "12.B"
+    ],
+    "A-035": [
+      "2.A"
+    ],
+    "A-093": [
+      "2.A",
+      "2.D",
+      "4.D"
+    ],
+    "A-094": [
+      "2.A",
+      "2.D",
+      "2.E"
+    ],
+    "A-039": [
+      "2.A",
+      "2.B",
+      "2.C"
+    ],
+    "A-038": [
+      "2.A",
+      "2.B"
+    ],
+    "A-011": [
+      "2.A",
+      "2.B"
+    ],
+    "A-050": [
+      "2.A",
+      "2.F",
+      "4.C",
+      "4.F"
+    ],
+    "A-080": [
+      "2.A"
+    ],
+    "A-037": [
+      "2.B"
+    ],
+    "A-042": [
+      "2.B",
+      "2.D",
+      "2.E"
+    ],
+    "A-048": [
+      "2.C",
+      "4.F",
+      "11.B"
+    ],
+    "A-041": [
+      "2.C",
+      "8.B"
+    ],
+    "A-040": [
+      "2.C",
+      "2.E",
+      "4.C"
+    ],
+    "A-098": [
+      "2.D",
+      "2.E",
+      "2.F",
+      "8.C"
+    ],
+    "A-104": [
+      "2.D",
+      "4.A",
+      "4.B",
+      "5.A"
+    ],
+    "A-102": [
+      "2.D",
+      "3.A",
+      "3.C"
+    ],
+    "A-095": [
+      "2.E",
+      "8.B"
+    ],
+    "A-025": [
+      "2.E",
+      "13.A",
+      "13.B",
+      "13.C"
+    ],
+    "A-162": [
+      "2.E",
+      "10.A",
+      "13.A",
+      "13.B"
+    ],
+    "A-034": [
+      "2.E"
+    ],
+    "A-096": [
+      "2.E"
+    ],
+    "A-097": [
+      "2.F"
+    ],
+    "A-134": [
+      "2.F",
+      "4.C",
+      "5.D",
+      "6.B",
+      "6.C",
+      "7.B",
+      "7.C"
+    ],
+    "A-099": [
+      "3.A"
+    ],
+    "A-044": [
+      "3.A",
+      "3.B"
+    ],
+    "A-166": [
+      "3.B",
+      "13.B"
+    ],
+    "A-056": [
+      "3.B",
+      "4.E",
+      "6.A"
+    ],
+    "A-100": [
+      "3.B",
+      "6.A",
+      "6.C"
+    ],
+    "A-129": [
+      "3.B",
+      "6.A",
+      "6.B",
+      "6.C"
+    ],
+    "A-045": [
+      "3.B"
+    ],
+    "A-058": [
+      "3.B",
+      "7.A",
+      "10.C",
+      "12.A"
+    ],
+    "A-101": [
+      "3.B"
+    ],
+    "A-167": [
+      "3.C"
+    ],
+    "A-171": [
+      "3.C"
+    ],
+    "A-046": [
+      "3.C"
+    ],
+    "A-059": [
+      "3.C",
+      "4.F",
+      "7.A"
+    ],
+    "A-047": [
+      "4.A",
+      "4.B"
+    ],
+    "A-103": [
+      "4.A",
+      "4.B",
+      "4.F"
+    ],
+    "A-106": [
+      "4.A",
+      "5.B",
+      "7.B"
+    ],
+    "A-118": [
+      "4.A",
+      "5.A",
+      "5.C",
+      "5.D"
+    ],
+    "A-105": [
+      "4.B"
+    ],
+    "A-169": [
+      "4.B",
+      "8.B"
+    ],
+    "A-108": [
+      "4.C"
+    ],
+    "A-109": [
+      "4.C"
+    ],
+    "A-052": [
+      "4.C",
+      "5.A",
+      "5.C",
+      "12.A"
+    ],
+    "A-054": [
+      "4.C",
+      "5.C"
+    ],
+    "A-049": [
+      "4.D"
+    ],
+    "A-111": [
+      "4.D"
+    ],
+    "A-110": [
+      "4.D"
+    ],
+    "A-119": [
+      "4.D",
+      "5.A",
+      "5.B"
+    ],
+    "A-112": [
+      "4.E"
+    ],
+    "A-113": [
+      "4.E"
+    ],
+    "A-114": [
+      "4.E",
+      "5.D"
+    ],
+    "A-123": [
+      "4.E",
+      "5.D"
+    ],
+    "A-116": [
+      "4.F"
+    ],
+    "A-115": [
+      "4.F"
+    ],
+    "A-120": [
+      "5.A",
+      "5.B",
+      "5.D"
+    ],
+    "A-121": [
+      "5.B"
+    ],
+    "A-135": [
+      "5.B",
+      "7.B",
+      "7.C",
+      "10.C"
+    ],
+    "A-053": [
+      "5.C"
+    ],
+    "A-122": [
+      "5.C"
+    ],
+    "A-055": [
+      "5.C",
+      "11.D"
+    ],
+    "A-139": [
+      "5.C",
+      "6.C",
+      "7.C",
+      "7.D",
+      "8.C"
+    ],
+    "A-124": [
+      "5.D"
+    ],
+    "A-170": [
+      "5.D"
+    ],
+    "A-126": [
+      "6.A"
+    ],
+    "A-127": [
+      "6.B"
+    ],
+    "A-128": [
+      "6.B"
+    ],
+    "A-143": [
+      "6.B",
+      "9.A",
+      "9.C"
+    ],
+    "A-130": [
+      "6.C"
+    ],
+    "A-131": [
+      "6.C"
+    ],
+    "A-132": [
+      "6.C"
+    ],
+    "A-137": [
+      "7.A",
+      "7.C"
+    ],
+    "A-133": [
+      "7.B"
+    ],
+    "A-136": [
+      "7.C"
+    ],
+    "A-015": [
+      "7.C",
+      "8.A"
+    ],
+    "A-016": [
+      "7.C",
+      "8.A"
+    ],
+    "A-085": [
+      "7.C"
+    ],
+    "A-138": [
+      "7.D"
+    ],
+    "A-140": [
+      "7.D"
+    ],
+    "A-017": [
+      "8.A",
+      "9.A"
+    ],
+    "A-086": [
+      "8.A",
+      "13.A",
+      "13.C"
+    ],
+    "A-087": [
+      "8.A",
+      "13.A",
+      "13.B"
+    ],
+    "A-018": [
+      "8.A",
+      "8.B"
+    ],
+    "A-061": [
+      "8.B"
+    ],
+    "A-060": [
+      "8.B"
+    ],
+    "A-168": [
+      "8.B"
+    ],
+    "A-062": [
+      "8.C"
+    ],
+    "A-064": [
+      "8.C"
+    ],
+    "A-063": [
+      "8.C"
+    ],
+    "A-141": [
+      "8.C"
+    ],
+    "A-142": [
+      "8.C"
+    ],
+    "A-019": [
+      "9.A",
+      "9.C",
+      "9.D",
+      "10.E"
+    ],
+    "A-020": [
+      "9.A",
+      "9.B"
+    ],
+    "A-065": [
+      "9.A"
+    ],
+    "A-144": [
+      "9.A",
+      "9.C"
+    ],
+    "A-021": [
+      "9.A",
+      "9.C"
+    ],
+    "A-022": [
+      "9.B"
+    ],
+    "A-066": [
+      "9.B"
+    ],
+    "A-067": [
+      "9.B"
+    ],
+    "A-145": [
+      "9.C"
+    ],
+    "A-146": [
+      "9.C"
+    ],
+    "A-147": [
+      "9.D"
+    ],
+    "A-153": [
+      "9.D",
+      "10.E"
+    ],
+    "A-154": [
+      "9.D",
+      "10.E"
+    ],
+    "A-068": [
+      "9.D"
+    ],
+    "A-069": [
+      "10.A",
+      "10.B"
+    ],
+    "A-156": [
+      "10.A",
+      "11.C"
+    ],
+    "A-070": [
+      "10.A"
+    ],
+    "A-148": [
+      "10.A"
+    ],
+    "A-150": [
+      "10.A",
+      "10.C"
+    ],
+    "A-072": [
+      "10.B"
+    ],
+    "A-071": [
+      "10.B"
+    ],
+    "A-073": [
+      "10.B"
+    ],
+    "A-151": [
+      "10.C"
+    ],
+    "A-074": [
+      "10.D",
+      "13.B"
+    ],
+    "A-165": [
+      "10.D",
+      "10.E"
+    ],
+    "A-077": [
+      "11.A"
+    ],
+    "A-013": [
+      "11.A"
+    ],
+    "A-076": [
+      "11.A"
+    ],
+    "A-078": [
+      "11.A",
+      "11.D"
+    ],
+    "A-079": [
+      "11.B"
+    ],
+    "A-026": [
+      "11.C"
+    ],
+    "A-088": [
+      "11.C",
+      "13.C"
+    ],
+    "A-157": [
+      "11.D"
+    ],
+    "A-159": [
+      "11.D"
+    ],
+    "A-158": [
+      "11.D"
+    ],
+    "A-081": [
+      "12.A"
+    ],
+    "A-160": [
+      "12.A"
+    ],
+    "A-161": [
+      "13.A"
+    ],
+    "A-164": [
+      "13.A",
+      "13.B"
+    ],
+    "A-090": [
+      "13.C"
+    ],
+    "A-089": [
+      "13.C"
+    ]
+  }
+}

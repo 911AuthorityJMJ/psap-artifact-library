@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "psap-dev",
+      "runtimeExecutable": "/Users/jasonjeffares/.nvm/versions/node/v26.3.0/bin/npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}

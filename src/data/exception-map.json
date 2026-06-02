@@ -1,0 +1,1471 @@
+{
+ "generated_from": "--Artifact_Development_Tracker.xlsx",
+ "flag_definitions": {
+  "Technical footprint": "Q5 \u2014 scale up if the call-handling environment is more complex than the baseline. Domains 4,5,6,7.",
+  "Governance": "Q6 \u2014 scale up if governance maturity exceeds the baseline. Domain 1.",
+  "Consolidated / multi-agency": "Q8a \u2014 inter-agency agreements and MOUs.",
+  "Co-located / shared space": "Q8b \u2014 physical security and shared-space artifacts. Domain 10."
+ },
+ "artifacts": [
+  {
+   "id": "A-002",
+   "name": "Cybersecurity & Privacy Policy",
+   "type": "Policy",
+   "min_classification": "Internal / CJIS",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-003",
+   "name": "Master Asset Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-004",
+   "name": "Asset Criticality Ranking Matrix",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-006",
+   "name": "IT Support Accountability Agreement (SLA / MOU)",
+   "type": "Agreement / Form",
+   "min_classification": "Internal",
+   "flags": [
+    "Consolidated / multi-agency"
+   ],
+   "note": "inter-agency agreement set (curated)"
+  },
+  {
+   "id": "A-009",
+   "name": "Risk Register",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-010",
+   "name": "Access Control Policy",
+   "type": "Policy",
+   "min_classification": "Internal / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-012",
+   "name": "Data Classification Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": "REVIEW: Primary domain computed 1; subject is data classification (Domain 3) \u2014 confirm Governance flag"
+  },
+  {
+   "id": "A-166",
+   "name": "Document Handling Standard",
+   "type": "Standard",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-014",
+   "name": "Incident Response Plan (IRP)",
+   "type": "Plan",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-017",
+   "name": "Backup Call-Handling / Dispatch Continuity Procedure",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-019",
+   "name": "Continuity of Operations Plan (COOP)",
+   "type": "Plan",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-024",
+   "name": "Acceptable Use Policy (AUP)",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-001",
+   "name": "Cybersecurity Charter / Leadership Designation Letter",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-007",
+   "name": "Cybersecurity Governance Charter",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-005",
+   "name": "RACI Matrix for Cybersecurity",
+   "type": "Reference Matrix",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-032",
+   "name": "Risk Management Methodology Document",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-008",
+   "name": "Risk Assessment Report",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-013",
+   "name": "CJIS Data Handling Addendum",
+   "type": "Policy",
+   "min_classification": "Internal / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-015",
+   "name": "Incident Classification & Severity Matrix",
+   "type": "Reference Matrix",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": "excluded from Technical (true home Domain 8/12)"
+  },
+  {
+   "id": "A-016",
+   "name": "Incident Notification & Escalation Contact List",
+   "type": "Inventory / Register",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": "excluded from Technical (true home Domain 8/12)"
+  },
+  {
+   "id": "A-169",
+   "name": "TDoS / DoS Response Procedure",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-018",
+   "name": "Tabletop Exercise Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-020",
+   "name": "RTO/RPO Documentation",
+   "type": "Reference Matrix",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-021",
+   "name": "Overflow Routing Agreement (Mutual Aid)",
+   "type": "Agreement / Form",
+   "min_classification": "Restricted",
+   "flags": [
+    "Consolidated / multi-agency"
+   ],
+   "note": "inter-agency agreement set (curated)"
+  },
+  {
+   "id": "A-022",
+   "name": "Backup Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-023",
+   "name": "Board / Leadership Security Reporting Template",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": "flag assigned by name (no traceability mapping)"
+  },
+  {
+   "id": "A-086",
+   "name": "Cybersecurity Training Plan",
+   "type": "Plan",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-026",
+   "name": "CJIS Security Awareness Training Completion Record",
+   "type": "Log / Record",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-025",
+   "name": "Signed Acknowledgment Records",
+   "type": "Agreement / Form",
+   "min_classification": "Confidential",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-047",
+   "name": "Network Architecture Diagram",
+   "type": "Architecture / Design",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-052",
+   "name": "Change Management Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-056",
+   "name": "Encryption Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-057",
+   "name": "Logging Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-027",
+   "name": "Cybersecurity Budget & Resource Allocation Record",
+   "type": "Log / Record",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-028",
+   "name": "Leadership Security Review Meeting Minutes",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-029",
+   "name": "Policy Review & Approval Log",
+   "type": "Log / Record",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": "flag assigned by name (no traceability mapping)"
+  },
+  {
+   "id": "A-030",
+   "name": "Security Role Descriptions",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-031",
+   "name": "Governance Reporting Calendar",
+   "type": "Schedule",
+   "min_classification": "Internal",
+   "flags": [
+    "Governance"
+   ],
+   "note": "flag assigned by name (no traceability mapping)"
+  },
+  {
+   "id": "A-033",
+   "name": "Risk Treatment / Acceptance Decisions Log",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-035",
+   "name": "Access Entitlement Matrix",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-034",
+   "name": "System Access Request & Approval Forms",
+   "type": "Agreement / Form",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-037",
+   "name": "Account Provisioning & Deprovisioning Procedures",
+   "type": "Procedure",
+   "min_classification": "Internal / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-011",
+   "name": "Account Provisioning & Deprovisioning Checklist",
+   "type": "Checklist",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-038",
+   "name": "Periodic Account Review / Certification Records",
+   "type": "Log / Record",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-039",
+   "name": "Password & Authentication Policy",
+   "type": "Policy",
+   "min_classification": "Internal / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-040",
+   "name": "MFA Implementation Record",
+   "type": "Configuration Record",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-041",
+   "name": "Default Credential Remediation Log",
+   "type": "Log / Record",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-095",
+   "name": "Privileged Access Management (PAM) Policy",
+   "type": "Policy",
+   "min_classification": "Internal / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-042",
+   "name": "Privileged & Service Account Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-043",
+   "name": "Data Inventory / Data Map",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted / CJIS",
+   "flags": [
+    "Governance"
+   ],
+   "note": "REVIEW: Computed 1; subject is data map (Domain 3) \u2014 confirm Governance flag"
+  },
+  {
+   "id": "A-045",
+   "name": "Secure Disposal Procedures",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-044",
+   "name": "Data Retention Schedule",
+   "type": "Schedule",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-046",
+   "name": "Unauthorized Disclosure Response & Notification Procedures",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-167",
+   "name": "Data Sharing & Disclosure Approval Procedure",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [
+    "Consolidated / multi-agency"
+   ],
+   "note": "inter-agency agreement set (curated)"
+  },
+  {
+   "id": "A-171",
+   "name": "Data Sharing Agreement (MOU) Template",
+   "type": "Agreement / Form",
+   "min_classification": "Internal",
+   "flags": [
+    "Consolidated / multi-agency"
+   ],
+   "note": "inter-agency agreement set (curated)"
+  },
+  {
+   "id": "A-048",
+   "name": "External Connection Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-049",
+   "name": "Email Security Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-050",
+   "name": "Remote Access Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-055",
+   "name": "Patch Testing Procedure",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-054",
+   "name": "Patch Management Schedule & Tracking Log",
+   "type": "Schedule",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-053",
+   "name": "Change Request & Approval Log",
+   "type": "Log / Record",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-058",
+   "name": "Log Retention Schedule",
+   "type": "Schedule",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-059",
+   "name": "Log Review Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-061",
+   "name": "IRP Revision History / Update Log",
+   "type": "Log / Record",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-168",
+   "name": "Incident Log / Register",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-060",
+   "name": "After-Action Reports",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-141",
+   "name": "Forensic Readiness Plan",
+   "type": "Plan",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-062",
+   "name": "Evidence Collection & Chain-of-Custody Procedures",
+   "type": "Procedure",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-064",
+   "name": "System Isolation Procedure",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-063",
+   "name": "Evidence Preservation Checklist",
+   "type": "Checklist",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-065",
+   "name": "Continuity Plan Exercise Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-066",
+   "name": "Backup Schedule & Media Inventory",
+   "type": "Schedule",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-067",
+   "name": "Restoration Test Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-068",
+   "name": "UPS / Generator Test Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-069",
+   "name": "Physical Access Control Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-070",
+   "name": "Access Authorization List",
+   "type": "Inventory / Register",
+   "min_classification": "Confidential",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-073",
+   "name": "Vendor Access Coordination Procedure",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-071",
+   "name": "Visitor Log",
+   "type": "Log / Record",
+   "min_classification": "Confidential",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-072",
+   "name": "Visitor Access Agreement Form",
+   "type": "Agreement / Form",
+   "min_classification": "Confidential",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-074",
+   "name": "Physical Security Hardening Standard",
+   "type": "Standard",
+   "min_classification": "Restricted",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-165",
+   "name": "Server Room / Equipment Area Hardening Assessment Record",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-078",
+   "name": "Vendor Security Assessment Questionnaire",
+   "type": "Checklist",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-076",
+   "name": "Third-Party Risk Assessment Records",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-077",
+   "name": "Security Requirements in Vendor Contracts / SLAs",
+   "type": "Agreement / Form",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-079",
+   "name": "Vendor & Contractor Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-080",
+   "name": "Third-Party Access Agreement",
+   "type": "Agreement / Form",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-081",
+   "name": "Vulnerability Assessment Reports",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-083",
+   "name": "Risk / Finding Register (POA&M)",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-085",
+   "name": "Issue Escalation Procedure",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": "excluded from Technical (true home Domain 8/12)"
+  },
+  {
+   "id": "A-088",
+   "name": "New Employee Training Checklist (Pre-Access)",
+   "type": "Checklist",
+   "min_classification": "Confidential",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-087",
+   "name": "Training Completion Records",
+   "type": "Log / Record",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-089",
+   "name": "Social Media & External Communications Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-090",
+   "name": "Policy Acknowledgment Tracking Log",
+   "type": "Inventory / Register",
+   "min_classification": "Confidential",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-091",
+   "name": "Threat Intelligence Routing & Distribution Matrix",
+   "type": "Reference Matrix",
+   "min_classification": "Confidential",
+   "flags": [
+    "Governance"
+   ],
+   "note": "REVIEW: Computed 1; subject is threat-intel routing (Domain 7) \u2014 confirm flag"
+  },
+  {
+   "id": "A-092",
+   "name": "System Security Plans (per critical system)",
+   "type": "Plan",
+   "min_classification": "Restricted",
+   "flags": [
+    "Governance"
+   ],
+   "note": "REVIEW: Computed 1; System Security Plans are cross-cutting \u2014 confirm Governance vs Technical"
+  },
+  {
+   "id": "A-093",
+   "name": "Role-Based Access Control (RBAC) Documentation",
+   "type": "Configuration Record",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-094",
+   "name": "Privilege Review Records",
+   "type": "Log / Record",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-096",
+   "name": "Privileged Access Review Records",
+   "type": "Log / Record",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-097",
+   "name": "Session Management Policy",
+   "type": "Policy",
+   "min_classification": "Internal / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-098",
+   "name": "Session Monitoring Configuration Records",
+   "type": "Configuration Record",
+   "min_classification": "Restricted / CJIS",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-099",
+   "name": "Data Labeling Procedures",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-100",
+   "name": "Encryption Standards Document",
+   "type": "Standard",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-101",
+   "name": "Data Disposal / Destruction Records",
+   "type": "Log / Record",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-102",
+   "name": "Data Access Monitoring Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-104",
+   "name": "Network Segmentation Design Document",
+   "type": "Architecture / Design",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-103",
+   "name": "Firewall Ruleset Documentation",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-105",
+   "name": "Network Monitoring Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-106",
+   "name": "IDS/IPS Configuration Records",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-109",
+   "name": "DNS Filtering Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": "flag assigned by name (no traceability mapping)"
+  },
+  {
+   "id": "A-108",
+   "name": "DNS Security Configuration Record",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-110",
+   "name": "Email Authentication Configuration Records (SPF/DKIM/DMARC)",
+   "type": "Configuration Record",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-111",
+   "name": "Anti-Phishing / Spam Filter Configuration Records",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-112",
+   "name": "Wireless Network Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-114",
+   "name": "Cellular / Mobile Device Security Standards",
+   "type": "Standard",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-113",
+   "name": "Wireless Network Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": "flag assigned by name (no traceability mapping)"
+  },
+  {
+   "id": "A-116",
+   "name": "Authorized Remote Device Register",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-115",
+   "name": "VPN / Remote Access Configuration Records",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-117",
+   "name": "System Configuration Baselines (per system type)",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-118",
+   "name": "Configuration Drift Detection Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-120",
+   "name": "Endpoint Security Software Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-119",
+   "name": "Endpoint Hardening Checklist",
+   "type": "Checklist",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-121",
+   "name": "Service / Port Disablement Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-122",
+   "name": "Emergency Change Procedures",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": "flag assigned by name (no traceability mapping)"
+  },
+  {
+   "id": "A-123",
+   "name": "Mobile Device Management (MDM) Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-170",
+   "name": "Multimedia & File Ingestion Sanitization Procedure",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-124",
+   "name": "Remote Endpoint Security Audit Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-126",
+   "name": "Encryption Implementation Verification Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-129",
+   "name": "Key & Certificate Management Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-127",
+   "name": "Certificate Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-128",
+   "name": "Certificate Renewal & Revocation Procedures",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-130",
+   "name": "Key Inventory & Custody Records",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-132",
+   "name": "Key Escrow and Recovery Procedure",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-131",
+   "name": "Key Rotation Schedule",
+   "type": "Schedule",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-133",
+   "name": "Continuous Monitoring Plan",
+   "type": "Plan",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-134",
+   "name": "SIEM / Monitoring Tool Configuration Records",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-135",
+   "name": "Alert Triage & Escalation Procedure",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-136",
+   "name": "Security Event Review Procedures",
+   "type": "Procedure",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-137",
+   "name": "Event Review Meeting Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-138",
+   "name": "NTP Configuration Documentation",
+   "type": "Configuration Record",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-139",
+   "name": "Log Integrity Verification Procedures",
+   "type": "Procedure",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-140",
+   "name": "Time Synchronization Audit Records",
+   "type": "Log / Record",
+   "min_classification": "Internal",
+   "flags": [
+    "Technical footprint"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-142",
+   "name": "Forensic Tool Inventory",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-143",
+   "name": "System Redundancy Design Documentation",
+   "type": "Architecture / Design",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-144",
+   "name": "Failover Test Records",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-145",
+   "name": "Single-Point-of-Failure Assessment Record",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-146",
+   "name": "RTO Compliance Matrix",
+   "type": "Report / Assessment",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-147",
+   "name": "Power Resilience Configuration Documentation",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-148",
+   "name": "Controlled Area / Zone Map",
+   "type": "Architecture / Design",
+   "min_classification": "Restricted",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-150",
+   "name": "Physical Access Review Records",
+   "type": "Log / Record",
+   "min_classification": "Confidential",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-151",
+   "name": "Camera and Sensor Maintenance Record",
+   "type": "Log / Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-153",
+   "name": "Environmental Sensor Inventory & Alert Configuration",
+   "type": "Configuration Record",
+   "min_classification": "Restricted",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-154",
+   "name": "Environmental Monitoring Log",
+   "type": "Log / Record",
+   "min_classification": "Internal",
+   "flags": [
+    "Co-located / shared space"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A-155",
+   "name": "Background Check & Screening Policy",
+   "type": "Policy",
+   "min_classification": "Internal / CJIS",
+   "flags": [
+    "Governance"
+   ],
+   "note": "REVIEW: Computed 1; subject is personnel screening (Domain 11) \u2014 confirm Governance flag"
+  },
+  {
+   "id": "A-156",
+   "name": "Screening Completion Records",
+   "type": "Log / Record",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": "excluded from Co-located (personnel screening)"
+  },
+  {
+   "id": "A-157",
+   "name": "Supply Chain Security Policy",
+   "type": "Policy",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-159",
+   "name": "Approved Vendor / Product List",
+   "type": "Inventory / Register",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-158",
+   "name": "Hardware / Software Delivery Inspection Checklist",
+   "type": "Checklist",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-160",
+   "name": "Vulnerability Scanning Schedule",
+   "type": "Schedule",
+   "min_classification": "Restricted",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-161",
+   "name": "Phishing Simulation Results",
+   "type": "Log / Record",
+   "min_classification": "Confidential",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-162",
+   "name": "Role-Specific Training Materials",
+   "type": "Training Material",
+   "min_classification": "Internal",
+   "flags": [],
+   "note": ""
+  },
+  {
+   "id": "A-164",
+   "name": "Competency Assessment Records",
+   "type": "Log / Record",
+   "min_classification": "Confidential / CJIS",
+   "flags": [],
+   "note": ""
+  }
+ ]
+}
