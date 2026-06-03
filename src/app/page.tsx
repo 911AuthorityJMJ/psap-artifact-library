@@ -10,6 +10,15 @@ import manifestData from '@/data/template-manifest.json';
 
 const manifest = manifestData as Record<string, { form: boolean; examples: string[] }>;
 
+const TIER_COLORS: Record<number, { text: string; muted: string }> = {
+  1: { text: '#3730A3', muted: '#6D5BD0' },
+  2: { text: '#065F46', muted: '#0F766E' },
+  3: { text: '#075985', muted: '#0284C7' },
+  4: { text: '#7C2D12', muted: '#C2410C' },
+  5: { text: '#78350F', muted: '#B45309' },
+  6: { text: '#365314', muted: '#4D7C0F' },
+};
+
 function toFileNameStem(name: string): string {
   return name
     .replace(/\s*\([^)]*\)/g, '')
@@ -153,11 +162,11 @@ export default function Home() {
   }, [result, getArtifactTier]);
   
   const artifactsByTier = useMemo(() => {
-    const groups: Record<string, { tierName: string; items: typeof artifactBuildList }> = {};
+    const groups: Record<string, { tierName: string; tierNumber: number; items: typeof artifactBuildList }> = {};
     for (const item of artifactBuildList) {
       const { tierNumber, tierName } = getArtifactTier(item.artifact.id);
       const key = `Tier ${tierNumber}`;
-      if (!groups[key]) groups[key] = { tierName, items: [] };
+      if (!groups[key]) groups[key] = { tierName, tierNumber, items: [] };
       groups[key].items.push(item);
     }
     return groups;
@@ -178,11 +187,11 @@ export default function Home() {
   }, [artifactBuildList, getArtifactTier]);
 
   const fullLibraryByTier = useMemo(() => {
-    const groups: Record<string, { tierName: string; items: typeof fullLibraryList }> = {};
+    const groups: Record<string, { tierName: string; tierNumber: number; items: typeof fullLibraryList }> = {};
     for (const item of fullLibraryList) {
       const { tierNumber, tierName } = getArtifactTier(item.artifact.id);
       const key = `Tier ${tierNumber}`;
-      if (!groups[key]) groups[key] = { tierName, items: [] };
+      if (!groups[key]) groups[key] = { tierName, tierNumber, items: [] };
       groups[key].items.push(item);
     }
     return groups;
@@ -221,9 +230,9 @@ export default function Home() {
   
   return (
     <React.Fragment>
-      <main className="min-h-screen bg-gray-50 p-8">
+      <main className="min-h-screen p-8">
         <div className="max-w-3xl mx-auto">
-          
+
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900 mb-1">PSAP Artifact Library</h1>
@@ -235,7 +244,7 @@ export default function Home() {
           </div>
           
           {/* Top-level navigation */}
-          <div className="flex gap-1 border-b border-gray-200 mb-6">
+          <div className="flex gap-1 border-b mb-6" style={{ borderColor: 'var(--ui-border)' }}>
             {(['setup', 'assessment'] as const).map(view => (
               <button
                 key={view}
@@ -243,11 +252,12 @@ export default function Home() {
                 disabled={view === 'assessment' && !result}
                 className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors capitalize ${
                   activeView === view
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-transparent text-gray-300 cursor-not-allowed'
                   : view === 'assessment' && !result
                     ? 'border-transparent text-gray-300 cursor-not-allowed'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
                   }`}
+                style={activeView === view ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 } : {}}
               >
                 {view === 'setup' ? 'Setup' : 'Assessment'}
               </button>
@@ -259,8 +269,7 @@ export default function Home() {
             <div className="space-y-6">
               
               {/* Upload area */}
-              <div className="relative border-2 border-dashed border-gray-300 
-              rounded-lg p-12 text-center hover:border-blue-400 transition-colors bg-white">
+              <div className="relative border-2 border-dashed rounded-lg p-12 text-center transition-colors bg-white" style={{ borderColor: 'var(--ui-border)' }}>
                 <input
                   type="file"
                   accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -289,7 +298,7 @@ export default function Home() {
               {result && (
                 <>
                   {/* PSAP Info */}
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                  <div className="bg-white rounded-lg p-6" style={{ border: '1px solid var(--ui-border)' }}>
                     <h2 className="text-lg font-semibold text-gray-900 mb-4">{result.psapInfo.name}</h2>
                     <div className="grid grid-cols-2 gap-3 text-sm">
                       <div>
@@ -316,7 +325,10 @@ export default function Home() {
                   <div className="flex justify-end">
                     <button
                       onClick={() => setActiveView('assessment')}
-                      className="px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                      className="px-5 py-2.5 text-white text-sm font-medium rounded-lg transition-colors"
+                      style={{ background: 'var(--ui-link)' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'var(--ui-link-hover)')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'var(--ui-link)')}
                     >
                       Continue to Assessment →
                     </button>
@@ -328,25 +340,24 @@ export default function Home() {
           
           {/* Assessment view */}
           {activeView === 'assessment' && result && (
-            <div className="bg-white rounded-lg border border-gray-200">
+            <div className="bg-white rounded-lg" style={{ border: '1px solid var(--ui-border)' }}>
               <div className="px-6 pt-6 pb-0">
                 <h2 className="text-lg font-semibold text-gray-900 mb-1">Assessment Gaps</h2>
                 <p className="text-gray-500 text-sm mb-4">
                   {result.totalGaps} questions rated NO, PLANNED, or UNKNOWN —{' '}
                   {artifactBuildList.length} artifacts with gaps · {fullLibraryList.length} total
                 </p>
-                <div className="flex gap-1 border-b border-gray-200">
+                <div className="flex gap-1 border-b" style={{ borderColor: 'var(--ui-border)' }}>
                   {(['build', 'questions', 'library'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
                         tab === 'library' ? 'ml-auto' : ''
-                        } ${  
-                        activeTab === tab
-                        ? 'border-blue-500 text-blue-600'
-                          : 'border-transparent text-gray-500 hover:text-gray-700'
-                        }`}
+                      } ${
+                        activeTab === tab ? '' : 'border-transparent text-gray-500 hover:text-gray-700'
+                      }`}
+                      style={activeTab === tab ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 } : {}}
                     >
                       {tab === 'build' ? 'Build Priority' : tab === 'library' ? 'Full Library' : 'By Question'}
                     </button>
@@ -357,14 +368,17 @@ export default function Home() {
               <div className="p-6">
                 {activeTab === 'build' ? (
                   <div>
-                    {Object.entries(artifactsByTier).map(([tierKey, { tierName, items }]) => (
+                    {Object.entries(artifactsByTier).map(([tierKey, { tierName, tierNumber, items }]) => {
+                      const tc = TIER_COLORS[tierNumber];
+                      return (
                       <div key={tierKey} className="mb-6 last:mb-0">
                         <div className="flex items-center gap-2 mb-3">
-                          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide"
+                              style={{ color: tc?.text ?? '#4B5563' }}>
                             {tierKey}
                           </h3>
-                          <span className="text-gray-400 text-xs">· {tierName}</span>
-                          <span className="text-gray-400 text-xs">
+                          <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>· {tierName}</span>
+                          <span className="text-xs text-gray-400">
                             — {items.length} artifact{items.length !== 1 ? 's' : ''}
                           </span>
                         </div>
@@ -387,11 +401,11 @@ export default function Home() {
                                   <span>{gapIds.length} gap{gapIds.length !== 1 ? 's' : ''}</span>
                                 </div>
                                 {(manifest[artifact.id]?.form || (manifest[artifact.id]?.examples ?? []).length > 0) && (
-                                  <div className="flex items-center gap-4 mt-2 pt-2 border-t border-gray-200">
+                                  <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
                                     {manifest[artifact.id]?.form && (
                                       <>
                                         <a href={getFormUrl(artifact.id, artifact.name)} download
-                                          className="text-xs font-medium text-blue-600 hover:text-blue-800">
+                                          className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
                                           ↓ Blank Form
                                         </a>
                                         <button
@@ -403,7 +417,7 @@ export default function Home() {
                                     )}
                                     {(manifest[artifact.id]?.examples ?? []).includes(profile.baseline) && (
                                       <a href={getExampleUrl(artifact.id, artifact.name, profile.baseline)} download
-                                        className="text-xs font-medium text-blue-600 hover:text-blue-800">
+                                        className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
                                         ↓ Worked Example ({levelName[profile.baseline]})
                                       </a>
                                     )}
@@ -415,17 +429,21 @@ export default function Home() {
                           ))}
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : activeTab === 'library' ? (
                     <div>
-                      {Object.entries(fullLibraryByTier).map(([tierKey, { tierName, items }]) => (
+                      {Object.entries(fullLibraryByTier).map(([tierKey, { tierName, tierNumber, items }]) => {
+                        const tc = TIER_COLORS[tierNumber];
+                        return (
                         <div key={tierKey} className="mb-6 last:mb-0">
                           <div className="flex items-center gap-2 mb-3">
-                            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                            <h3 className="text-xs font-semibold uppercase tracking-wide"
+                                style={{ color: tc?.text ?? '#4B5563' }}>
                               {tierKey}
                             </h3>
-                            <span className="text-gray-400 text-xs">· {tierName}</span>
+                            <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>· {tierName}</span>
                             <span className="text-gray-400 text-xs">
                               — {items.length} artifact{items.length !== 1 ? 's' : ''}
                             </span>
@@ -450,11 +468,11 @@ export default function Home() {
                                     <span>{artifact.type}</span>
                                   </div>
                                   {(manifest[artifact.id]?.form || (manifest[artifact.id]?.examples ?? []).length > 0) && (
-                                    <div className="flex items-center gap-4 mt-2 pt-2 border-t border-gray-200">
+                                    <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
                                       {manifest[artifact.id]?.form && (
                                         <>
                                           <a href={getFormUrl(artifact.id, artifact.name)} download
-                                            className="text-xs font-medium text-blue-600 hover:text-blue-800">
+                                            className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
                                             ↓ Blank Form
                                           </a>
                                           <button
@@ -466,7 +484,7 @@ export default function Home() {
                                       )}
                                       {(manifest[artifact.id]?.examples ?? []).map(p => (
                                         <a key={p} href={getExampleUrl(artifact.id, artifact.name, p)} download
-                                          className="text-xs font-medium text-blue-600 hover:text-blue-800">
+                                          className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
                                           ↓ Example · {levelName[p as keyof typeof levelName]}
                                         </a>
                                       ))}
@@ -478,7 +496,8 @@ export default function Home() {
                             ))}
                           </div>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   ) : (
                       <div>
@@ -508,7 +527,7 @@ export default function Home() {
                                           )}
                                           {manifest[artifact.id]?.form && (
                                             <a href={getFormUrl(artifact.id, artifact.name)} download
-                                              className="text-blue-500 hover:text-blue-700 ml-1">↓</a>
+                                              className="ml-1 text-xs" style={{ color: 'var(--ui-link)' }}>↓</a>
                                           )}
                                         </div>
                                       ))}
