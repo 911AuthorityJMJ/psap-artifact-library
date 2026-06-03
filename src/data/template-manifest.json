@@ -1,3 +1,50 @@
 {
-    "A-002": { "form": true, "examples": ["S", "M", "L"] }
+    "A-001": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-002": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-027": {
+        "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-028": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-032": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-172": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    }
 }

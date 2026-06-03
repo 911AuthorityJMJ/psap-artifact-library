@@ -70,8 +70,9 @@ export async function POST(request: NextRequest) {
 
       // Question row: col[0] matches ID pattern (e.g. 1A-1, 2B-3)
       if (col0 && typeof col0 === 'string' && /^\d+[A-Z]-\d+$/.test(col0)) {
-        if (rating === 'NO' || rating === 'PLANNED' || rating === 'UNKNOWN') {
-          gaps.push({ id: col0, rating, domain: currentDomain, category: currentCategory });
+        const ratingNorm = typeof rating === 'string' ? rating.trim().toUpperCase() : '';
+        if (ratingNorm === 'NO' || ratingNorm === 'PLANNED' || ratingNorm === 'UNKNOWN') {
+          gaps.push({ id: col0, rating: ratingNorm, domain: currentDomain, category: currentCategory });
         }
       }
     }

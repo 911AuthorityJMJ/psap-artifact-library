@@ -8,7 +8,7 @@ import traceabilityData from '@/data/traceability.json';
 import tierMapData from '@/data/tier-map.json';
 import manifestData from '@/data/template-manifest.json';
 
-const manifest = manifestData as Record<string, { form: boolean; examples: string[] }>;
+const manifest = manifestData as Record<string, { form: 'docx' | 'xlsx' | false; examples: string[] }>;
 
 const TIER_COLORS: Record<number, { text: string; muted: string }> = {
   1: { text: '#3730A3', muted: '#6D5BD0' },
@@ -29,8 +29,8 @@ function toFileNameStem(name: string): string {
     .join('');
 }
 
-function getFormUrl(id: string, name: string): string {
-  return `/templates/forms/${id}-${toFileNameStem(name)}-FORM.docx`;
+function getFormUrl(id: string, name: string, ext: string): string {
+  return `/templates/forms/${id}-${toFileNameStem(name)}-FORM.${ext}`;
 }
 
 function getExampleUrl(id: string, name: string, profile: string): string {
@@ -404,7 +404,7 @@ export default function Home() {
                                   <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
                                     {manifest[artifact.id]?.form && (
                                       <>
-                                        <a href={getFormUrl(artifact.id, artifact.name)} download
+                                        <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
                                           className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
                                           ↓ Blank Form
                                         </a>
@@ -471,7 +471,7 @@ export default function Home() {
                                     <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
                                       {manifest[artifact.id]?.form && (
                                         <>
-                                          <a href={getFormUrl(artifact.id, artifact.name)} download
+                                          <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
                                             className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
                                             ↓ Blank Form
                                           </a>
@@ -526,7 +526,7 @@ export default function Home() {
                                             <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
                                           )}
                                           {manifest[artifact.id]?.form && (
-                                            <a href={getFormUrl(artifact.id, artifact.name)} download
+                                            <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
                                               className="ml-1 text-xs" style={{ color: 'var(--ui-link)' }}>↓</a>
                                           )}
                                         </div>
