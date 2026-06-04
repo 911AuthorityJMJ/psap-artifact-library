@@ -1,16 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as XLSX from 'xlsx';
 import traceabilityData from '@/data/traceability.json';
+import { requireAuth } from '@/lib/auth';
+import { enforceRateLimit } from '@/lib/rate-limit';
 
 type XlsxRow = (string | number | boolean | null | undefined)[];
 
+/** A routine assessment matrix is ~125 KB; cap well above that. The .xlsx is a
+ *  zip, so an unbounded upload is a decompression-bomb / memory-exhaustion risk. */
+const MAX_FILE_BYTES = 250 * 1024;
+/** Early gate on the raw request before buffering it; leaves room for the
+ *  multipart envelope around a max-size file. */
+const MAX_BODY_BYTES = MAX_FILE_BYTES + 16 * 1024;
+
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
-    const file = formData.get('file') as File;
+    const limited = enforceRateLimit(request, { name: 'parse-assessment', limit: 30, windowMs: 5 * 60_000 });
+    if (limited) return limited;
 
-    if (!file) {
+    const auth = requireAuth(request);
+    if (auth instanceof NextResponse) return auth;
+
+    const contentLength = Number(request.headers.get('content-length'));
+    if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
+      return NextResponse.json({ error: 'File too large (250 KB max)' }, { status: 413 });
+    }
+
+    const formData = await request.formData();
+    const file = formData.get('file');
+
+    if (!(file instanceof File)) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+    }
+
+    if (file.size > MAX_FILE_BYTES) {
+      return NextResponse.json({ error: 'File too large (250 KB max)' }, { status: 413 });
+    }
+
+    if (!file.name.toLowerCase().endsWith('.xlsx')) {
+      return NextResponse.json({ error: 'Only .xlsx files are accepted' }, { status: 415 });
     }
 
     const arrayBuffer = await file.arrayBuffer();
