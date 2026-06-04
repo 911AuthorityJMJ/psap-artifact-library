@@ -1,26 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFileSync, existsSync } from 'fs';
-import path from 'path';
+import { readFileSync } from 'fs';
 import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
-import traceabilityData from '@/data/traceability.json';
+import { resolveFormTemplate, getDocumentTagNames } from '@/lib/templates';
+import { requireAuth } from '@/lib/auth';
+import { enforceRateLimit } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
-
-interface Artifact {
-  id: string;
-  name: string;
-}
-
-function toFileNameStem(name: string): string {
-  return name
-    .replace(/\s*\([^)]*\)/g, '')
-    .replace(/[^a-zA-Z0-9\s]/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean)
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-    .join('');
-}
 
 export interface FieldDef {
   name: string;
@@ -45,41 +31,38 @@ const FIELD_CONFIG: Record<string, Omit<FieldDef, 'name'>> = {
 };
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  try {
+    const limited = enforceRateLimit(request, { name: 'template-fields', limit: 120, windowMs: 5 * 60_000 });
+    if (limited) return limited;
 
-  const artifactMap = traceabilityData.artifactMap as Record<string, Artifact>;
-  const artifact = artifactMap[id];
-  if (!artifact) {
-    return NextResponse.json({ error: 'Artifact not found' }, { status: 404 });
+    const auth = requireAuth(request);
+    if (auth instanceof NextResponse) return auth;
+
+    const { id } = await params;
+
+    const resolved = resolveFormTemplate(id);
+    if (!resolved) {
+      return NextResponse.json({ error: 'Template not found' }, { status: 404 });
+    }
+    const { artifact, templatePath } = resolved;
+
+    const buf = readFileSync(templatePath);
+    const zip = new PizZip(buf);
+    const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+
+    const tagNames = getDocumentTagNames(doc);
+
+    const fields: FieldDef[] = tagNames.map(name => ({
+      name,
+      ...(FIELD_CONFIG[name] ?? { label: name }),
+    }));
+
+    return NextResponse.json({ artifactId: id, artifactName: artifact.name, fields });
+  } catch (error) {
+    console.error('template-fields error:', error);
+    return NextResponse.json({ error: 'Failed to read template' }, { status: 500 });
   }
-
-  const templatePath = path.join(
-    process.cwd(),
-    'public',
-    'templates',
-    'forms',
-    `${id}-${toFileNameStem(artifact.name)}-FORM.docx`
-  );
-
-  if (!existsSync(templatePath)) {
-    return NextResponse.json({ error: 'Template not found' }, { status: 404 });
-  }
-
-  const buf = readFileSync(templatePath);
-  const zip = new PizZip(buf);
-  const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
-
-  // getTags() exists at runtime but is missing from the type definitions
-  const rawTags = (doc as unknown as { getTags: () => { document?: { tags: Record<string, unknown> } } }).getTags();
-  const tagNames: string[] = Object.keys(rawTags.document?.tags ?? {});
-
-  const fields: FieldDef[] = tagNames.map(name => ({
-    name,
-    ...(FIELD_CONFIG[name] ?? { label: name }),
-  }));
-
-  return NextResponse.json({ artifactId: id, artifactName: artifact.name, fields });
 }
