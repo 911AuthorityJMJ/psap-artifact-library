@@ -15,6 +15,78 @@
             "L"
         ]
     },
+    "A-003": {
+        "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-004": {
+        "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-005": {
+        "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-006": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-007": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-010": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-012": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-014": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-024": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
     "A-027": {
         "form": "xlsx",
         "examples": [
@@ -31,7 +103,47 @@
             "L"
         ]
     },
+    "A-029": {
+        "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-030": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
     "A-032": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-057": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-091": {
+        "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-092": {
         "form": "docx",
         "examples": [
             "S",
