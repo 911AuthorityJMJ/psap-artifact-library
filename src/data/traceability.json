@@ -168,7 +168,8 @@
       "artifactIds": [
         "A-035",
         "A-093",
-        "A-094"
+        "A-094",
+        "A-173"
       ]
     },
     "2A-3": {
@@ -185,7 +186,8 @@
       "category": "A. Access Control Governance & Management",
       "artifactIds": [
         "A-038",
-        "A-011"
+        "A-011",
+        "A-173"
       ]
     },
     "2A-5": {
@@ -297,7 +299,8 @@
       "category": "D. Authorization & Least Privilege Enforcement",
       "artifactIds": [
         "A-093",
-        "A-094"
+        "A-094",
+        "A-173"
       ]
     },
     "2D-2": {
@@ -1827,16 +1830,6 @@
     }
   },
   "artifactMap": {
-    "A-002": {
-      "id": "A-002",
-      "name": "Cybersecurity & Privacy Policy",
-      "type": "Policy",
-      "phase": "Tier 1",
-      "seqId": "T1-01",
-      "gate": true,
-      "classification": "Internal / CJIS",
-      "status": "Final"
-    },
     "A-001": {
       "id": "A-001",
       "name": "Cybersecurity Charter / Leadership Designation Letter",
@@ -1847,25 +1840,215 @@
       "classification": "Internal",
       "status": "Final"
     },
-    "A-032": {
-      "id": "A-032",
-      "name": "Risk Management Methodology Standard",
-      "type": "Standard",
+    "A-002": {
+      "id": "A-002",
+      "name": "Cybersecurity & Privacy Policy",
+      "type": "Policy",
       "phase": "Tier 1",
-      "seqId": "T1-03",
+      "seqId": "T1-01",
+      "gate": true,
+      "classification": "Internal / CJIS",
+      "status": "Final"
+    },
+    "A-003": {
+      "id": "A-003",
+      "name": "Master Asset Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-09",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-004": {
+      "id": "A-004",
+      "name": "Asset Criticality Ranking Matrix",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-10",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-005": {
+      "id": "A-005",
+      "name": "RACI Matrix for Cybersecurity",
+      "type": "Reference Matrix",
+      "phase": "Tier 1",
+      "seqId": "T1-20",
       "gate": false,
       "classification": "Internal",
       "status": "Final"
     },
-    "A-172": {
-      "id": "A-172",
-      "name": "Risk Assessment Procedure",
-      "type": "Procedure",
+    "A-006": {
+      "id": "A-006",
+      "name": "IT Support Accountability Agreement (SLA / MOU)",
+      "type": "Agreement / Form",
       "phase": "Tier 1",
-      "seqId": "T1-04",
+      "seqId": "T1-13",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-007": {
+      "id": "A-007",
+      "name": "Cybersecurity Governance Charter",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-19",
       "gate": false,
       "classification": "Internal",
       "status": "Final"
+    },
+    "A-008": {
+      "id": "A-008",
+      "name": "Risk Assessment Report",
+      "type": "Report / Assessment",
+      "phase": "Tier 1",
+      "seqId": "T1-28",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-009": {
+      "id": "A-009",
+      "name": "Risk Register",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-27",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-010": {
+      "id": "A-010",
+      "name": "Access Control Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-14",
+      "gate": true,
+      "classification": "Internal / CJIS",
+      "status": "Final"
+    },
+    "A-011": {
+      "id": "A-011",
+      "name": "Account Provisioning & Deprovisioning Checklist",
+      "type": "Checklist",
+      "phase": "Tier 2",
+      "seqId": "T2-13",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-012": {
+      "id": "A-012",
+      "name": "Data Classification Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-15",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-013": {
+      "id": "A-013",
+      "name": "CJIS Data Handling Addendum",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-27",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-014": {
+      "id": "A-014",
+      "name": "Incident Response Plan (IRP)",
+      "type": "Plan",
+      "phase": "Tier 1",
+      "seqId": "T1-16",
+      "gate": true,
+      "classification": "Restricted / CJIS",
+      "status": "Final"
+    },
+    "A-015": {
+      "id": "A-015",
+      "name": "Incident Classification & Severity Matrix",
+      "type": "Reference Matrix",
+      "phase": "Tier 3",
+      "seqId": "T3-15",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-016": {
+      "id": "A-016",
+      "name": "Incident Notification & Escalation Contact List",
+      "type": "Inventory / Register",
+      "phase": "Tier 3",
+      "seqId": "T3-16",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-017": {
+      "id": "A-017",
+      "name": "Backup Call-Handling / Dispatch Continuity Procedure",
+      "type": "Procedure",
+      "phase": "Tier 3",
+      "seqId": "T3-14",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-018": {
+      "id": "A-018",
+      "name": "Tabletop Exercise Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-17",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-019": {
+      "id": "A-019",
+      "name": "Continuity of Operations Plan (COOP)",
+      "type": "Plan",
+      "phase": "Tier 3",
+      "seqId": "T3-19",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-020": {
+      "id": "A-020",
+      "name": "RTO/RPO Documentation",
+      "type": "Reference Matrix",
+      "phase": "Tier 3",
+      "seqId": "T3-10",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-021": {
+      "id": "A-021",
+      "name": "Overflow Routing Agreement (Mutual Aid)",
+      "type": "Agreement / Form",
+      "phase": "Tier 3",
+      "seqId": "T3-20",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-022": {
+      "id": "A-022",
+      "name": "Backup Policy",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-11",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
     },
     "A-023": {
       "id": "A-023",
@@ -1875,6 +2058,36 @@
       "seqId": "T1-05",
       "gate": false,
       "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-024": {
+      "id": "A-024",
+      "name": "Acceptable Use Policy (AUP)",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-17",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-025": {
+      "id": "A-025",
+      "name": "Signed Acknowledgment Records",
+      "type": "Agreement / Form",
+      "phase": "Tier 2",
+      "seqId": "T2-21",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Final"
+    },
+    "A-026": {
+      "id": "A-026",
+      "name": "CJIS Security Awareness Training Completion Record",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-40",
+      "gate": false,
+      "classification": "Confidential / CJIS",
       "status": "Not Started"
     },
     "A-027": {
@@ -1897,36 +2110,6 @@
       "classification": "Restricted",
       "status": "Final"
     },
-    "A-091": {
-      "id": "A-091",
-      "name": "Threat Intelligence Routing & Distribution Matrix",
-      "type": "Reference Matrix",
-      "phase": "Tier 1",
-      "seqId": "T1-08",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-003": {
-      "id": "A-003",
-      "name": "Master Asset Inventory",
-      "type": "Inventory / Register",
-      "phase": "Tier 1",
-      "seqId": "T1-09",
-      "gate": true,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-004": {
-      "id": "A-004",
-      "name": "Asset Criticality Ranking Matrix",
-      "type": "Inventory / Register",
-      "phase": "Tier 1",
-      "seqId": "T1-10",
-      "gate": true,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
     "A-029": {
       "id": "A-029",
       "name": "Policy Review & Approval Log",
@@ -1935,97 +2118,7 @@
       "seqId": "T1-11",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-092": {
-      "id": "A-092",
-      "name": "System Security Plans (per critical system)",
-      "type": "Plan",
-      "phase": "Tier 1",
-      "seqId": "T1-12",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-006": {
-      "id": "A-006",
-      "name": "IT Support Accountability Agreement (SLA / MOU)",
-      "type": "Agreement / Form",
-      "phase": "Tier 1",
-      "seqId": "T1-13",
-      "gate": true,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-010": {
-      "id": "A-010",
-      "name": "Access Control Policy",
-      "type": "Policy",
-      "phase": "Tier 1",
-      "seqId": "T1-14",
-      "gate": true,
-      "classification": "Internal / CJIS",
-      "status": "Not Started"
-    },
-    "A-012": {
-      "id": "A-012",
-      "name": "Data Classification Policy",
-      "type": "Policy",
-      "phase": "Tier 1",
-      "seqId": "T1-15",
-      "gate": true,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-014": {
-      "id": "A-014",
-      "name": "Incident Response Plan (IRP)",
-      "type": "Plan",
-      "phase": "Tier 1",
-      "seqId": "T1-16",
-      "gate": true,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-024": {
-      "id": "A-024",
-      "name": "Acceptable Use Policy (AUP)",
-      "type": "Policy",
-      "phase": "Tier 1",
-      "seqId": "T1-17",
-      "gate": true,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-057": {
-      "id": "A-057",
-      "name": "Logging Policy",
-      "type": "Policy",
-      "phase": "Tier 1",
-      "seqId": "T1-18",
-      "gate": true,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-007": {
-      "id": "A-007",
-      "name": "Cybersecurity Governance Charter",
-      "type": "Policy",
-      "phase": "Tier 1",
-      "seqId": "T1-19",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-005": {
-      "id": "A-005",
-      "name": "RACI Matrix for Cybersecurity",
-      "type": "Reference Matrix",
-      "phase": "Tier 1",
-      "seqId": "T1-20",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-030": {
       "id": "A-030",
@@ -2035,7 +2128,7 @@
       "seqId": "T1-21",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-031": {
       "id": "A-031",
@@ -2045,6 +2138,106 @@
       "seqId": "T1-22",
       "gate": false,
       "classification": "Internal",
+      "status": "Final"
+    },
+    "A-032": {
+      "id": "A-032",
+      "name": "Risk Management Methodology Standard",
+      "type": "Standard",
+      "phase": "Tier 1",
+      "seqId": "T1-03",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-033": {
+      "id": "A-033",
+      "name": "Risk Treatment / Acceptance Decisions Log",
+      "type": "Log / Record",
+      "phase": "Tier 1",
+      "seqId": "T1-29",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-034": {
+      "id": "A-034",
+      "name": "System Access Request & Approval Forms",
+      "type": "Agreement / Form",
+      "phase": "Tier 4",
+      "seqId": "T4-27",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-035": {
+      "id": "A-035",
+      "name": "Access Entitlement Matrix",
+      "type": "Reference Matrix",
+      "phase": "Tier 2",
+      "seqId": "T2-12",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Final"
+    },
+    "A-037": {
+      "id": "A-037",
+      "name": "Account Provisioning & Deprovisioning Procedures",
+      "type": "Procedure",
+      "phase": "Tier 3",
+      "seqId": "T3-33",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-038": {
+      "id": "A-038",
+      "name": "Periodic Account Review / Certification Records",
+      "type": "Log / Record",
+      "phase": "Tier 2",
+      "seqId": "T2-14",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Final"
+    },
+    "A-039": {
+      "id": "A-039",
+      "name": "Password & Authentication Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-15",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Final"
+    },
+    "A-040": {
+      "id": "A-040",
+      "name": "MFA Implementation Record",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-24",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-041": {
+      "id": "A-041",
+      "name": "Default Credential Remediation Log",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-25",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-042": {
+      "id": "A-042",
+      "name": "Privileged & Service Account Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 3",
+      "seqId": "T3-34",
+      "gate": false,
+      "classification": "Restricted / CJIS",
       "status": "Not Started"
     },
     "A-043": {
@@ -2055,67 +2248,7 @@
       "seqId": "T1-23",
       "gate": false,
       "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-083": {
-      "id": "A-083",
-      "name": "Risk / Finding Register (POA&M)",
-      "type": "Inventory / Register",
-      "phase": "Tier 1",
-      "seqId": "T1-24",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-117": {
-      "id": "A-117",
-      "name": "System Configuration Baselines (per system type)",
-      "type": "Configuration Record",
-      "phase": "Tier 1",
-      "seqId": "T1-25",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-155": {
-      "id": "A-155",
-      "name": "Background Check & Screening Policy",
-      "type": "Policy",
-      "phase": "Tier 1",
-      "seqId": "T1-26",
-      "gate": false,
-      "classification": "Internal / CJIS",
-      "status": "Not Started"
-    },
-    "A-009": {
-      "id": "A-009",
-      "name": "Risk Register",
-      "type": "Inventory / Register",
-      "phase": "Tier 1",
-      "seqId": "T1-27",
-      "gate": true,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-008": {
-      "id": "A-008",
-      "name": "Risk Assessment Report",
-      "type": "Report / Assessment",
-      "phase": "Tier 1",
-      "seqId": "T1-28",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-033": {
-      "id": "A-033",
-      "name": "Risk Treatment / Acceptance Decisions Log",
-      "type": "Log / Record",
-      "phase": "Tier 1",
-      "seqId": "T1-29",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-044": {
       "id": "A-044",
@@ -2125,86 +2258,36 @@
       "seqId": "T2-01",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
-    "A-099": {
-      "id": "A-099",
-      "name": "Data Labeling Procedures",
+    "A-045": {
+      "id": "A-045",
+      "name": "Secure Disposal Procedures",
       "type": "Procedure",
-      "phase": "Tier 2",
-      "seqId": "T2-02",
+      "phase": "Tier 4",
+      "seqId": "T4-22",
       "gate": false,
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-102": {
-      "id": "A-102",
-      "name": "Data Access Monitoring Policy",
-      "type": "Policy",
-      "phase": "Tier 2",
-      "seqId": "T2-03",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-069": {
-      "id": "A-069",
-      "name": "Physical Access Control Policy",
-      "type": "Policy",
-      "phase": "Tier 2",
-      "seqId": "T2-04",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-070": {
-      "id": "A-070",
-      "name": "Access Authorization List",
-      "type": "Inventory / Register",
-      "phase": "Tier 2",
-      "seqId": "T2-05",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-148": {
-      "id": "A-148",
-      "name": "Controlled Area / Zone Map",
-      "type": "Architecture / Design",
-      "phase": "Tier 2",
-      "seqId": "T2-06",
+    "A-046": {
+      "id": "A-046",
+      "name": "Unauthorized Disclosure Response & Notification Procedures",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-11",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-150": {
-      "id": "A-150",
-      "name": "Physical Access Review Records",
-      "type": "Log / Record",
-      "phase": "Tier 2",
-      "seqId": "T2-07",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-156": {
-      "id": "A-156",
-      "name": "Screening Completion Records",
-      "type": "Log / Record",
-      "phase": "Tier 2",
-      "seqId": "T2-08",
-      "gate": false,
-      "classification": "Confidential / CJIS",
-      "status": "Not Started"
-    },
-    "A-162": {
-      "id": "A-162",
-      "name": "Role-Specific Training Materials",
-      "type": "Training Material",
-      "phase": "Tier 2",
-      "seqId": "T2-09",
-      "gate": false,
-      "classification": "Internal",
+    "A-047": {
+      "id": "A-047",
+      "name": "Network Architecture Diagram",
+      "type": "Architecture / Design",
+      "phase": "Tier 4",
+      "seqId": "T4-06",
+      "gate": true,
+      "classification": "Restricted",
       "status": "Not Started"
     },
     "A-048": {
@@ -2217,54 +2300,14 @@
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-079": {
-      "id": "A-079",
-      "name": "Vendor & Contractor Inventory",
-      "type": "Inventory / Register",
-      "phase": "Tier 2",
-      "seqId": "T2-11",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-035": {
-      "id": "A-035",
-      "name": "Access Entitlement Matrix",
-      "type": "Inventory / Register",
-      "phase": "Tier 2",
-      "seqId": "T2-12",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-011": {
-      "id": "A-011",
-      "name": "Account Provisioning & Deprovisioning Checklist",
-      "type": "Checklist",
-      "phase": "Tier 2",
-      "seqId": "T2-13",
-      "gate": false,
-      "classification": "Confidential / CJIS",
-      "status": "Not Started"
-    },
-    "A-038": {
-      "id": "A-038",
-      "name": "Periodic Account Review / Certification Records",
-      "type": "Log / Record",
-      "phase": "Tier 2",
-      "seqId": "T2-14",
-      "gate": false,
-      "classification": "Confidential / CJIS",
-      "status": "Not Started"
-    },
-    "A-039": {
-      "id": "A-039",
-      "name": "Password & Authentication Policy",
+    "A-049": {
+      "id": "A-049",
+      "name": "Email Security Policy",
       "type": "Policy",
-      "phase": "Tier 2",
-      "seqId": "T2-15",
+      "phase": "Tier 5",
+      "seqId": "T5-18",
       "gate": false,
-      "classification": "Internal / CJIS",
+      "classification": "Internal",
       "status": "Not Started"
     },
     "A-050": {
@@ -2275,107 +2318,7 @@
       "seqId": "T2-16",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-080": {
-      "id": "A-080",
-      "name": "Third-Party Access Agreement",
-      "type": "Agreement / Form",
-      "phase": "Tier 2",
-      "seqId": "T2-17",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-093": {
-      "id": "A-093",
-      "name": "Role-Based Access Control (RBAC) Documentation",
-      "type": "Configuration Record",
-      "phase": "Tier 2",
-      "seqId": "T2-18",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-094": {
-      "id": "A-094",
-      "name": "Privilege Review Records",
-      "type": "Log / Record",
-      "phase": "Tier 2",
-      "seqId": "T2-19",
-      "gate": false,
-      "classification": "Confidential / CJIS",
-      "status": "Not Started"
-    },
-    "A-086": {
-      "id": "A-086",
-      "name": "Cybersecurity Training Plan",
-      "type": "Plan",
-      "phase": "Tier 2",
-      "seqId": "T2-20",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-025": {
-      "id": "A-025",
-      "name": "Signed Acknowledgment Records",
-      "type": "Agreement / Form",
-      "phase": "Tier 2",
-      "seqId": "T2-21",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-088": {
-      "id": "A-088",
-      "name": "New Employee Training Checklist (Pre-Access)",
-      "type": "Checklist",
-      "phase": "Tier 2",
-      "seqId": "T2-22",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-089": {
-      "id": "A-089",
-      "name": "Social Media & External Communications Policy",
-      "type": "Policy",
-      "phase": "Tier 2",
-      "seqId": "T2-23",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-090": {
-      "id": "A-090",
-      "name": "Policy Acknowledgment Tracking Log",
-      "type": "Inventory / Register",
-      "phase": "Tier 2",
-      "seqId": "T2-24",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-074": {
-      "id": "A-074",
-      "name": "Physical Security Hardening Standard",
-      "type": "Standard",
-      "phase": "Tier 2",
-      "seqId": "T2-25",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-165": {
-      "id": "A-165",
-      "name": "Server Room / Equipment Area Hardening Assessment Record",
-      "type": "Report / Assessment",
-      "phase": "Tier 2",
-      "seqId": "T2-26",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-052": {
       "id": "A-052",
@@ -2387,44 +2330,34 @@
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-104": {
-      "id": "A-104",
-      "name": "Network Segmentation Design Document",
-      "type": "Architecture / Design",
-      "phase": "Tier 3",
-      "seqId": "T3-02",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-118": {
-      "id": "A-118",
-      "name": "Configuration Drift Detection Records",
+    "A-053": {
+      "id": "A-053",
+      "name": "Change Request & Approval Log",
       "type": "Log / Record",
-      "phase": "Tier 3",
-      "seqId": "T3-03",
+      "phase": "Tier 4",
+      "seqId": "T4-13",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-054": {
+      "id": "A-054",
+      "name": "Patch Management Schedule & Tracking Log",
+      "type": "Schedule",
+      "phase": "Tier 4",
+      "seqId": "T4-12",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-120": {
-      "id": "A-120",
-      "name": "Endpoint Security Software Inventory",
-      "type": "Inventory / Register",
-      "phase": "Tier 3",
-      "seqId": "T3-04",
+    "A-055": {
+      "id": "A-055",
+      "name": "Patch Testing Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-11",
       "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-119": {
-      "id": "A-119",
-      "name": "Endpoint Hardening Checklist",
-      "type": "Checklist",
-      "phase": "Tier 3",
-      "seqId": "T3-05",
-      "gate": false,
-      "classification": "Restricted",
+      "classification": "Internal",
       "status": "Not Started"
     },
     "A-056": {
@@ -2437,54 +2370,94 @@
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-100": {
-      "id": "A-100",
-      "name": "Encryption Standards Document",
-      "type": "Standard",
+    "A-057": {
+      "id": "A-057",
+      "name": "Logging Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-18",
+      "gate": true,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-058": {
+      "id": "A-058",
+      "name": "Log Retention Schedule",
+      "type": "Schedule",
       "phase": "Tier 3",
-      "seqId": "T3-07",
+      "seqId": "T3-24",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-059": {
+      "id": "A-059",
+      "name": "Log Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-01",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-126": {
-      "id": "A-126",
-      "name": "Encryption Implementation Verification Records",
+    "A-060": {
+      "id": "A-060",
+      "name": "After-Action Reports",
+      "type": "Report / Assessment",
+      "phase": "Tier 5",
+      "seqId": "T5-05",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-061": {
+      "id": "A-061",
+      "name": "IRP Revision History / Update Log",
+      "type": "Log / Record",
+      "phase": "Tier 5",
+      "seqId": "T5-03",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-062": {
+      "id": "A-062",
+      "name": "Evidence Collection & Chain-of-Custody Procedures",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-07",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-063": {
+      "id": "A-063",
+      "name": "Evidence Preservation Checklist",
+      "type": "Checklist",
+      "phase": "Tier 5",
+      "seqId": "T5-09",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-064": {
+      "id": "A-064",
+      "name": "System Isolation Procedure",
+      "type": "Procedure",
+      "phase": "Tier 5",
+      "seqId": "T5-08",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-065": {
+      "id": "A-065",
+      "name": "Continuity Plan Exercise Records",
       "type": "Log / Record",
       "phase": "Tier 3",
-      "seqId": "T3-08",
+      "seqId": "T3-21",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-129": {
-      "id": "A-129",
-      "name": "Key & Certificate Management Policy",
-      "type": "Policy",
-      "phase": "Tier 3",
-      "seqId": "T3-09",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-020": {
-      "id": "A-020",
-      "name": "RTO/RPO Documentation",
-      "type": "Reference Matrix",
-      "phase": "Tier 3",
-      "seqId": "T3-10",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-022": {
-      "id": "A-022",
-      "name": "Backup Policy",
-      "type": "Policy",
-      "phase": "Tier 3",
-      "seqId": "T3-11",
-      "gate": false,
-      "classification": "Internal",
       "status": "Not Started"
     },
     "A-066": {
@@ -2507,154 +2480,74 @@
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-017": {
-      "id": "A-017",
-      "name": "Backup Call-Handling / Dispatch Continuity Procedure",
-      "type": "Procedure",
-      "phase": "Tier 3",
-      "seqId": "T3-14",
-      "gate": true,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-015": {
-      "id": "A-015",
-      "name": "Incident Classification & Severity Matrix",
-      "type": "Reference Matrix",
-      "phase": "Tier 3",
-      "seqId": "T3-15",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-016": {
-      "id": "A-016",
-      "name": "Incident Notification & Escalation Contact List",
-      "type": "Inventory / Register",
-      "phase": "Tier 3",
-      "seqId": "T3-16",
-      "gate": false,
-      "classification": "Confidential / CJIS",
-      "status": "Not Started"
-    },
-    "A-018": {
-      "id": "A-018",
-      "name": "Tabletop Exercise Records",
+    "A-068": {
+      "id": "A-068",
+      "name": "UPS / Generator Test Records",
       "type": "Log / Record",
-      "phase": "Tier 3",
-      "seqId": "T3-17",
+      "phase": "Tier 4",
+      "seqId": "T4-32",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-087": {
-      "id": "A-087",
-      "name": "Training Completion Records",
-      "type": "Log / Record",
-      "phase": "Tier 3",
-      "seqId": "T3-18",
-      "gate": false,
-      "classification": "Confidential / CJIS",
-      "status": "Not Started"
-    },
-    "A-019": {
-      "id": "A-019",
-      "name": "Continuity of Operations Plan (COOP)",
-      "type": "Plan",
-      "phase": "Tier 3",
-      "seqId": "T3-19",
-      "gate": true,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-021": {
-      "id": "A-021",
-      "name": "Overflow Routing Agreement (Mutual Aid)",
-      "type": "Agreement / Form",
-      "phase": "Tier 3",
-      "seqId": "T3-20",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-065": {
-      "id": "A-065",
-      "name": "Continuity Plan Exercise Records",
-      "type": "Log / Record",
-      "phase": "Tier 3",
-      "seqId": "T3-21",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-143": {
-      "id": "A-143",
-      "name": "System Redundancy Design Documentation",
-      "type": "Architecture / Design",
-      "phase": "Tier 3",
-      "seqId": "T3-22",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-144": {
-      "id": "A-144",
-      "name": "Failover Test Records",
-      "type": "Log / Record",
-      "phase": "Tier 3",
-      "seqId": "T3-23",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-058": {
-      "id": "A-058",
-      "name": "Log Retention Schedule",
-      "type": "Schedule",
-      "phase": "Tier 3",
-      "seqId": "T3-24",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-081": {
-      "id": "A-081",
-      "name": "Vulnerability Assessment Reports",
-      "type": "Report / Assessment",
-      "phase": "Tier 3",
-      "seqId": "T3-25",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-160": {
-      "id": "A-160",
-      "name": "Vulnerability Scanning Schedule",
-      "type": "Schedule",
-      "phase": "Tier 3",
-      "seqId": "T3-26",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-013": {
-      "id": "A-013",
-      "name": "CJIS Data Handling Addendum",
+    "A-069": {
+      "id": "A-069",
+      "name": "Physical Access Control Policy",
       "type": "Policy",
-      "phase": "Tier 3",
-      "seqId": "T3-27",
-      "gate": false,
-      "classification": "Internal / CJIS",
-      "status": "Not Started"
-    },
-    "A-078": {
-      "id": "A-078",
-      "name": "Vendor Security Assessment Questionnaire",
-      "type": "Checklist",
-      "phase": "Tier 3",
-      "seqId": "T3-28",
+      "phase": "Tier 2",
+      "seqId": "T2-04",
       "gate": false,
       "classification": "Internal",
+      "status": "Final"
+    },
+    "A-070": {
+      "id": "A-070",
+      "name": "Access Authorization List",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-05",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Final"
+    },
+    "A-071": {
+      "id": "A-071",
+      "name": "Visitor Log",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-37",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-072": {
+      "id": "A-072",
+      "name": "Visitor Access Agreement Form",
+      "type": "Agreement / Form",
+      "phase": "Tier 4",
+      "seqId": "T4-38",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-073": {
+      "id": "A-073",
+      "name": "Vendor Access Coordination Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-36",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-074": {
+      "id": "A-074",
+      "name": "Physical Security Hardening Standard",
+      "type": "Standard",
+      "phase": "Tier 2",
+      "seqId": "T2-25",
+      "gate": false,
+      "classification": "Restricted",
       "status": "Not Started"
     },
     "A-076": {
@@ -2677,52 +2570,552 @@
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-161": {
-      "id": "A-161",
-      "name": "Phishing Simulation Results",
-      "type": "Log / Record",
+    "A-078": {
+      "id": "A-078",
+      "name": "Vendor Security Assessment Questionnaire",
+      "type": "Checklist",
       "phase": "Tier 3",
-      "seqId": "T3-31",
+      "seqId": "T3-28",
       "gate": false,
-      "classification": "Confidential",
+      "classification": "Internal",
       "status": "Not Started"
     },
-    "A-164": {
-      "id": "A-164",
-      "name": "Competency Assessment Records",
+    "A-079": {
+      "id": "A-079",
+      "name": "Vendor & Contractor Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-11",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-080": {
+      "id": "A-080",
+      "name": "Third-Party Access Agreement",
+      "type": "Agreement / Form",
+      "phase": "Tier 2",
+      "seqId": "T2-17",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Final"
+    },
+    "A-081": {
+      "id": "A-081",
+      "name": "Vulnerability Assessment Reports",
+      "type": "Report / Assessment",
+      "phase": "Tier 3",
+      "seqId": "T3-25",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-083": {
+      "id": "A-083",
+      "name": "Risk / Finding Register (POA&M)",
+      "type": "Inventory / Register",
+      "phase": "Tier 1",
+      "seqId": "T1-24",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-085": {
+      "id": "A-085",
+      "name": "Issue Escalation Procedure",
+      "type": "Procedure",
+      "phase": "Tier 6",
+      "seqId": "T6-01",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-086": {
+      "id": "A-086",
+      "name": "Cybersecurity Training Plan",
+      "type": "Plan",
+      "phase": "Tier 2",
+      "seqId": "T2-20",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-087": {
+      "id": "A-087",
+      "name": "Training Completion Records",
       "type": "Log / Record",
       "phase": "Tier 3",
-      "seqId": "T3-32",
+      "seqId": "T3-18",
       "gate": false,
       "classification": "Confidential / CJIS",
       "status": "Not Started"
     },
-    "A-037": {
-      "id": "A-037",
-      "name": "Account Provisioning & Deprovisioning Procedures",
-      "type": "Procedure",
-      "phase": "Tier 3",
-      "seqId": "T3-33",
+    "A-088": {
+      "id": "A-088",
+      "name": "New Employee Training Checklist (Pre-Access)",
+      "type": "Checklist",
+      "phase": "Tier 2",
+      "seqId": "T2-22",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Final"
+    },
+    "A-089": {
+      "id": "A-089",
+      "name": "Social Media & External Communications Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-23",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-090": {
+      "id": "A-090",
+      "name": "Policy Acknowledgment Register",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-24",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Final"
+    },
+    "A-091": {
+      "id": "A-091",
+      "name": "Threat Intelligence Routing & Distribution Matrix",
+      "type": "Reference Matrix",
+      "phase": "Tier 1",
+      "seqId": "T1-08",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-092": {
+      "id": "A-092",
+      "name": "System Security Plans (per critical system)",
+      "type": "Configuration Record",
+      "phase": "Tier 1",
+      "seqId": "T1-12",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-093": {
+      "id": "A-093",
+      "name": "Role-Based Access Control (RBAC) Documentation",
+      "type": "Configuration Record",
+      "phase": "Tier 2",
+      "seqId": "T2-18",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Final"
+    },
+    "A-094": {
+      "id": "A-094",
+      "name": "Privilege Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 2",
+      "seqId": "T2-19",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Final"
+    },
+    "A-095": {
+      "id": "A-095",
+      "name": "Privileged Access Management (PAM) Policy",
+      "type": "Policy",
+      "phase": "Tier 4",
+      "seqId": "T4-28",
       "gate": false,
       "classification": "Internal / CJIS",
       "status": "Not Started"
     },
-    "A-042": {
-      "id": "A-042",
-      "name": "Privileged & Service Account Inventory",
-      "type": "Inventory / Register",
-      "phase": "Tier 3",
-      "seqId": "T3-34",
+    "A-096": {
+      "id": "A-096",
+      "name": "Privileged Access Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-29",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-097": {
+      "id": "A-097",
+      "name": "Session Management Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-14",
+      "gate": false,
+      "classification": "Internal / CJIS",
+      "status": "Not Started"
+    },
+    "A-098": {
+      "id": "A-098",
+      "name": "Session Monitoring Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-26",
       "gate": false,
       "classification": "Restricted / CJIS",
       "status": "Not Started"
     },
-    "A-059": {
-      "id": "A-059",
-      "name": "Log Review Records",
+    "A-099": {
+      "id": "A-099",
+      "name": "Data Labeling Procedures",
+      "type": "Procedure",
+      "phase": "Tier 2",
+      "seqId": "T2-02",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-100": {
+      "id": "A-100",
+      "name": "Encryption Standards Document",
+      "type": "Standard",
+      "phase": "Tier 3",
+      "seqId": "T3-07",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-101": {
+      "id": "A-101",
+      "name": "Data Disposal / Destruction Records",
       "type": "Log / Record",
       "phase": "Tier 4",
-      "seqId": "T4-01",
+      "seqId": "T4-23",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-102": {
+      "id": "A-102",
+      "name": "Data Access Monitoring Policy",
+      "type": "Policy",
+      "phase": "Tier 2",
+      "seqId": "T2-03",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-103": {
+      "id": "A-103",
+      "name": "Firewall Ruleset Documentation",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-07",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-104": {
+      "id": "A-104",
+      "name": "Network Segmentation Design Document",
+      "type": "Architecture / Design",
+      "phase": "Tier 3",
+      "seqId": "T3-02",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-105": {
+      "id": "A-105",
+      "name": "Network Monitoring Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-15",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-106": {
+      "id": "A-106",
+      "name": "IDS/IPS Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-08",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-108": {
+      "id": "A-108",
+      "name": "DNS Security Configuration Record",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-17",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-109": {
+      "id": "A-109",
+      "name": "DNS Filtering Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-16",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-110": {
+      "id": "A-110",
+      "name": "Email Authentication Configuration Records (SPF/DKIM/DMARC)",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-19",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-111": {
+      "id": "A-111",
+      "name": "Anti-Phishing / Spam Filter Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-20",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-112": {
+      "id": "A-112",
+      "name": "Wireless Network Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-21",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-113": {
+      "id": "A-113",
+      "name": "Wireless Network Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 5",
+      "seqId": "T5-23",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-114": {
+      "id": "A-114",
+      "name": "Cellular / Mobile Device Security Standards",
+      "type": "Standard",
+      "phase": "Tier 5",
+      "seqId": "T5-22",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-115": {
+      "id": "A-115",
+      "name": "VPN / Remote Access Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 5",
+      "seqId": "T5-26",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-116": {
+      "id": "A-116",
+      "name": "Authorized Remote Device Register",
+      "type": "Inventory / Register",
+      "phase": "Tier 5",
+      "seqId": "T5-25",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-117": {
+      "id": "A-117",
+      "name": "System Configuration Baselines (per system type)",
+      "type": "Configuration Record",
+      "phase": "Tier 1",
+      "seqId": "T1-25",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-118": {
+      "id": "A-118",
+      "name": "Configuration Drift Detection Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-03",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-119": {
+      "id": "A-119",
+      "name": "Endpoint Hardening Checklist",
+      "type": "Checklist",
+      "phase": "Tier 3",
+      "seqId": "T3-05",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-120": {
+      "id": "A-120",
+      "name": "Endpoint Security Software Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 3",
+      "seqId": "T3-04",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-121": {
+      "id": "A-121",
+      "name": "Service / Port Disablement Records",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-09",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-122": {
+      "id": "A-122",
+      "name": "Emergency Change Procedures",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-14",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-123": {
+      "id": "A-123",
+      "name": "Mobile Device Management (MDM) Policy",
+      "type": "Policy",
+      "phase": "Tier 5",
+      "seqId": "T5-24",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-124": {
+      "id": "A-124",
+      "name": "Remote Endpoint Security Audit Records",
+      "type": "Log / Record",
+      "phase": "Tier 5",
+      "seqId": "T5-28",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-126": {
+      "id": "A-126",
+      "name": "Encryption Implementation Verification Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-08",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-127": {
+      "id": "A-127",
+      "name": "Certificate Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 4",
+      "seqId": "T4-15",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-128": {
+      "id": "A-128",
+      "name": "Certificate Renewal & Revocation Procedures",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-16",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-129": {
+      "id": "A-129",
+      "name": "Key & Certificate Management Policy",
+      "type": "Policy",
+      "phase": "Tier 3",
+      "seqId": "T3-09",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-130": {
+      "id": "A-130",
+      "name": "Key Inventory & Custody Records",
+      "type": "Inventory / Register",
+      "phase": "Tier 4",
+      "seqId": "T4-18",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-131": {
+      "id": "A-131",
+      "name": "Key Rotation Schedule",
+      "type": "Schedule",
+      "phase": "Tier 4",
+      "seqId": "T4-20",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-132": {
+      "id": "A-132",
+      "name": "Key Escrow and Recovery Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-19",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-133": {
+      "id": "A-133",
+      "name": "Continuous Monitoring Plan",
+      "type": "Plan",
+      "phase": "Tier 5",
+      "seqId": "T5-01",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-134": {
+      "id": "A-134",
+      "name": "SIEM / Monitoring Tool Configuration Records",
+      "type": "Configuration Record",
+      "phase": "Tier 4",
+      "seqId": "T4-17",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-135": {
+      "id": "A-135",
+      "name": "Alert Triage & Escalation Procedure",
+      "type": "Procedure",
+      "phase": "Tier 4",
+      "seqId": "T4-10",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-136": {
+      "id": "A-136",
+      "name": "Security Event Review Procedures",
+      "type": "Procedure",
+      "phase": "Tier 6",
+      "seqId": "T6-02",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
@@ -2767,244 +3160,44 @@
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-047": {
-      "id": "A-047",
-      "name": "Network Architecture Diagram",
+    "A-141": {
+      "id": "A-141",
+      "name": "Forensic Readiness Plan",
+      "type": "Plan",
+      "phase": "Tier 5",
+      "seqId": "T5-06",
+      "gate": false,
+      "classification": "Restricted / CJIS",
+      "status": "Not Started"
+    },
+    "A-142": {
+      "id": "A-142",
+      "name": "Forensic Tool Inventory",
+      "type": "Inventory / Register",
+      "phase": "Tier 5",
+      "seqId": "T5-10",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-143": {
+      "id": "A-143",
+      "name": "System Redundancy Design Documentation",
       "type": "Architecture / Design",
-      "phase": "Tier 4",
-      "seqId": "T4-06",
-      "gate": true,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-103": {
-      "id": "A-103",
-      "name": "Firewall Ruleset Documentation",
-      "type": "Configuration Record",
-      "phase": "Tier 4",
-      "seqId": "T4-07",
+      "phase": "Tier 3",
+      "seqId": "T3-22",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-106": {
-      "id": "A-106",
-      "name": "IDS/IPS Configuration Records",
-      "type": "Configuration Record",
-      "phase": "Tier 4",
-      "seqId": "T4-08",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-121": {
-      "id": "A-121",
-      "name": "Service / Port Disablement Records",
+    "A-144": {
+      "id": "A-144",
+      "name": "Failover Test Records",
       "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-09",
+      "phase": "Tier 3",
+      "seqId": "T3-23",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-135": {
-      "id": "A-135",
-      "name": "Alert Triage & Escalation Procedure",
-      "type": "Procedure",
-      "phase": "Tier 4",
-      "seqId": "T4-10",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-055": {
-      "id": "A-055",
-      "name": "Patch Testing Procedure",
-      "type": "Procedure",
-      "phase": "Tier 4",
-      "seqId": "T4-11",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-054": {
-      "id": "A-054",
-      "name": "Patch Management Schedule & Tracking Log",
-      "type": "Schedule",
-      "phase": "Tier 4",
-      "seqId": "T4-12",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-053": {
-      "id": "A-053",
-      "name": "Change Request & Approval Log",
-      "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-13",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-122": {
-      "id": "A-122",
-      "name": "Emergency Change Procedures",
-      "type": "Procedure",
-      "phase": "Tier 4",
-      "seqId": "T4-14",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-127": {
-      "id": "A-127",
-      "name": "Certificate Inventory",
-      "type": "Inventory / Register",
-      "phase": "Tier 4",
-      "seqId": "T4-15",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-128": {
-      "id": "A-128",
-      "name": "Certificate Renewal & Revocation Procedures",
-      "type": "Procedure",
-      "phase": "Tier 4",
-      "seqId": "T4-16",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-134": {
-      "id": "A-134",
-      "name": "SIEM / Monitoring Tool Configuration Records",
-      "type": "Configuration Record",
-      "phase": "Tier 4",
-      "seqId": "T4-17",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-130": {
-      "id": "A-130",
-      "name": "Key Inventory & Custody Records",
-      "type": "Inventory / Register",
-      "phase": "Tier 4",
-      "seqId": "T4-18",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-132": {
-      "id": "A-132",
-      "name": "Key Escrow and Recovery Procedure",
-      "type": "Procedure",
-      "phase": "Tier 4",
-      "seqId": "T4-19",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-131": {
-      "id": "A-131",
-      "name": "Key Rotation Schedule",
-      "type": "Schedule",
-      "phase": "Tier 4",
-      "seqId": "T4-20",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-166": {
-      "id": "A-166",
-      "name": "Document Handling Standard",
-      "type": "Standard",
-      "phase": "Tier 4",
-      "seqId": "T4-21",
-      "gate": true,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-045": {
-      "id": "A-045",
-      "name": "Secure Disposal Procedures",
-      "type": "Procedure",
-      "phase": "Tier 4",
-      "seqId": "T4-22",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-101": {
-      "id": "A-101",
-      "name": "Data Disposal / Destruction Records",
-      "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-23",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-040": {
-      "id": "A-040",
-      "name": "MFA Implementation Record",
-      "type": "Configuration Record",
-      "phase": "Tier 4",
-      "seqId": "T4-24",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-041": {
-      "id": "A-041",
-      "name": "Default Credential Remediation Log",
-      "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-25",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-098": {
-      "id": "A-098",
-      "name": "Session Monitoring Configuration Records",
-      "type": "Configuration Record",
-      "phase": "Tier 4",
-      "seqId": "T4-26",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-034": {
-      "id": "A-034",
-      "name": "System Access Request & Approval Forms",
-      "type": "Agreement / Form",
-      "phase": "Tier 4",
-      "seqId": "T4-27",
-      "gate": false,
-      "classification": "Confidential / CJIS",
-      "status": "Not Started"
-    },
-    "A-095": {
-      "id": "A-095",
-      "name": "Privileged Access Management (PAM) Policy",
-      "type": "Policy",
-      "phase": "Tier 4",
-      "seqId": "T4-28",
-      "gate": false,
-      "classification": "Internal / CJIS",
-      "status": "Not Started"
-    },
-    "A-096": {
-      "id": "A-096",
-      "name": "Privileged Access Review Records",
-      "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-29",
-      "gate": false,
-      "classification": "Confidential / CJIS",
       "status": "Not Started"
     },
     "A-145": {
@@ -3027,22 +3220,42 @@
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-068": {
-      "id": "A-068",
-      "name": "UPS / Generator Test Records",
-      "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-32",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
     "A-147": {
       "id": "A-147",
       "name": "Power Resilience Configuration Documentation",
       "type": "Configuration Record",
       "phase": "Tier 4",
       "seqId": "T4-33",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-148": {
+      "id": "A-148",
+      "name": "Controlled Area / Zone Map",
+      "type": "Architecture / Design",
+      "phase": "Tier 2",
+      "seqId": "T2-06",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Final"
+    },
+    "A-150": {
+      "id": "A-150",
+      "name": "Physical Access Review Records",
+      "type": "Log / Record",
+      "phase": "Tier 2",
+      "seqId": "T2-07",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Final"
+    },
+    "A-151": {
+      "id": "A-151",
+      "name": "Camera and Sensor Maintenance Record",
+      "type": "Log / Record",
+      "phase": "Tier 4",
+      "seqId": "T4-39",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
@@ -3067,55 +3280,25 @@
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-073": {
-      "id": "A-073",
-      "name": "Vendor Access Coordination Procedure",
-      "type": "Procedure",
-      "phase": "Tier 4",
-      "seqId": "T4-36",
+    "A-155": {
+      "id": "A-155",
+      "name": "Background Check & Screening Policy",
+      "type": "Policy",
+      "phase": "Tier 1",
+      "seqId": "T1-26",
       "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "classification": "Internal / CJIS",
+      "status": "Final"
     },
-    "A-071": {
-      "id": "A-071",
-      "name": "Visitor Log",
+    "A-156": {
+      "id": "A-156",
+      "name": "Screening Completion Records",
       "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-37",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-072": {
-      "id": "A-072",
-      "name": "Visitor Access Agreement Form",
-      "type": "Agreement / Form",
-      "phase": "Tier 4",
-      "seqId": "T4-38",
-      "gate": false,
-      "classification": "Confidential",
-      "status": "Not Started"
-    },
-    "A-151": {
-      "id": "A-151",
-      "name": "Camera and Sensor Maintenance Record",
-      "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-39",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-026": {
-      "id": "A-026",
-      "name": "CJIS Security Awareness Training Completion Record",
-      "type": "Log / Record",
-      "phase": "Tier 4",
-      "seqId": "T4-40",
+      "phase": "Tier 2",
+      "seqId": "T2-08",
       "gate": false,
       "classification": "Confidential / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-157": {
       "id": "A-157",
@@ -3123,6 +3306,16 @@
       "type": "Policy",
       "phase": "Tier 4",
       "seqId": "T4-41",
+      "gate": false,
+      "classification": "Internal",
+      "status": "Not Started"
+    },
+    "A-158": {
+      "id": "A-158",
+      "name": "Hardware / Software Delivery Inspection Checklist",
+      "type": "Checklist",
+      "phase": "Tier 4",
+      "seqId": "T4-43",
       "gate": false,
       "classification": "Internal",
       "status": "Not Started"
@@ -3137,42 +3330,72 @@
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-158": {
-      "id": "A-158",
-      "name": "Hardware / Software Delivery Inspection Checklist",
-      "type": "Checklist",
-      "phase": "Tier 4",
-      "seqId": "T4-43",
+    "A-160": {
+      "id": "A-160",
+      "name": "Vulnerability Scanning Schedule",
+      "type": "Schedule",
+      "phase": "Tier 3",
+      "seqId": "T3-26",
+      "gate": false,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-161": {
+      "id": "A-161",
+      "name": "Phishing Simulation Results",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-31",
+      "gate": false,
+      "classification": "Confidential",
+      "status": "Not Started"
+    },
+    "A-162": {
+      "id": "A-162",
+      "name": "Role-Specific Training Materials",
+      "type": "Training Material",
+      "phase": "Tier 2",
+      "seqId": "T2-09",
       "gate": false,
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-133": {
-      "id": "A-133",
-      "name": "Continuous Monitoring Plan",
-      "type": "Plan",
-      "phase": "Tier 5",
-      "seqId": "T5-01",
+    "A-164": {
+      "id": "A-164",
+      "name": "Competency Assessment Records",
+      "type": "Log / Record",
+      "phase": "Tier 3",
+      "seqId": "T3-32",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Not Started"
+    },
+    "A-165": {
+      "id": "A-165",
+      "name": "Server Room / Equipment Area Hardening Assessment Record",
+      "type": "Report / Assessment",
+      "phase": "Tier 2",
+      "seqId": "T2-26",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-169": {
-      "id": "A-169",
-      "name": "TDoS / DoS Response Procedure",
+    "A-166": {
+      "id": "A-166",
+      "name": "Document Handling Standard",
+      "type": "Standard",
+      "phase": "Tier 4",
+      "seqId": "T4-21",
+      "gate": true,
+      "classification": "Restricted",
+      "status": "Not Started"
+    },
+    "A-167": {
+      "id": "A-167",
+      "name": "Data Sharing & Disclosure Approval Procedure",
       "type": "Procedure",
       "phase": "Tier 5",
-      "seqId": "T5-02",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-061": {
-      "id": "A-061",
-      "name": "IRP Revision History / Update Log",
-      "type": "Log / Record",
-      "phase": "Tier 5",
-      "seqId": "T5-03",
+      "seqId": "T5-12",
       "gate": false,
       "classification": "Internal",
       "status": "Not Started"
@@ -3187,222 +3410,12 @@
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-060": {
-      "id": "A-060",
-      "name": "After-Action Reports",
-      "type": "Report / Assessment",
-      "phase": "Tier 5",
-      "seqId": "T5-05",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-141": {
-      "id": "A-141",
-      "name": "Forensic Readiness Plan",
-      "type": "Plan",
-      "phase": "Tier 5",
-      "seqId": "T5-06",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-062": {
-      "id": "A-062",
-      "name": "Evidence Collection & Chain-of-Custody Procedures",
+    "A-169": {
+      "id": "A-169",
+      "name": "TDoS / DoS Response Procedure",
       "type": "Procedure",
       "phase": "Tier 5",
-      "seqId": "T5-07",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-064": {
-      "id": "A-064",
-      "name": "System Isolation Procedure",
-      "type": "Procedure",
-      "phase": "Tier 5",
-      "seqId": "T5-08",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-063": {
-      "id": "A-063",
-      "name": "Evidence Preservation Checklist",
-      "type": "Checklist",
-      "phase": "Tier 5",
-      "seqId": "T5-09",
-      "gate": false,
-      "classification": "Restricted / CJIS",
-      "status": "Not Started"
-    },
-    "A-142": {
-      "id": "A-142",
-      "name": "Forensic Tool Inventory",
-      "type": "Inventory / Register",
-      "phase": "Tier 5",
-      "seqId": "T5-10",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-046": {
-      "id": "A-046",
-      "name": "Unauthorized Disclosure Response & Notification Procedures",
-      "type": "Procedure",
-      "phase": "Tier 5",
-      "seqId": "T5-11",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-167": {
-      "id": "A-167",
-      "name": "Data Sharing & Disclosure Approval Procedure",
-      "type": "Procedure",
-      "phase": "Tier 5",
-      "seqId": "T5-12",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-171": {
-      "id": "A-171",
-      "name": "Data Sharing Agreement (MOU) Template",
-      "type": "Agreement / Form",
-      "phase": "Tier 5",
-      "seqId": "T5-13",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-097": {
-      "id": "A-097",
-      "name": "Session Management Policy",
-      "type": "Policy",
-      "phase": "Tier 5",
-      "seqId": "T5-14",
-      "gate": false,
-      "classification": "Internal / CJIS",
-      "status": "Not Started"
-    },
-    "A-105": {
-      "id": "A-105",
-      "name": "Network Monitoring Policy",
-      "type": "Policy",
-      "phase": "Tier 5",
-      "seqId": "T5-15",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-109": {
-      "id": "A-109",
-      "name": "DNS Filtering Policy",
-      "type": "Policy",
-      "phase": "Tier 5",
-      "seqId": "T5-16",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-108": {
-      "id": "A-108",
-      "name": "DNS Security Configuration Record",
-      "type": "Configuration Record",
-      "phase": "Tier 5",
-      "seqId": "T5-17",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-049": {
-      "id": "A-049",
-      "name": "Email Security Policy",
-      "type": "Policy",
-      "phase": "Tier 5",
-      "seqId": "T5-18",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-110": {
-      "id": "A-110",
-      "name": "Email Authentication Configuration Records (SPF/DKIM/DMARC)",
-      "type": "Configuration Record",
-      "phase": "Tier 5",
-      "seqId": "T5-19",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-111": {
-      "id": "A-111",
-      "name": "Anti-Phishing / Spam Filter Configuration Records",
-      "type": "Configuration Record",
-      "phase": "Tier 5",
-      "seqId": "T5-20",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-112": {
-      "id": "A-112",
-      "name": "Wireless Network Policy",
-      "type": "Policy",
-      "phase": "Tier 5",
-      "seqId": "T5-21",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-114": {
-      "id": "A-114",
-      "name": "Cellular / Mobile Device Security Standards",
-      "type": "Standard",
-      "phase": "Tier 5",
-      "seqId": "T5-22",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-113": {
-      "id": "A-113",
-      "name": "Wireless Network Inventory",
-      "type": "Inventory / Register",
-      "phase": "Tier 5",
-      "seqId": "T5-23",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-123": {
-      "id": "A-123",
-      "name": "Mobile Device Management (MDM) Policy",
-      "type": "Policy",
-      "phase": "Tier 5",
-      "seqId": "T5-24",
-      "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
-    },
-    "A-116": {
-      "id": "A-116",
-      "name": "Authorized Remote Device Register",
-      "type": "Inventory / Register",
-      "phase": "Tier 5",
-      "seqId": "T5-25",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-115": {
-      "id": "A-115",
-      "name": "VPN / Remote Access Configuration Records",
-      "type": "Configuration Record",
-      "phase": "Tier 5",
-      "seqId": "T5-26",
+      "seqId": "T5-02",
       "gate": false,
       "classification": "Restricted",
       "status": "Not Started"
@@ -3417,35 +3430,35 @@
       "classification": "Restricted",
       "status": "Not Started"
     },
-    "A-124": {
-      "id": "A-124",
-      "name": "Remote Endpoint Security Audit Records",
-      "type": "Log / Record",
+    "A-171": {
+      "id": "A-171",
+      "name": "Data Sharing Agreement (MOU) Template",
+      "type": "Agreement / Form",
       "phase": "Tier 5",
-      "seqId": "T5-28",
-      "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
-    },
-    "A-085": {
-      "id": "A-085",
-      "name": "Issue Escalation Procedure",
-      "type": "Procedure",
-      "phase": "Tier 6",
-      "seqId": "T6-01",
+      "seqId": "T5-13",
       "gate": false,
       "classification": "Internal",
       "status": "Not Started"
     },
-    "A-136": {
-      "id": "A-136",
-      "name": "Security Event Review Procedures",
+    "A-172": {
+      "id": "A-172",
+      "name": "Risk Assessment Procedure",
       "type": "Procedure",
-      "phase": "Tier 6",
-      "seqId": "T6-02",
+      "phase": "Tier 1",
+      "seqId": "T1-04",
       "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
+      "classification": "Internal",
+      "status": "Final"
+    },
+    "A-173": {
+      "id": "A-173",
+      "name": "Account-to-Role Assignment Register",
+      "type": "Inventory / Register",
+      "phase": "Tier 2",
+      "seqId": "T2-27",
+      "gate": false,
+      "classification": "Confidential / CJIS",
+      "status": "Final"
     }
   },
   "artifactCategories": {
@@ -3583,6 +3596,10 @@
       "2.A",
       "2.D",
       "2.E"
+    ],
+    "A-173": [
+      "2.A",
+      "2.D"
     ],
     "A-039": [
       "2.A",
