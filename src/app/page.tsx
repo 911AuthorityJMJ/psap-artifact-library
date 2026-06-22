@@ -76,7 +76,7 @@ export default function Home() {
   const [result, setResult] = useState<ParseResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [activeView, setActiveView] = useState<'setup' | 'assessment'>('setup');
+  const [activeView, setActiveView] = useState<'setup' | 'assessment' | 'library'>('setup');
   const [builderArtifact, setBuilderArtifact] = useState<Artifact | null>(null);
 
   async function handleUpload(file: File) {
@@ -117,7 +117,9 @@ export default function Home() {
     return acc;
   }, {} as Record<string, Gap[]>);
   
-  const [activeTab, setActiveTab] = useState<'build' | 'library' | 'questions'>('build');
+  const [activeTab, setActiveTab] = useState<'build' | 'questions'>('build');
+  const [librarySearch, setLibrarySearch] = useState('');
+  const [libraryType, setLibraryType] = useState('');
   
   const categoryToTier = useMemo(() => {
     const map = new Map<string, { tierNumber: number; tierName: string; tierPosition: number }>();
@@ -228,6 +230,103 @@ export default function Home() {
     return badges;
   }
   
+  const libraryTypes = useMemo(
+    () => Array.from(new Set(fullLibraryList.map(i => i.artifact.type))).filter(Boolean).sort(),
+    [fullLibraryList],
+  );
+
+  const matchesLibraryFilter = useCallback((artifact: Artifact) => {
+    const q = librarySearch.trim().toLowerCase();
+    if (libraryType && artifact.type !== libraryType) return false;
+    if (q && !artifact.name.toLowerCase().includes(q) && !artifact.type.toLowerCase().includes(q)) return false;
+    return true;
+  }, [librarySearch, libraryType]);
+
+  const libraryMatchCount = useMemo(
+    () => fullLibraryList.filter(i => matchesLibraryFilter(i.artifact)).length,
+    [fullLibraryList, matchesLibraryFilter],
+  );
+
+  const renderFullLibrary = () => {
+    const groups = Object.entries(fullLibraryByTier)
+      .map(([tierKey, group]) => [tierKey, { ...group, items: group.items.filter(({ artifact }) => matchesLibraryFilter(artifact)) }] as const)
+      .filter(([, group]) => group.items.length > 0);
+
+    if (groups.length === 0) {
+      return <p className="text-sm text-gray-400 text-center py-10">No artifacts match your filters.</p>;
+    }
+
+    return (
+      <div>
+        {groups.map(([tierKey, { tierName, tierNumber, items }]) => {
+          const tc = TIER_COLORS[tierNumber];
+          return (
+            <div key={tierKey} className="mb-6 last:mb-0">
+              <div className="flex items-center gap-2 mb-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wide"
+                    style={{ color: tc?.text ?? '#4B5563' }}>
+                  {tierKey}
+                </h3>
+                <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>· {tierName}</span>
+                <span className="text-gray-400 text-xs">
+                  — {items.length} artifact{items.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+              <div className="space-y-2">
+                {items.map(({ artifact, isGap }) => (
+                  <div key={artifact.id} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm font-medium text-gray-900">{artifact.name}</span>
+                        {artifact.gate && (
+                          <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
+                        )}
+                        {isGap && (
+                          <span className="text-xs bg-red-50 text-red-600 px-1.5 py-0.5 rounded font-medium">Gap</span>
+                        )}
+                        {getScaleBadges(artifact.id, artifact.classification).map((badge, i) => (
+                          <span key={i}>{badge}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                        <span>{artifact.type}</span>
+                      </div>
+                      {(manifest[artifact.id]?.form || (manifest[artifact.id]?.examples ?? []).length > 0) && (
+                        <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
+                          {manifest[artifact.id]?.form && (
+                            <>
+                              <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
+                                className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
+                                ↓ Blank Form
+                              </a>
+                              {result && (
+                                <button
+                                  onClick={() => setBuilderArtifact(artifact)}
+                                  className="text-xs font-medium text-emerald-600 hover:text-emerald-800">
+                                  ✦ Build Document
+                                </button>
+                              )}
+                            </>
+                          )}
+                          {(manifest[artifact.id]?.examples ?? []).map(p => (
+                            <a key={p} href={getExampleUrl(artifact.id, artifact.name, p)} download
+                              className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
+                              ↓ Example · {levelName[p as keyof typeof levelName]}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <React.Fragment>
       <main className="min-h-screen p-8">
@@ -245,23 +344,27 @@ export default function Home() {
           
           {/* Top-level navigation */}
           <div className="flex gap-1 border-b mb-6" style={{ borderColor: 'var(--ui-border)' }}>
-            {(['setup', 'assessment'] as const).map(view => (
-              <button
-                key={view}
-                onClick={() => { if (view === 'assessment' && !result) return; setActiveView(view); }}
-                disabled={view === 'assessment' && !result}
-                className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors capitalize ${
-                  activeView === view
-                  ? 'border-transparent text-gray-300 cursor-not-allowed'
-                  : view === 'assessment' && !result
-                    ? 'border-transparent text-gray-300 cursor-not-allowed'
+            {(['setup', 'assessment', 'library'] as const).map(view => {
+              const isDisabled = view === 'assessment' && !result;
+              const label = view === 'setup' ? 'Setup' : view === 'assessment' ? 'Assessment' : 'Full Library';
+              return (
+                <button
+                  key={view}
+                  onClick={() => { if (isDisabled) return; setActiveView(view); }}
+                  disabled={isDisabled}
+                  className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
+                    view === 'library' ? 'ml-auto' : ''
+                  } ${
+                    isDisabled
+                      ? 'border-transparent text-gray-300 cursor-not-allowed'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
                   }`}
-                style={activeView === view ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 } : {}}
-              >
-                {view === 'setup' ? 'Setup' : 'Assessment'}
-              </button>
-            ))}
+                  style={activeView === view ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 } : {}}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
           
           {/* Setup view */}
@@ -348,18 +451,16 @@ export default function Home() {
                   {artifactBuildList.length} artifacts with gaps · {fullLibraryList.length} total
                 </p>
                 <div className="flex gap-1 border-b" style={{ borderColor: 'var(--ui-border)' }}>
-                  {(['build', 'questions', 'library'] as const).map(tab => (
+                  {(['build', 'questions'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
-                        tab === 'library' ? 'ml-auto' : ''
-                      } ${
                         activeTab === tab ? '' : 'border-transparent text-gray-500 hover:text-gray-700'
                       }`}
                       style={activeTab === tab ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 } : {}}
                     >
-                      {tab === 'build' ? 'Build Priority' : tab === 'library' ? 'Full Library' : 'By Question'}
+                      {tab === 'build' ? 'Build Priority' : 'By Question'}
                     </button>
                   ))}
                 </div>
@@ -424,7 +525,6 @@ export default function Home() {
                                   </div>
                                 )}
                               </div>
-                              <span className="text-xs text-gray-300 font-mono shrink-0">{artifact.id}</span>
                             </div>
                           ))}
                         </div>
@@ -432,74 +532,7 @@ export default function Home() {
                       );
                     })}
                   </div>
-                ) : activeTab === 'library' ? (
-                    <div>
-                      {Object.entries(fullLibraryByTier).map(([tierKey, { tierName, tierNumber, items }]) => {
-                        const tc = TIER_COLORS[tierNumber];
-                        return (
-                        <div key={tierKey} className="mb-6 last:mb-0">
-                          <div className="flex items-center gap-2 mb-3">
-                            <h3 className="text-xs font-semibold uppercase tracking-wide"
-                                style={{ color: tc?.text ?? '#4B5563' }}>
-                              {tierKey}
-                            </h3>
-                            <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>· {tierName}</span>
-                            <span className="text-gray-400 text-xs">
-                              — {items.length} artifact{items.length !== 1 ? 's' : ''}
-                            </span>
-                          </div>
-                          <div className="space-y-2">
-                            {items.map(({ artifact, isGap }) => (
-                              <div key={artifact.id} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2 flex-wrap">
-                                    <span className="text-sm font-medium text-gray-900">{artifact.name}</span>
-                                    {artifact.gate && (
-                                      <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
-                                    )}
-                                    {isGap && (
-                                      <span className="text-xs bg-red-50 text-red-600 px-1.5 py-0.5 rounded font-medium">Gap</span>
-                                    )}
-                                    {getScaleBadges(artifact.id, artifact.classification).map((badge, i) => (
-                                      <span key={i}>{badge}</span>
-                                    ))}
-                                  </div>
-                                  <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
-                                    <span>{artifact.type}</span>
-                                  </div>
-                                  {(manifest[artifact.id]?.form || (manifest[artifact.id]?.examples ?? []).length > 0) && (
-                                    <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
-                                      {manifest[artifact.id]?.form && (
-                                        <>
-                                          <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
-                                            className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                            ↓ Blank Form
-                                          </a>
-                                          <button
-                                            onClick={() => setBuilderArtifact(artifact)}
-                                            className="text-xs font-medium text-emerald-600 hover:text-emerald-800">
-                                            ✦ Build Document
-                                          </button>
-                                        </>
-                                      )}
-                                      {(manifest[artifact.id]?.examples ?? []).map(p => (
-                                        <a key={p} href={getExampleUrl(artifact.id, artifact.name, p)} download
-                                          className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                          ↓ Example · {levelName[p as keyof typeof levelName]}
-                                        </a>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
-                                <span className="text-xs text-gray-300 font-mono shrink-0">{artifact.id}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
+                ) : (
                       <div>
                         {gapsByDomain && Object.entries(gapsByDomain).map(([domain, gaps]) => (
                           <div key={domain} className="mb-5">
@@ -540,6 +573,60 @@ export default function Home() {
                         ))}
                   </div>
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* Library view — browse the full artifact library, no assessment required */}
+          {activeView === 'library' && (
+            <div className="bg-white rounded-lg" style={{ border: '1px solid var(--ui-border)' }}>
+              <div className="px-6 pt-6 pb-4">
+                <h2 className="text-lg font-semibold text-gray-900 mb-1">Full Library</h2>
+                <p className="text-gray-500 text-sm">
+                  {librarySearch.trim() || libraryType ? (
+                    `Showing ${libraryMatchCount} of ${fullLibraryList.length} artifacts.`
+                  ) : (
+                    <>
+                      Browse all {fullLibraryList.length} artifacts.{!result && (
+                        <>
+                          {' '}
+                          <button
+                            onClick={() => setActiveView('setup')}
+                            className="font-medium hover:underline"
+                            style={{ color: 'var(--ui-link)' }}
+                          >
+                            Upload an assessment
+                          </button>{' '}
+                          to see which apply to your PSAP and pre-fill them.
+                        </>
+                      )}
+                    </>
+                  )}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2 mt-4">
+                  <input
+                    type="search"
+                    value={librarySearch}
+                    onChange={e => setLibrarySearch(e.target.value)}
+                    placeholder="Search by name or type…"
+                    className="flex-1 px-3 py-2 text-sm rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-200"
+                    style={{ border: '1px solid var(--ui-border)' }}
+                  />
+                  <select
+                    value={libraryType}
+                    onChange={e => setLibraryType(e.target.value)}
+                    className="px-3 py-2 text-sm rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-200"
+                    style={{ border: '1px solid var(--ui-border)' }}
+                  >
+                    <option value="">All types</option>
+                    {libraryTypes.map(t => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="px-6 pb-6">
+                {renderFullLibrary()}
               </div>
             </div>
           )}
