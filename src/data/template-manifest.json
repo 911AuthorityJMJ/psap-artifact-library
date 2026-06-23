@@ -223,6 +223,14 @@
             "L"
         ]
     },
+    "A-052": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
     "A-057": {
         "form": "docx",
         "examples": [
@@ -241,6 +249,14 @@
     },
     "A-070": {
         "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-074": {
+        "form": "docx",
         "examples": [
             "S",
             "M",
@@ -351,6 +367,22 @@
             "L"
         ]
     },
+    "A-117": {
+        "form": "docx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-118": {
+        "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
     "A-148": {
         "form": "docx",
         "examples": [
@@ -377,6 +409,14 @@
     },
     "A-156": {
         "form": "xlsx",
+        "examples": [
+            "S",
+            "M",
+            "L"
+        ]
+    },
+    "A-165": {
+        "form": "docx",
         "examples": [
             "S",
             "M",
