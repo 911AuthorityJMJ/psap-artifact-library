@@ -15,17 +15,22 @@
  * reported as warnings so nothing is silently dropped.
  */
 
-import { readFileSync, writeFileSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, copyFileSync, mkdirSync, rmSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
+import { createHash } from 'crypto';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
-const FORMS_DIR     = join(ROOT, 'public/templates/forms');
+const FORMS_DIR     = join(ROOT, 'public/templates/forms');            // [bracket] masters (source + reference download)
+const COMPILED_DIR  = join(ROOT, 'public/templates/compiled/forms');   // {tag} builder copies (generated)
 const EXAMPLES_DIR  = join(ROOT, 'public/templates/examples');
 const MANIFEST_PATH = join(ROOT, 'src/data/template-manifest.json');
+const BUILD_META_PATH = join(COMPILED_DIR, '.build.json'); // per-form master hash → compile freshness
+
+const hashFile = (p) => createHash('sha256').update(readFileSync(p)).digest('hex');
 
 const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
@@ -60,6 +65,7 @@ function scanDir(dir, filter) {
 }
 
 const skipConvert = process.argv.includes('--no-convert');
+const reconvertAll = process.argv.includes('--reconvert-all');
 const CONVERT_SCRIPTS = {
   docx: join(__dirname, 'convert-template.mjs'),
   xlsx: join(__dirname, 'convert-template-xlsx.mjs'),
@@ -92,24 +98,54 @@ try {
   console.log('No existing manifest found — creating from scratch.');
 }
 
-// --- Convert new forms ---
-// A form is "new" if the manifest didn't previously record it as form: true
-const newFormIds = [...formIds].filter(id => !existing[id]?.form);
+// --- Compile [bracket] masters (forms/) into {tag} builder copies (compiled/) ---
+// Non-destructive: the master in forms/ is never modified. A docx compiles when its
+// compiled copy is missing OR the master's content hash changed since the last compile
+// — so a plain `sync-templates` picks up BOTH new and revised masters. --reconvert-all
+// forces every form through. Manual compiled-side edits (e.g. an authored {#loop}) must
+// live in the master to survive a recompile. xlsx has no compiled fill copy yet.
+mkdirSync(COMPILED_DIR, { recursive: true });
+let priorHashes = {};
+try { priorHashes = JSON.parse(readFileSync(BUILD_META_PATH, 'utf8')); } catch { /* first run — no prior hashes */ }
+const srcHash = new Map();
+for (const [id, { filename, ext }] of formFileMap) {
+  if (ext === 'docx') srcHash.set(id, hashFile(join(FORMS_DIR, filename)));
+}
+const formsToCompile = [...formIds].filter(id => {
+  const { filename, ext } = formFileMap.get(id);
+  if (ext !== 'docx') return false;
+  if (reconvertAll) return true;
+  if (!existsSync(join(COMPILED_DIR, filename))) return true; // missing → compile
+  if (!(id in priorHashes)) return false;                     // no baseline yet → trust existing compiled
+  return priorHashes[id] !== srcHash.get(id);                 // master content changed → recompile
+});
 
-if (!skipConvert && newFormIds.length) {
-  console.log(`\nConverting ${newFormIds.length} new form(s)...\n`);
-  for (const id of newFormIds) {
-    const { filename, ext } = formFileMap.get(id);
-    const filePath = join(FORMS_DIR, filename);
+if (!skipConvert && formsToCompile.length) {
+  console.log(`\nCompiling ${formsToCompile.length} master(s) → compiled/${reconvertAll ? ' (--reconvert-all)' : ''}...\n`);
+  for (const id of formsToCompile) {
+    const { filename } = formFileMap.get(id);
+    const dst = join(COMPILED_DIR, filename);
     console.log(`  ${id}: ${filename}`);
-    const result = spawnSync('node', [CONVERT_SCRIPTS[ext], filePath], { stdio: 'inherit' });
+    copyFileSync(join(FORMS_DIR, filename), dst); // copy the master, then convert the copy in place
+    const result = spawnSync('node', [CONVERT_SCRIPTS.docx, dst], { stdio: 'inherit' });
     if (result.status !== 0) {
-      console.error(`  Error converting ${id} — skipping manifest update for this entry.`);
-      formIds.delete(id); // exclude from manifest so it stays untracked until fixed
+      console.error(`  Error compiling ${id} — removing partial compiled copy, leaving it untracked.`);
+      try { rmSync(dst); } catch { /* ignore */ }
+      formIds.delete(id); // exclude from manifest so a broken form isn't offered
     }
   }
-} else if (skipConvert && newFormIds.length) {
-  console.log(`\nSkipping conversion for new form(s): ${newFormIds.join(', ')} (--no-convert)\n`);
+} else if (skipConvert && formsToCompile.length) {
+  console.log(`\nSkipping compile for form(s): ${formsToCompile.join(', ')} (--no-convert)\n`);
+}
+
+// Record the master hash each compiled copy was built from (drives the freshness
+// check above). Only forms whose compiled copy exists are recorded.
+if (!skipConvert) {
+  const newHashes = {};
+  for (const [id, h] of srcHash) {
+    if (formIds.has(id) && existsSync(join(COMPILED_DIR, formFileMap.get(id).filename))) newHashes[id] = h;
+  }
+  writeFileSync(BUILD_META_PATH, JSON.stringify(newHashes, null, 2) + '\n');
 }
 
 // --- Build updated manifest ---
@@ -152,6 +188,12 @@ const orphans = Object.keys(manifest).filter(
 );
 if (orphans.length) {
   console.log(`\n  Warning: entries with no files found: ${orphans.join(', ')}`);
+}
+
+// --- Lint templates (report mode; informational, never blocks the sync) ---
+if (!skipConvert) {
+  console.log('\nLinting templates (report mode)...');
+  spawnSync('node', [join(__dirname, 'lint-templates.mjs')], { stdio: 'inherit' });
 }
 
 console.log('');

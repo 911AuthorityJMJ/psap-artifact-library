@@ -72,6 +72,12 @@ interface ParseResult {
 
 const lv: Record<string, number> = { S: 1, M: 2, L: 3 };
 
+/** Fallback when the builder is opened from the Full Library with no assessment
+ *  uploaded — auto-fill fields simply start empty and are filled by hand. */
+const EMPTY_PSAP: PSAPInfo = {
+  name: '', address: '', cityZip: '', director: '', directorPhone: '', directorEmail: '',
+};
+
 export default function Home() {
   const [result, setResult] = useState<ParseResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -297,9 +303,9 @@ export default function Home() {
                             <>
                               <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
                                 className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                ↓ Blank Form
+                                ↓ Reference
                               </a>
-                              {result && (
+                              {manifest[artifact.id]?.form === 'docx' && (
                                 <button
                                   onClick={() => setBuilderArtifact(artifact)}
                                   className="text-xs font-medium text-emerald-600 hover:text-emerald-800">
@@ -507,13 +513,15 @@ export default function Home() {
                                       <>
                                         <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
                                           className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                          ↓ Blank Form
+                                          ↓ Reference
                                         </a>
-                                        <button
-                                          onClick={() => setBuilderArtifact(artifact)}
-                                          className="text-xs font-medium text-emerald-600 hover:text-emerald-800">
-                                          ✦ Build Document
-                                        </button>
+                                        {manifest[artifact.id]?.form === 'docx' && (
+                                          <button
+                                            onClick={() => setBuilderArtifact(artifact)}
+                                            className="text-xs font-medium text-emerald-600 hover:text-emerald-800">
+                                            ✦ Build Document
+                                          </button>
+                                        )}
                                       </>
                                     )}
                                     {(manifest[artifact.id]?.examples ?? []).includes(profile.baseline) && (
@@ -633,11 +641,11 @@ export default function Home() {
         </div>
       </main>
       
-      {builderArtifact && result && (
+      {builderArtifact && (
         <DocumentBuilder
           artifactId={builderArtifact.id}
           artifactName={builderArtifact.name}
-          psapInfo={result.psapInfo}
+          psapInfo={result?.psapInfo ?? EMPTY_PSAP}
           onClose={() => setBuilderArtifact(null)}
         />
       )}

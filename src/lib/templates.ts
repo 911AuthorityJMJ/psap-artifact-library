@@ -35,6 +35,10 @@ export function toFileNameStem(name: string): string {
  * Returns null (caller should answer 404) if any check fails. Because the
  * filename is rebuilt from trusted library data via `toFileNameStem`, no part
  * of the raw `id` can introduce path-traversal segments.
+ *
+ * Resolves the COMPILED ({tag}) copy under public/templates/compiled/forms/ —
+ * the builder's fill source. The readable [bracket] master in
+ * public/templates/forms/ is served separately as the reference download.
  */
 export function resolveFormTemplate(
   id: string,
@@ -47,6 +51,7 @@ export function resolveFormTemplate(
     process.cwd(),
     'public',
     'templates',
+    'compiled',
     'forms',
     `${id}-${toFileNameStem(artifact.name)}-FORM.docx`,
   );
@@ -68,4 +73,31 @@ type TagReader = { getTags: () => { document?: { tags: Record<string, unknown> }
 export function getDocumentTagNames(doc: unknown): string[] {
   const raw = (doc as TagReader).getTags();
   return Object.keys(raw.document?.tags ?? {});
+}
+
+/**
+ * A form's fillable shape, split into scalar fields and loop sections.
+ * docxtemplater's getTags() nests a loop's sub-tags under the loop tag, so a tag
+ * whose value has >= 1 own keys is a loop (its keys are the per-row sub-fields)
+ * and an empty-object value is a plain scalar. Verified against the installed
+ * docxtemplater get-tags implementation. Loops therefore need >= 1 inner tag;
+ * an empty `{#x}{/x}` section (no inner tags) reads as a scalar, which is fine.
+ */
+export interface DocumentSchema {
+  /** scalar tag names, in document order */
+  scalars: string[];
+  /** loop section tag -> its per-row sub-field tag names */
+  loops: Record<string, string[]>;
+}
+
+export function getDocumentSchema(doc: unknown): DocumentSchema {
+  const tags = (doc as TagReader).getTags().document?.tags ?? {};
+  const scalars: string[] = [];
+  const loops: Record<string, string[]> = {};
+  for (const [name, value] of Object.entries(tags)) {
+    const sub = Object.keys((value ?? {}) as Record<string, unknown>);
+    if (sub.length) loops[name] = sub;
+    else scalars.push(name);
+  }
+  return { scalars, loops };
 }

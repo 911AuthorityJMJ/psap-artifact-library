@@ -2,33 +2,115 @@ import { NextRequest, NextResponse } from 'next/server';
 import { readFileSync } from 'fs';
 import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
-import { resolveFormTemplate, getDocumentTagNames, toFileNameStem } from '@/lib/templates';
+import { resolveFormTemplate, getDocumentSchema, toFileNameStem, type DocumentSchema } from '@/lib/templates';
+import { resolveLoopById } from '@/lib/field-registry.mjs';
 import { requireAuth } from '@/lib/auth';
 import { enforceRateLimit } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 
-/** Reject obviously oversized JSON bodies before buffering them. A document's
- *  worth of short form fields is well under this. */
+/** Reject oversized JSON bodies while reading, before buffering the whole thing. */
 const MAX_BODY_BYTES = 64 * 1024;
 /** Cap any single field so one giant value can't bloat the rendered document. */
 const MAX_FIELD_LEN = 5_000;
+/** Rows per loop when the loop declares no maxRows. */
+const DEFAULT_MAX_ROWS = 50;
+/** Hard ceiling on rows per loop, regardless of the loop's declared maxRows. */
+const MAX_ROWS_CEILING = 500;
+/** Global cap across all loop cells, independent of any per-loop cap. */
+const MAX_TOTAL_LEAVES = 2_000;
+
+type FieldValue = string | Array<Record<string, string>>;
+
+type ParsedBody =
+  | { ok: true; value: unknown }
+  | { ok: false; status: number; error: string };
 
 /**
- * Keep only the fields the template actually declares, coerce scalar values to
- * strings, and cap their length. Anything the template doesn't expose — and any
- * non-scalar value (objects/arrays/null) — is dropped, so the client cannot
- * push unexpected data into the renderer. Absent tags are handled by nullGetter.
+ * Read and JSON-parse the request body while enforcing MAX_BODY_BYTES during the
+ * read — so a request with no/chunked Content-Length can't bypass the size guard
+ * and stream an unbounded body into memory.
  */
-function sanitizeFields(raw: unknown, allowed: string[]): Record<string, string> {
-  const out: Record<string, string> = {};
+async function readJsonBounded(request: NextRequest, maxBytes: number): Promise<ParsedBody> {
+  const declared = Number(request.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > maxBytes) {
+    return { ok: false, status: 413, error: 'Request body too large' };
+  }
+  const body = request.body;
+  if (!body) {
+    try { return { ok: true, value: await request.json() }; }
+    catch { return { ok: false, status: 400, error: 'Invalid request body' }; }
+  }
+  const reader = body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel();
+      return { ok: false, status: 413, error: 'Request body too large' };
+    }
+    chunks.push(value);
+  }
+  try {
+    return { ok: true, value: JSON.parse(Buffer.concat(chunks.map((c) => Buffer.from(c))).toString('utf8')) };
+  } catch {
+    return { ok: false, status: 400, error: 'Invalid request body' };
+  }
+}
+
+/** Accept only scalar primitives; coerce to a length-capped string, else null. */
+function coerceScalar(v: unknown): string | null {
+  if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
+    return String(v).slice(0, MAX_FIELD_LEN);
+  }
+  return null;
+}
+
+/**
+ * Keep only what the template declares, and only as scalars — extended to loops:
+ * a loop tag accepts an array of flat rows, each row keyed to that loop's declared
+ * sub-fields, every leaf a length-capped scalar. Arrays are bounded (MAX_ROWS,
+ * MAX_TOTAL_LEAVES) and object depth is fixed at 1, so no nested/non-scalar value
+ * ever reaches the renderer — preserving the pre-loop security invariant. Absent
+ * tags are handled by nullGetter.
+ */
+function sanitizeFields(raw: unknown, schema: DocumentSchema): Record<string, FieldValue> {
+  const out: Record<string, FieldValue> = {};
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return out;
   const obj = raw as Record<string, unknown>;
-  for (const key of allowed) {
-    const v = obj[key];
-    if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
-      out[key] = String(v).slice(0, MAX_FIELD_LEN);
+
+  for (const key of schema.scalars) {
+    const s = coerceScalar(obj[key]);
+    if (s !== null) out[key] = s;
+  }
+
+  let budget = MAX_TOTAL_LEAVES;
+  for (const [loop, subFields] of Object.entries(schema.loops)) {
+    const arr = obj[loop];
+    if (!Array.isArray(arr)) continue;
+    // Honor the loop's declared maxRows (single source of truth with the UI),
+    // clamped to a hard ceiling so the UI never accepts more than we render.
+    const cap = Math.min(resolveLoopById(loop)?.maxRows ?? DEFAULT_MAX_ROWS, MAX_ROWS_CEILING);
+    const rows: Array<Record<string, string>> = [];
+    for (const rowRaw of arr.slice(0, cap)) {
+      if (!rowRaw || typeof rowRaw !== 'object' || Array.isArray(rowRaw)) continue;
+      const rowObj = rowRaw as Record<string, unknown>;
+      const clean: Record<string, string> = {};
+      for (const sf of subFields) {
+        if (budget <= 0) break;
+        const s = coerceScalar(rowObj[sf]);
+        if (s !== null) {
+          clean[sf] = s;
+          budget--;
+        }
+      }
+      // Drop all-empty rows so a seeded / untouched loop emits no blank row.
+      if (Object.values(clean).some((v) => v.trim() !== '')) rows.push(clean);
     }
+    out[loop] = rows;
   }
   return out;
 }
@@ -52,18 +134,11 @@ export async function POST(
     }
     const { artifact, templatePath } = resolved;
 
-    const contentLength = Number(request.headers.get('content-length'));
-    if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
-      return NextResponse.json({ error: 'Request body too large' }, { status: 413 });
+    const parsed = await readJsonBounded(request, MAX_BODY_BYTES);
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: parsed.status });
     }
-
-    let rawBody: unknown;
-    try {
-      rawBody = await request.json();
-    } catch {
-      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
-    }
-    const rawFields = (rawBody as { fields?: unknown } | null)?.fields;
+    const rawFields = (parsed.value as { fields?: unknown } | null)?.fields;
 
     const buf = readFileSync(templatePath);
     const zip = new PizZip(buf);
@@ -74,7 +149,7 @@ export async function POST(
       nullGetter() { return ''; },
     });
 
-    const fields = sanitizeFields(rawFields, getDocumentTagNames(doc));
+    const fields = sanitizeFields(rawFields, getDocumentSchema(doc));
     doc.render(fields);
 
     const outputBuf = doc.toUint8Array();

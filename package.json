@@ -5,10 +5,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3002",
+    "prebuild": "node scripts/lint-templates.mjs --strict",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync-templates": "node scripts/sync-templates.js"
+    "sync-templates": "node scripts/sync-templates.js",
+    "lint:templates": "node scripts/lint-templates.mjs",
+    "lint:templates:strict": "node scripts/lint-templates.mjs --strict"
   },
   "dependencies": {
     "docxtemplater": "^3.68.7",
