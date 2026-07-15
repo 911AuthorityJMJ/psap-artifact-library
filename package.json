@@ -19,7 +19,7 @@
     "pizzip": "^3.2.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+    "xlsx": "npm:@e965/xlsx@0.20.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -30,5 +30,10 @@
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "8.5.10"
+    }
   }
 }
