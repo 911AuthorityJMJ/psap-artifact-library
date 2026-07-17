@@ -28,10 +28,10 @@ export default function RootLayout({
               <Image
                 src="/logo-911authority.png"
                 alt="911 Authority"
-                height={28}
-                width={104}
+                width={195}
+                height={83}
                 className="block"
-                style={{ height: 28, width: 'auto', maxWidth: 104 }}
+                style={{ height: 28, width: 'auto' }}
               />
             </span>
           </div>
