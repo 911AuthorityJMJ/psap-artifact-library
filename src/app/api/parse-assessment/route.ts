@@ -15,13 +15,18 @@ const GAP_RATINGS = new Set(['NO', 'IN PROGRESS', 'PLANNED', 'UNKNOWN']);
 /** A routine assessment matrix is ~125 KB; cap well above that. The .xlsx is a
  *  zip, so an unbounded upload is a decompression-bomb / memory-exhaustion risk. */
 const MAX_FILE_BYTES = 250 * 1024;
+
 /** Early gate on the raw request before buffering it; leaves room for the
  *  multipart envelope around a max-size file. */
 const MAX_BODY_BYTES = MAX_FILE_BYTES + 16 * 1024;
 
 export async function POST(request: NextRequest) {
   try {
-    const limited = enforceRateLimit(request, { name: 'parse-assessment', limit: 30, windowMs: 5 * 60_000 });
+    const limited = enforceRateLimit(request, {
+      name: 'parse-assessment',
+      limit: 30,
+      windowMs: 5 * 60_000,
+    });
     if (limited) return limited;
 
     const auth = requireAuth(request);
@@ -72,12 +77,12 @@ export async function POST(request: NextRequest) {
 
     const psapInfoData = XLSX.utils.sheet_to_json<XlsxRow>(psapInfoSheet, { header: 1 });
     const psapInfo = {
-        name:          (psapInfoData[0]?.[2] as string) ?? '',
-        address:       (psapInfoData[1]?.[2] as string) ?? '',
-        cityZip:       (psapInfoData[2]?.[2] as string) ?? '',
-        director:      (psapInfoData[4]?.[2] as string) ?? '',
-        directorPhone: (psapInfoData[5]?.[2] as string) ?? '',
-        directorEmail: (psapInfoData[6]?.[2] as string) ?? '',
+      name: (psapInfoData[0]?.[2] as string) ?? '',
+      address: (psapInfoData[1]?.[2] as string) ?? '',
+      cityZip: (psapInfoData[2]?.[2] as string) ?? '',
+      director: (psapInfoData[4]?.[2] as string) ?? '',
+      directorPhone: (psapInfoData[5]?.[2] as string) ?? '',
+      directorEmail: (psapInfoData[6]?.[2] as string) ?? '',
     };
 
     // Parse Question Set for gaps
@@ -115,7 +120,8 @@ export async function POST(request: NextRequest) {
 
       // Question row: col[0] matches ID pattern (e.g. 1A-1, 2B-3)
       if (col0 && typeof col0 === 'string' && /^\d+[A-Z]-\d+$/.test(col0)) {
-        const ratingNorm = typeof rating === 'string' ? rating.replace(/\s+/g, ' ').trim().toUpperCase() : '';
+        const ratingNorm =
+          typeof rating === 'string' ? rating.replace(/\s+/g, ' ').trim().toUpperCase() : '';
         if (GAP_RATINGS.has(ratingNorm)) {
           gaps.push({ id: col0, rating: ratingNorm, domain: currentDomain, category: currentCategory });
         }
@@ -123,15 +129,14 @@ export async function POST(request: NextRequest) {
     }
 
     const enrichedGaps = gaps.map(gap => {
-        const trace = traceabilityData.questionMap[gap.id as keyof typeof traceabilityData.questionMap];
-        const artifacts = (trace?.artifactIds ?? [])
+      const trace = traceabilityData.questionMap[gap.id as keyof typeof traceabilityData.questionMap];
+      const artifacts = (trace?.artifactIds ?? [])
         .map(id => traceabilityData.artifactMap[id as keyof typeof traceabilityData.artifactMap])
         .filter(Boolean);
-        return { ...gap, artifacts };
-        });
+      return { ...gap, artifacts };
+    });
 
-return NextResponse.json({ psapInfo, gaps: enrichedGaps, totalGaps: enrichedGaps.length });
-
+    return NextResponse.json({ psapInfo, gaps: enrichedGaps, totalGaps: enrichedGaps.length });
   } catch (error) {
     console.error('Parse error:', error);
     return NextResponse.json({ error: 'Failed to parse file' }, { status: 500 });
