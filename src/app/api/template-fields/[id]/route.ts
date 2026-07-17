@@ -4,6 +4,7 @@ import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
 import { resolveFormTemplate, getDocumentSchema } from '@/lib/templates';
 import { resolveFieldById, resolveFieldForTag, resolveLoopById, humanizeTag } from '@/lib/field-registry.mjs';
+import { effectiveMaxRows } from '@/lib/loop-limits';
 import { buildDocxView } from '@/lib/docx-view.mjs';
 import type { BuilderField, LoopSubField, TemplateSection } from '@/lib/builder-types';
 import { requireAuth } from '@/lib/auth';
@@ -86,14 +87,17 @@ export async function GET(
       });
     }
 
-    // Then repeating loop sections.
+    // Then repeating loop sections. maxRows is ALWAYS sent, mirroring the cap
+    // the generator enforces (loop-limits), so the builder can't offer rows
+    // that generate-document would silently drop — including for loops with no
+    // registry entry yet.
     for (const [name, subIds] of Object.entries(schema.loops)) {
       const loop = resolveLoopById(name);
       flat.push({
         kind: 'loop',
         name,
         label: loop?.label ?? docLabels[name] ?? humanizeTag(name),
-        ...(loop?.maxRows ? { maxRows: loop.maxRows } : {}),
+        maxRows: effectiveMaxRows(loop?.maxRows),
         fields: subIds.map((subId) => buildSubField(loop?.fields, subId)),
       });
     }

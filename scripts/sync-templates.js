@@ -20,6 +20,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 import { createHash } from 'crypto';
+import { toFileNameStem } from '../src/lib/file-naming.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -28,19 +29,42 @@ const FORMS_DIR     = join(ROOT, 'public/templates/forms');            // [brack
 const COMPILED_DIR  = join(ROOT, 'public/templates/compiled/forms');   // {tag} builder copies (generated)
 const EXAMPLES_DIR  = join(ROOT, 'public/templates/examples');
 const MANIFEST_PATH = join(ROOT, 'src/data/template-manifest.json');
+const TRACEABILITY_PATH = join(ROOT, 'src/data/traceability.json');
 const BUILD_META_PATH = join(COMPILED_DIR, '.build.json'); // per-form master hash → compile freshness
 
 const hashFile = (p) => createHash('sha256').update(readFileSync(p)).digest('hex');
 
-const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+/** The only example sizes the library ships. Files with any other size marker
+ *  are reported and excluded — the UI's size labels only know these three. */
+const SIZE_ORDER = ['S', 'M', 'L'];
 
 function sizeSort(a, b) {
-  const ia = SIZE_ORDER.indexOf(a);
-  const ib = SIZE_ORDER.indexOf(b);
-  if (ia !== -1 && ib !== -1) return ia - ib;
-  if (ia !== -1) return -1;
-  if (ib !== -1) return 1;
-  return a.localeCompare(b);
+  return SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b);
+}
+
+// Artifact names drive the file stems the app builds URLs from (file-naming.mjs),
+// so every scanned file's stem must EXACTLY match its artifact's derived stem —
+// a hand-typed name that differs only in case works on macOS but 404s on Linux.
+const artifactNames = (() => {
+  try {
+    const trace = JSON.parse(readFileSync(TRACEABILITY_PATH, 'utf8'));
+    return new Map(Object.entries(trace.artifactMap).map(([id, a]) => [id, a.name]));
+  } catch {
+    console.warn('Warning: could not read traceability.json — skipping stem validation.');
+    return new Map();
+  }
+})();
+
+const stemErrors = [];
+function checkStem(dirLabel, filename, id, marker) {
+  const name = artifactNames.get(id);
+  if (!name) return; // artifact unknown to the library — nothing to validate against
+  const expected = toFileNameStem(name);
+  const m = filename.match(new RegExp(`^${id}-(.+)-${marker}`));
+  const actual = m?.[1];
+  if (actual !== undefined && actual !== expected) {
+    stemErrors.push(`${dirLabel}/${filename}: stem "${actual}" ≠ "${expected}" (from "${name}") — the app's links to this file will 404`);
+  }
 }
 
 function extractId(filename) {
@@ -77,17 +101,30 @@ const formFileMap = new Map(); // id -> { filename, ext }
 for (const file of formFiles) {
   const id  = extractId(file);
   const ext = file.match(/\.(docx|xlsx)$/i)?.[1].toLowerCase();
-  if (id && ext) formFileMap.set(id, { filename: file, ext });
+  if (id && ext) {
+    formFileMap.set(id, { filename: file, ext });
+    checkStem('forms', file, id, 'FORM\\.');
+  }
 }
 const formIds = new Set(formFileMap.keys());
 
 const exampleMap = new Map(); // id -> Set<size>
+const exampleExtMap = new Map(); // id -> Set<ext> (should be exactly one per artifact)
+const unknownSizes = [];
 for (const file of scanDir(EXAMPLES_DIR, f => /-EXAMPLE-/i.test(f))) {
   const id   = extractId(file);
   const size = extractSize(file);
   if (!id || !size) continue;
+  if (!SIZE_ORDER.includes(size)) { unknownSizes.push(file); continue; }
+  checkStem('examples', file, id, 'EXAMPLE-');
   if (!exampleMap.has(id)) exampleMap.set(id, new Set());
   exampleMap.get(id).add(size);
+  const ext = file.match(/\.(docx|xlsx)$/i)?.[1].toLowerCase();
+  if (!exampleExtMap.has(id)) exampleExtMap.set(id, new Set());
+  exampleExtMap.get(id).add(ext);
+}
+if (unknownSizes.length) {
+  console.warn(`Warning: examples with sizes other than ${SIZE_ORDER.join('/')} were skipped: ${unknownSizes.join(', ')}`);
 }
 
 // --- Load existing manifest ---
@@ -116,7 +153,10 @@ const formsToCompile = [...formIds].filter(id => {
   if (ext !== 'docx') return false;
   if (reconvertAll) return true;
   if (!existsSync(join(COMPILED_DIR, filename))) return true; // missing → compile
-  if (!(id in priorHashes)) return false;                     // no baseline yet → trust existing compiled
+  // No recorded baseline → the compiled copy's source is unknown, so recompile
+  // rather than trust it. (Recording the CURRENT master hash against an older
+  // compiled copy would permanently mask a master edit made in the gap.)
+  if (!(id in priorHashes)) return true;
   return priorHashes[id] !== srcHash.get(id);                 // master content changed → recompile
 });
 
@@ -153,11 +193,18 @@ const allIds = new Set([...Object.keys(existing), ...formIds, ...exampleMap.keys
 const manifest = {};
 
 for (const id of [...allIds].sort()) {
+  const exts = exampleExtMap.get(id);
+  if (exts && exts.size > 1) {
+    console.warn(`Warning: ${id} has examples with MIXED extensions (${[...exts].join(', ')}) — the app assumes one per artifact.`);
+  }
   manifest[id] = {
     form:     formIds.has(id) ? formFileMap.get(id).ext : false,
     examples: exampleMap.has(id)
       ? [...exampleMap.get(id)].sort(sizeSort)
       : [],
+    // The extension the app must use when building example URLs (docx and
+    // xlsx artifacts ship examples in their own format).
+    ...(exts ? { exampleExt: [...exts].sort()[0] } : {}),
   };
 }
 
@@ -194,6 +241,14 @@ if (orphans.length) {
 if (!skipConvert) {
   console.log('\nLinting templates (report mode)...');
   spawnSync('node', [join(__dirname, 'lint-templates.mjs')], { stdio: 'inherit' });
+}
+
+// --- Stem validation results (after everything else so they're not missed) ---
+if (stemErrors.length) {
+  console.error(`\nERROR: ${stemErrors.length} file(s) whose names don't match their artifact's derived stem:`);
+  for (const e of stemErrors) console.error(`  ${e}`);
+  console.error('  Rename the file(s) to the derived stem (see src/lib/file-naming.mjs).');
+  process.exit(1);
 }
 
 console.log('');

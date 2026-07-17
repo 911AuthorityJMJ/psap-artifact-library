@@ -4,19 +4,19 @@ import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
 import { resolveFormTemplate, getDocumentSchema, toFileNameStem, type DocumentSchema } from '@/lib/templates';
 import { resolveLoopById } from '@/lib/field-registry.mjs';
+import { effectiveMaxRows } from '@/lib/loop-limits';
+import { readBodyBounded } from '@/lib/bounded-body';
 import { requireAuth } from '@/lib/auth';
 import { enforceRateLimit } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 
-/** Reject oversized JSON bodies while reading, before buffering the whole thing. */
-const MAX_BODY_BYTES = 64 * 1024;
+/** Reject oversized JSON bodies while reading, before buffering the whole thing.
+ *  Sized so a legitimately loop-heavy document (100 rows of long textarea cells)
+ *  fits with room to spare, while still bounding memory per request. */
+const MAX_BODY_BYTES = 256 * 1024;
 /** Cap any single field so one giant value can't bloat the rendered document. */
 const MAX_FIELD_LEN = 5_000;
-/** Rows per loop when the loop declares no maxRows. */
-const DEFAULT_MAX_ROWS = 50;
-/** Hard ceiling on rows per loop, regardless of the loop's declared maxRows. */
-const MAX_ROWS_CEILING = 500;
 /** Global cap across all loop cells, independent of any per-loop cap. */
 const MAX_TOTAL_LEAVES = 2_000;
 
@@ -32,30 +32,10 @@ type ParsedBody =
  * and stream an unbounded body into memory.
  */
 async function readJsonBounded(request: NextRequest, maxBytes: number): Promise<ParsedBody> {
-  const declared = Number(request.headers.get('content-length'));
-  if (Number.isFinite(declared) && declared > maxBytes) {
-    return { ok: false, status: 413, error: 'Request body too large' };
-  }
-  const body = request.body;
-  if (!body) {
-    try { return { ok: true, value: await request.json() }; }
-    catch { return { ok: false, status: 400, error: 'Invalid request body' }; }
-  }
-  const reader = body.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    total += value.byteLength;
-    if (total > maxBytes) {
-      await reader.cancel();
-      return { ok: false, status: 413, error: 'Request body too large' };
-    }
-    chunks.push(value);
-  }
+  const body = await readBodyBounded(request, maxBytes);
+  if (!body.ok) return body;
   try {
-    return { ok: true, value: JSON.parse(Buffer.concat(chunks.map((c) => Buffer.from(c))).toString('utf8')) };
+    return { ok: true, value: JSON.parse(body.bytes.toString('utf8')) };
   } catch {
     return { ok: false, status: 400, error: 'Invalid request body' };
   }
@@ -93,7 +73,7 @@ function sanitizeFields(raw: unknown, schema: DocumentSchema): Record<string, Fi
     if (!Array.isArray(arr)) continue;
     // Honor the loop's declared maxRows (single source of truth with the UI),
     // clamped to a hard ceiling so the UI never accepts more than we render.
-    const cap = Math.min(resolveLoopById(loop)?.maxRows ?? DEFAULT_MAX_ROWS, MAX_ROWS_CEILING);
+    const cap = effectiveMaxRows(resolveLoopById(loop)?.maxRows);
     const rows: Array<Record<string, string>> = [];
     for (const rowRaw of arr.slice(0, cap)) {
       if (!rowRaw || typeof rowRaw !== 'object' || Array.isArray(rowRaw)) continue;

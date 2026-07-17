@@ -5,7 +5,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-002": {
         "form": "docx",
@@ -13,7 +14,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-003": {
         "form": "xlsx",
@@ -21,7 +23,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-004": {
         "form": "xlsx",
@@ -29,7 +32,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-005": {
         "form": "xlsx",
@@ -37,7 +41,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-006": {
         "form": "docx",
@@ -45,7 +50,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-007": {
         "form": "docx",
@@ -53,7 +59,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-008": {
         "form": "docx",
@@ -61,7 +68,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-009": {
         "form": "xlsx",
@@ -69,7 +77,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-010": {
         "form": "docx",
@@ -77,7 +86,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-012": {
         "form": "docx",
@@ -85,7 +95,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-014": {
         "form": "docx",
@@ -93,7 +104,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-023": {
         "form": "docx",
@@ -101,7 +113,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-024": {
         "form": "docx",
@@ -109,7 +122,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-025": {
         "form": "docx",
@@ -117,7 +131,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-027": {
         "form": "xlsx",
@@ -125,7 +140,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-028": {
         "form": "docx",
@@ -133,7 +149,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-029": {
         "form": "xlsx",
@@ -141,7 +158,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-030": {
         "form": "docx",
@@ -149,7 +167,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-031": {
         "form": "xlsx",
@@ -157,7 +176,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-032": {
         "form": "docx",
@@ -165,7 +185,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-033": {
         "form": "xlsx",
@@ -173,7 +194,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-035": {
         "form": "xlsx",
@@ -181,7 +203,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-038": {
         "form": "xlsx",
@@ -189,7 +212,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-039": {
         "form": "docx",
@@ -197,7 +221,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-043": {
         "form": "xlsx",
@@ -205,7 +230,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-044": {
         "form": "xlsx",
@@ -213,7 +239,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-050": {
         "form": "docx",
@@ -221,7 +248,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-052": {
         "form": "docx",
@@ -229,7 +257,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-057": {
         "form": "docx",
@@ -237,7 +266,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-069": {
         "form": "docx",
@@ -245,7 +275,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-070": {
         "form": "xlsx",
@@ -253,7 +284,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-074": {
         "form": "docx",
@@ -261,7 +293,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-079": {
         "form": "xlsx",
@@ -269,7 +302,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-080": {
         "form": "docx",
@@ -277,7 +311,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-083": {
         "form": "xlsx",
@@ -285,7 +320,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-086": {
         "form": "docx",
@@ -293,7 +329,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-088": {
         "form": "docx",
@@ -301,7 +338,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-089": {
         "form": "docx",
@@ -309,7 +347,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-090": {
         "form": "xlsx",
@@ -317,7 +356,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-091": {
         "form": "xlsx",
@@ -325,7 +365,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-092": {
         "form": "docx",
@@ -333,7 +374,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-093": {
         "form": "docx",
@@ -341,7 +383,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-094": {
         "form": "xlsx",
@@ -349,7 +392,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-099": {
         "form": "docx",
@@ -357,7 +401,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-102": {
         "form": "docx",
@@ -365,7 +410,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-117": {
         "form": "docx",
@@ -373,7 +419,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-118": {
         "form": "xlsx",
@@ -381,7 +428,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-148": {
         "form": "docx",
@@ -389,7 +437,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-150": {
         "form": "xlsx",
@@ -397,7 +446,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-155": {
         "form": "docx",
@@ -405,7 +455,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-156": {
         "form": "xlsx",
@@ -413,7 +464,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     },
     "A-165": {
         "form": "docx",
@@ -421,7 +473,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-172": {
         "form": "docx",
@@ -429,7 +482,8 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "docx"
     },
     "A-173": {
         "form": "xlsx",
@@ -437,6 +491,7 @@
             "S",
             "M",
             "L"
-        ]
+        ],
+        "exampleExt": "xlsx"
     }
 }

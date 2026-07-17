@@ -7,8 +7,16 @@ import exceptionData from '@/data/exception-map.json';
 import traceabilityData from '@/data/traceability.json';
 import tierMapData from '@/data/tier-map.json';
 import manifestData from '@/data/template-manifest.json';
+import { toFileNameStem } from '@/lib/file-naming.mjs';
 
-const manifest = manifestData as Record<string, { form: 'docx' | 'xlsx' | false; examples: string[] }>;
+interface ManifestEntry {
+  form: 'docx' | 'xlsx' | false;
+  examples: string[];
+  /** File extension shared by this artifact's example files. */
+  exampleExt?: 'docx' | 'xlsx';
+}
+
+const manifest = manifestData as Record<string, ManifestEntry>;
 
 const TIER_COLORS: Record<number, { text: string; muted: string }> = {
   1: { text: '#3730A3', muted: '#6D5BD0' },
@@ -19,22 +27,13 @@ const TIER_COLORS: Record<number, { text: string; muted: string }> = {
   6: { text: '#365314', muted: '#4D7C0F' },
 };
 
-function toFileNameStem(name: string): string {
-  return name
-    .replace(/\s*\([^)]*\)/g, '')
-    .replace(/[^a-zA-Z0-9\s]/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean)
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-    .join('');
-}
-
 function getFormUrl(id: string, name: string, ext: string): string {
   return `/templates/forms/${id}-${toFileNameStem(name)}-FORM.${ext}`;
 }
 
 function getExampleUrl(id: string, name: string, profile: string): string {
-  return `/templates/examples/${id}-${toFileNameStem(name)}-EXAMPLE-${profile}.docx`;
+  const ext = manifest[id]?.exampleExt ?? 'docx';
+  return `/templates/examples/${id}-${toFileNameStem(name)}-EXAMPLE-${profile}.${ext}`;
 }
 
 /**
@@ -177,6 +176,9 @@ export default function Home() {
   
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
+    // Clear the input so selecting the same file again (e.g. after fixing it
+    // in Excel) still fires a change event.
+    e.target.value = '';
     if (file) handleUpload(file);
   }
   
@@ -528,7 +530,7 @@ export default function Home() {
               <div className="px-6 pt-6 pb-0">
                 <h2 className="text-lg font-semibold text-gray-900 mb-1">Assessment Gaps</h2>
                 <p className="text-gray-500 text-sm mb-4">
-                  {result.totalGaps} questions rated NO, PLANNED, or UNKNOWN —{' '}
+                  {result.totalGaps} questions rated NO, IN PROGRESS, PLANNED, or UNKNOWN —{' '}
                   {artifactBuildList.length} artifacts with gaps · {fullLibraryList.length} total
                 </p>
                 <div className="flex gap-1 border-b" style={{ borderColor: 'var(--ui-border)' }}>
@@ -630,6 +632,7 @@ export default function Home() {
                                     <span className={`text-xs font-semibold px-2 py-0.5 rounded shrink-0 ${
                                       gap.rating === 'NO' ? 'bg-red-100 text-red-700'
                                       : gap.rating === 'PLANNED' ? 'bg-yellow-100 text-yellow-700'
+                                      : gap.rating === 'IN PROGRESS' ? 'bg-sky-100 text-sky-700'
                                           : 'bg-gray-100 text-gray-600'
                                       }`}>{gap.rating}</span>
                                     <span className="text-gray-600">{gap.category}</span>

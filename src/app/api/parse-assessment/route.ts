@@ -3,8 +3,14 @@ import * as XLSX from 'xlsx';
 import traceabilityData from '@/data/traceability.json';
 import { requireAuth } from '@/lib/auth';
 import { enforceRateLimit } from '@/lib/rate-limit';
+import { readBodyBounded } from '@/lib/bounded-body';
 
 type XlsxRow = (string | number | boolean | null | undefined)[];
+
+/** Ratings that count as a gap. IN PROGRESS is included deliberately: work
+ *  that has started but isn't finished is still a gap (a lesser one — the UI
+ *  badges it distinctly). YES and NOT APPLICABLE are the only non-gaps. */
+const GAP_RATINGS = new Set(['NO', 'IN PROGRESS', 'PLANNED', 'UNKNOWN']);
 
 /** A routine assessment matrix is ~125 KB; cap well above that. The .xlsx is a
  *  zip, so an unbounded upload is a decompression-bomb / memory-exhaustion risk. */
@@ -21,12 +27,23 @@ export async function POST(request: NextRequest) {
     const auth = requireAuth(request);
     if (auth instanceof NextResponse) return auth;
 
-    const contentLength = Number(request.headers.get('content-length'));
-    if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
-      return NextResponse.json({ error: 'File too large (250 KB max)' }, { status: 413 });
+    // Buffer the multipart body with the size cap enforced DURING the read —
+    // request.formData() alone would buffer an unbounded chunked body (no
+    // Content-Length) into memory before any check could run.
+    const body = await readBodyBounded(request, MAX_BODY_BYTES);
+    if (!body.ok) {
+      return NextResponse.json({ error: 'File too large (250 KB max)' }, { status: body.status });
     }
 
-    const formData = await request.formData();
+    let formData: FormData;
+    try {
+      // (Buffer is a Uint8Array at runtime; TS's BodyInit just doesn't know it.)
+      formData = await new Response(body.bytes as unknown as BodyInit, {
+        headers: { 'content-type': request.headers.get('content-type') ?? '' },
+      }).formData();
+    } catch {
+      return NextResponse.json({ error: 'Invalid form data' }, { status: 400 });
+    }
     const file = formData.get('file');
 
     if (!(file instanceof File)) {
@@ -98,8 +115,8 @@ export async function POST(request: NextRequest) {
 
       // Question row: col[0] matches ID pattern (e.g. 1A-1, 2B-3)
       if (col0 && typeof col0 === 'string' && /^\d+[A-Z]-\d+$/.test(col0)) {
-        const ratingNorm = typeof rating === 'string' ? rating.trim().toUpperCase() : '';
-        if (ratingNorm === 'NO' || ratingNorm === 'PLANNED' || ratingNorm === 'UNKNOWN') {
+        const ratingNorm = typeof rating === 'string' ? rating.replace(/\s+/g, ' ').trim().toUpperCase() : '';
+        if (GAP_RATINGS.has(ratingNorm)) {
           gaps.push({ id: col0, rating: ratingNorm, domain: currentDomain, category: currentCategory });
         }
       }

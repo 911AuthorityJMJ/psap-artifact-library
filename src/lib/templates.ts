@@ -1,6 +1,9 @@
 import { existsSync } from 'fs';
 import path from 'path';
 import traceabilityData from '@/data/traceability.json';
+import { toFileNameStem } from '@/lib/file-naming.mjs';
+
+export { toFileNameStem };
 
 export interface Artifact {
   id: string;
@@ -11,16 +14,6 @@ const artifactMap = traceabilityData.artifactMap as Record<string, Artifact>;
 
 /** Every artifact id in the library has the shape "A-002" / "A-172". */
 const ARTIFACT_ID_RE = /^[A-Za-z]+-\d+$/;
-
-export function toFileNameStem(name: string): string {
-  return name
-    .replace(/\s*\([^)]*\)/g, '')
-    .replace(/[^a-zA-Z0-9\s]/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean)
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-    .join('');
-}
 
 /**
  * Resolve the on-disk FORM (.docx) template for an artifact id.

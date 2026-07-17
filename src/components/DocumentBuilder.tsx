@@ -35,8 +35,10 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
   const [sections, setSections] = useState<TemplateSection[]>([]);
   const [previewHtml, setPreviewHtml] = useState('');
   const [values, setValues] = useState<Values>({});
+  const [loaded, setLoaded] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [generating, setGenerating] = useState(false);
+  const [generateError, setGenerateError] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,12 +57,15 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
               initial[f.name] = [emptyRow(f)];
             } else {
               let v = f.autoFill ? (psapInfo[f.autoFill] ?? '') : '';
-              if (f.name === 'version' && !v) v = '1.0';
+              // Repeated [#] cells disambiguate to version, version2, … — all
+              // of them mean a document version, so all default to 1.0.
+              if (/^version\d*$/.test(f.name) && !v) v = '1.0';
               initial[f.name] = v;
             }
           }
         }
         setValues(initial);
+        setLoaded(true);
       })
       .catch(() => setLoadError('Failed to load template fields'));
   }, [artifactId, psapInfo]);
@@ -151,6 +156,7 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
 
   async function handleGenerate() {
     setGenerating(true);
+    setGenerateError(null);
     try {
       const response = await fetch(`/api/generate-document/${artifactId}`, {
         method: 'POST',
@@ -158,8 +164,10 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
         body: JSON.stringify({ fields: values }),
       });
       if (!response.ok) {
-        const err = await response.json();
-        alert(err.error ?? 'Generation failed');
+        // The error body may not be JSON (proxy / gateway pages) — don't let
+        // parsing it eat the real failure.
+        const err = await response.json().catch(() => null);
+        setGenerateError(err?.error ?? `Generation failed (HTTP ${response.status}). Please try again.`);
         return;
       }
       const blob = await response.blob();
@@ -171,6 +179,8 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
       a.download = match?.[1] ?? `${artifactId}-COMPLETED.docx`;
       a.click();
       URL.revokeObjectURL(url);
+    } catch {
+      setGenerateError('Could not reach the server — check your connection and try again.');
     } finally {
       setGenerating(false);
     }
@@ -200,8 +210,12 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
           <div className="md:w-[42%] md:border-r border-gray-100 overflow-y-auto px-6 py-4">
             {loadError ? (
               <p className="text-red-600 text-sm">{loadError}</p>
-            ) : !hasFields ? (
+            ) : !loaded ? (
               <p className="text-gray-400 text-sm">Loading fields…</p>
+            ) : !hasFields ? (
+              <p className="text-gray-400 text-sm">
+                This template has no fillable fields — download it directly from the library instead.
+              </p>
             ) : (
               <div className="space-y-5">
                 {sections.map(sec => (
@@ -261,9 +275,13 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
         {/* Footer */}
         {hasFields && !loadError && (
           <div className="px-6 py-4 border-t border-gray-100 shrink-0 flex items-center justify-between gap-3">
-            <p className="text-xs text-gray-400">
-              Highlighted text shows where each field lands. Downloads a filled .docx.
-            </p>
+            {generateError ? (
+              <p className="text-xs text-red-600" role="alert">{generateError}</p>
+            ) : (
+              <p className="text-xs text-gray-400">
+                Highlighted text shows where each field lands. Downloads a filled .docx.
+              </p>
+            )}
             <button
               onClick={handleGenerate}
               disabled={generating}
