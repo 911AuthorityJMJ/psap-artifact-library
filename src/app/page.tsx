@@ -37,6 +37,69 @@ function getExampleUrl(id: string, name: string, profile: string): string {
   return `/templates/examples/${id}-${toFileNameStem(name)}-EXAMPLE-${profile}.docx`;
 }
 
+/**
+ * Denotes an artifact's template format so the presence/absence of the
+ * "✦ Build Document" action is self-explanatory: documents (.docx) can be
+ * built in-app; spreadsheets (.xlsx) are downloaded and filled in Excel.
+ * Renders nothing for artifacts without a template.
+ */
+function FormatBadge({ form }: { form?: 'docx' | 'xlsx' | false }) {
+  if (form === 'docx') {
+    return (
+      <span
+        title="Word document — fill it in-app with “Build Document,” or download the template"
+        className="text-xs bg-sky-50 text-sky-700 px-1.5 py-0.5 rounded font-medium inline-flex items-center gap-1"
+      >
+        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <path d="M14 2v6h6" /><path d="M16 13H8" /><path d="M16 17H8" />
+        </svg>
+        Document
+      </span>
+    );
+  }
+  if (form === 'xlsx') {
+    return (
+      <span
+        title="Excel spreadsheet — download and fill it in Excel"
+        className="text-xs bg-green-50 text-green-700 px-1.5 py-0.5 rounded font-medium inline-flex items-center gap-1"
+      >
+        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 9h18" /><path d="M3 15h18" /><path d="M9 3v18" /><path d="M15 3v18" />
+        </svg>
+        Spreadsheet
+      </span>
+    );
+  }
+  return null;
+}
+
+/**
+ * Key shown above the Full Library list and both Assessment tabs (Build
+ * Priority and By Question). Reuses the row badges so the marker a user sees
+ * on each artifact is tied to how that artifact is obtained — documents are
+ * built in-app then downloaded, whereas spreadsheets must be downloaded first
+ * and filled in Excel.
+ */
+function FormatLegend({ className = '' }: { className?: string }) {
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-gray-500 bg-gray-50 border rounded-lg px-3 py-2.5 ${className}`}
+      style={{ borderColor: 'var(--ui-border)' }}
+    >
+      <span className="inline-flex items-center gap-1.5">
+        <FormatBadge form="docx" />
+        <span>can be built on the site, then downloaded.</span>
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <FormatBadge form="xlsx" />
+        <span>must be downloaded first, then filled in Excel.</span>
+      </span>
+    </div>
+  );
+}
+
 interface PSAPInfo {
   name: string;
   address: string;
@@ -124,6 +187,17 @@ export default function Home() {
   }, {} as Record<string, Gap[]>);
   
   const [activeTab, setActiveTab] = useState<'build' | 'questions'>('build');
+  // By-Question rows collapse their action line; keyed per gap+artifact occurrence
+  // so the same artifact under different questions toggles independently.
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+  const toggleRow = useCallback((key: string) => {
+    setExpandedRows(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }, []);
   const [librarySearch, setLibrarySearch] = useState('');
   const [libraryType, setLibraryType] = useState('');
   
@@ -284,6 +358,7 @@ export default function Home() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-sm font-medium text-gray-900">{artifact.name}</span>
+                        <FormatBadge form={manifest[artifact.id]?.form} />
                         {artifact.gate && (
                           <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
                         )}
@@ -303,7 +378,7 @@ export default function Home() {
                             <>
                               <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
                                 className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                ↓ Reference
+                                ↓ Download Template
                               </a>
                               {manifest[artifact.id]?.form === 'docx' && (
                                 <button
@@ -473,6 +548,7 @@ export default function Home() {
               </div>
               
               <div className="p-6">
+                <FormatLegend className="mb-4" />
                 {activeTab === 'build' ? (
                   <div>
                     {Object.entries(artifactsByTier).map(([tierKey, { tierName, tierNumber, items }]) => {
@@ -495,6 +571,7 @@ export default function Home() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 flex-wrap">
                                   <span className="text-sm font-medium text-gray-900">{artifact.name}</span>
+                                  <FormatBadge form={manifest[artifact.id]?.form} />
                                   {artifact.gate && (
                                     <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
                                   )}
@@ -513,7 +590,7 @@ export default function Home() {
                                       <>
                                         <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
                                           className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                          ↓ Reference
+                                          ↓ Download Template
                                         </a>
                                         {manifest[artifact.id]?.form === 'docx' && (
                                           <button
@@ -558,20 +635,65 @@ export default function Home() {
                                     <span className="text-gray-600">{gap.category}</span>
                                   </div>
                                   {gap.artifacts.length > 0 && (
-                                    <div className="ml-14 mt-1 space-y-0.5">
-                                      {gap.artifacts.map(artifact => (
-                                        <div key={artifact.id} className="flex items-center gap-2 text-xs">
-                                          <span className="text-gray-300">→</span>
-                                          <span className="font-medium text-gray-700">{artifact.name}</span>
-                                          {artifact.gate && (
-                                            <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
-                                          )}
-                                          {manifest[artifact.id]?.form && (
-                                            <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
-                                              className="ml-1 text-xs" style={{ color: 'var(--ui-link)' }}>↓</a>
+                                    <div className="ml-14 mt-1 space-y-2">
+                                      {gap.artifacts.map(artifact => {
+                                        const form = manifest[artifact.id]?.form;
+                                        const hasExample = (manifest[artifact.id]?.examples ?? []).includes(profile.baseline);
+                                        const hasActions = Boolean(form || hasExample);
+                                        const rowKey = `${gap.id}:${artifact.id}`;
+                                        const expanded = expandedRows.has(rowKey);
+                                        return (
+                                        <div key={artifact.id}>
+                                          <div className="flex items-center gap-2 flex-wrap text-xs">
+                                            {hasActions ? (
+                                              <button
+                                                type="button"
+                                                onClick={() => toggleRow(rowKey)}
+                                                aria-expanded={expanded}
+                                                title={expanded ? 'Hide actions' : 'Show actions'}
+                                                className="group inline-flex items-center gap-2 text-left">
+                                                <span className={`inline-block text-gray-400 transition-transform group-hover:text-gray-600 ${expanded ? 'rotate-90' : ''}`}>→</span>
+                                                <span className="font-medium text-gray-700 group-hover:text-gray-900">{artifact.name}</span>
+                                              </button>
+                                            ) : (
+                                              <>
+                                                <span className="text-gray-300">→</span>
+                                                <span className="font-medium text-gray-700">{artifact.name}</span>
+                                              </>
+                                            )}
+                                            <FormatBadge form={form} />
+                                            {artifact.gate && (
+                                              <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
+                                            )}
+                                          </div>
+                                          {hasActions && expanded && (
+                                            <div className="flex items-center gap-x-3 gap-y-1 flex-wrap text-xs ml-6 mt-1">
+                                              {form && (
+                                                <>
+                                                  <a href={getFormUrl(artifact.id, artifact.name, form)} download
+                                                    className="font-medium" style={{ color: 'var(--ui-link)' }}>
+                                                    ↓ Download Template
+                                                  </a>
+                                                  {form === 'docx' && (
+                                                    <button
+                                                      onClick={() => setBuilderArtifact(artifact)}
+                                                      className="font-medium text-emerald-600 hover:text-emerald-800">
+                                                      ✦ Build Document
+                                                    </button>
+                                                  )}
+                                                </>
+                                              )}
+                                              {hasExample && (
+                                                <a href={getExampleUrl(artifact.id, artifact.name, profile.baseline)} download
+                                                  className="font-medium" style={{ color: 'var(--ui-link)' }}>
+                                                  ↓ Example · {levelName[profile.baseline]}
+                                                </a>
+                                              )}
+                                            </div>
                                           )}
                                         </div>
-                                      ))}
+                                        );
+                                      })}
                                     </div>
                                   )}
                                 </div>
@@ -632,6 +754,7 @@ export default function Home() {
                     ))}
                   </select>
                 </div>
+                <FormatLegend className="mt-4" />
               </div>
               <div className="px-6 pb-6">
                 {renderFullLibrary()}
