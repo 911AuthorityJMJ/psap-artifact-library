@@ -11,6 +11,25 @@ type XlsxRow = (string | number | boolean | null | undefined)[];
  *  that has started but isn't finished is still a gap (a lesser one — the UI
  *  badges it distinctly). YES and NOT APPLICABLE are the only non-gaps. */
 const GAP_RATINGS = new Set(['NO', 'IN PROGRESS', 'PLANNED', 'UNKNOWN']);
+/** Ratings that are NOT a gap but still map to artifacts worth surfacing as
+ *  reference (already in place / not required). Strict allow-list, symmetric
+ *  with GAP_RATINGS: a rating outside BOTH sets is dropped as it is today, so
+ *  no real gap is ever reclassified. */
+const COVERED_RATINGS = new Set(['YES', 'NOT APPLICABLE']);
+
+type QuestionRow = { id: string; rating: string; domain: string; category: string };
+
+/** Attach each question's mapped artifacts (deduped by the traceability data,
+ *  missing entries dropped). Shared by gaps and covered so the two can't drift. */
+function enrichQuestions(list: QuestionRow[]) {
+  return list.map(q => {
+    const trace = traceabilityData.questionMap[q.id as keyof typeof traceabilityData.questionMap];
+    const artifacts = (trace?.artifactIds ?? [])
+      .map(id => traceabilityData.artifactMap[id as keyof typeof traceabilityData.artifactMap])
+      .filter(Boolean);
+    return { ...q, artifacts };
+  });
+}
 
 /** A routine assessment matrix is ~125 KB; cap well above that. The .xlsx is a
  *  zip, so an unbounded upload is a decompression-bomb / memory-exhaustion risk. */
@@ -96,7 +115,8 @@ export async function POST(request: NextRequest) {
 
     const questionData = XLSX.utils.sheet_to_json<XlsxRow>(questionSheet, { header: 1 });
 
-    const gaps: Array<{ id: string; rating: string; domain: string; category: string }> = [];
+    const gaps: QuestionRow[] = [];
+    const covered: QuestionRow[] = [];
     let currentDomain = '';
     let currentCategory = '';
 
@@ -122,21 +142,25 @@ export async function POST(request: NextRequest) {
       if (col0 && typeof col0 === 'string' && /^\d+[A-Z]-\d+$/.test(col0)) {
         const ratingNorm =
           typeof rating === 'string' ? rating.replace(/\s+/g, ' ').trim().toUpperCase() : '';
+        // A question is gap XOR covered — never both, never (for known ratings) neither.
         if (GAP_RATINGS.has(ratingNorm)) {
           gaps.push({ id: col0, rating: ratingNorm, domain: currentDomain, category: currentCategory });
+        } else if (COVERED_RATINGS.has(ratingNorm)) {
+          covered.push({ id: col0, rating: ratingNorm, domain: currentDomain, category: currentCategory });
         }
       }
     }
 
-    const enrichedGaps = gaps.map(gap => {
-      const trace = traceabilityData.questionMap[gap.id as keyof typeof traceabilityData.questionMap];
-      const artifacts = (trace?.artifactIds ?? [])
-        .map(id => traceabilityData.artifactMap[id as keyof typeof traceabilityData.artifactMap])
-        .filter(Boolean);
-      return { ...gap, artifacts };
-    });
+    const enrichedGaps = enrichQuestions(gaps);
+    const enrichedCovered = enrichQuestions(covered);
 
-    return NextResponse.json({ psapInfo, gaps: enrichedGaps, totalGaps: enrichedGaps.length });
+    return NextResponse.json({
+      psapInfo,
+      gaps: enrichedGaps,
+      totalGaps: enrichedGaps.length,
+      covered: enrichedCovered,
+      totalCovered: enrichedCovered.length,
+    });
   } catch (error) {
     console.error('Parse error:', error);
     return NextResponse.json({ error: 'Failed to parse file' }, { status: 500 });

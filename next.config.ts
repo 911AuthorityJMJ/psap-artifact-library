@@ -44,6 +44,10 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Drop the "X-Powered-By: Next.js" fingerprint.
   poweredByHeader: false,
+  // Dev-only: allow HMR / dev-resource requests reaching the server via a LAN
+  // IP other than the one it bound to (this machine has more than one). Ignored
+  // in production. Add any additional dev hosts you browse from here.
+  allowedDevOrigins: ["192.168.1.67"],
   async headers() {
     return [
       {

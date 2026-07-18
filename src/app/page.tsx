@@ -153,7 +153,23 @@ interface ParseResult {
   psapInfo: PSAPInfo;
   gaps: Gap[];
   totalGaps: number;
+  /** Questions rated YES / NOT APPLICABLE — not gaps, but their artifacts are
+   *  worth surfacing as reference. Same shape as a gap. */
+  covered: Gap[];
+  totalCovered: number;
 }
+
+/** Rating → badge classes. The four gap colors match the pre-existing By-Question
+ *  ternary verbatim; YES / NOT APPLICABLE add distinct non-gap styling. */
+const RATING_BADGE: Record<string, string> = {
+  'NO': 'bg-red-100 text-red-700',
+  'PLANNED': 'bg-yellow-100 text-yellow-700',
+  'IN PROGRESS': 'bg-sky-100 text-sky-700',
+  'UNKNOWN': 'bg-gray-100 text-gray-600',
+  'YES': 'bg-emerald-100 text-emerald-700',
+  'NOT APPLICABLE': 'bg-slate-100 text-slate-600',
+};
+const ratingBadgeClass = (rating: string) => RATING_BADGE[rating] ?? 'bg-gray-100 text-gray-600';
 
 const lv: Record<string, number> = { S: 1, M: 2, L: 3 };
 
@@ -214,7 +230,14 @@ export default function Home() {
     return acc;
   }, {} as Record<string, Gap[]>);
 
-  const [activeTab, setActiveTab] = useState<'build' | 'questions'>('build');
+  // The Reference tab mirrors By Question for the covered (YES / N/A) questions.
+  const coveredByDomain = result?.covered.reduce((acc, q) => {
+    if (!acc[q.domain]) acc[q.domain] = [];
+    acc[q.domain].push(q);
+    return acc;
+  }, {} as Record<string, Gap[]>);
+
+  const [activeTab, setActiveTab] = useState<'build' | 'questions' | 'reference'>('build');
   // By-Question rows collapse their action line; keyed per gap+artifact occurrence
   // so the same artifact under different questions toggles independently.
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
@@ -285,10 +308,26 @@ export default function Home() {
     return groups;
   }, [artifactBuildList, getArtifactTier]);
 
+  // Artifact ids referenced by at least one gap question — drives the Full
+  // Library "Gap" badge and the Reference tab's "Also a gap" overlap marker.
+  const gapArtifactIds = useMemo(
+    () => new Set(artifactBuildList.map(a => a.artifact.id)),
+    [artifactBuildList],
+  );
+
+  // Reference-tab overlap: how many distinct artifacts surfaced by covered
+  // (YES / N/A) questions also address an open gap. Varies per assessment.
+  const referenceStats = useMemo(() => {
+    const ids = new Set<string>();
+    for (const q of result?.covered ?? []) for (const a of q.artifacts) ids.add(a.id);
+    let overlap = 0;
+    for (const id of ids) if (gapArtifactIds.has(id)) overlap++;
+    return { total: ids.size, overlap };
+  }, [result, gapArtifactIds]);
+
   const fullLibraryList = useMemo(() => {
-    const gapIds = new Set(artifactBuildList.map(a => a.artifact.id));
     return Object.values(traceabilityData.artifactMap as Record<string, Artifact & { status: string }>)
-      .map(artifact => ({ artifact, isGap: gapIds.has(artifact.id) }))
+      .map(artifact => ({ artifact, isGap: gapArtifactIds.has(artifact.id) }))
       .sort((a, b) => {
         const tierA = getArtifactTier(a.artifact.id);
         const tierB = getArtifactTier(b.artifact.id);
@@ -297,7 +336,7 @@ export default function Home() {
         if (a.artifact.gate !== b.artifact.gate) return a.artifact.gate ? -1 : 1;
         return a.artifact.seqId.localeCompare(b.artifact.seqId);
       });
-  }, [artifactBuildList, getArtifactTier]);
+  }, [gapArtifactIds, getArtifactTier]);
 
   const fullLibraryByTier = useMemo(() => {
     const groups: Record<string, { tierName: string; tierNumber: number; items: typeof fullLibraryList }> = {};
@@ -386,6 +425,138 @@ export default function Home() {
   const libraryMatchCount = useMemo(
     () => fullLibraryList.filter(i => matchesLibraryFilter(i.artifact)).length,
     [fullLibraryList, matchesLibraryFilter]
+  );
+
+  // Shared By-Question renderer for both the gap tab and the Reference tab.
+  // Defined inside Home() and INVOKED as a function (like renderFullLibrary) so
+  // it reuses closures with no new component boundary — rendering it as a JSX
+  // element would remount the whole list on every expand/tab/profile change.
+  // `crossRefIds` (optional) badges artifacts that also appear in another set
+  // (the Reference tab passes the gap-artifact ids → "Also a gap").
+  const renderQuestionGroups = (
+    groups: Record<string, Gap[]> | undefined,
+    keyPrefix: string,
+    crossRefIds?: Set<string>,
+    crossRefLabel?: string,
+  ) => (
+    <div>
+      {groups &&
+        Object.entries(groups).map(([domain, questions]) => (
+          <div key={domain} className="mb-5">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              {domain}
+            </h3>
+            <div className="space-y-1">
+              {questions.map(q => (
+                <div key={q.id} className="py-2 border-b border-gray-50 last:border-0">
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="font-mono text-xs text-gray-400 w-12 shrink-0">{q.id}</span>
+                    <span
+                      className={`text-xs font-semibold px-2 py-0.5 rounded shrink-0 ${ratingBadgeClass(q.rating)}`}
+                    >
+                      {q.rating}
+                    </span>
+                    <span className="text-gray-600">{q.category}</span>
+                  </div>
+                  {q.artifacts.length > 0 && (
+                    <div className="ml-14 mt-1 space-y-2">
+                      {q.artifacts.map(artifact => {
+                        const form = manifest[artifact.id]?.form;
+                        const hasExample = (manifest[artifact.id]?.examples ?? []).includes(
+                          profile.baseline
+                        );
+                        const hasActions = Boolean(form || hasExample);
+                        const rowKey = `${keyPrefix}${q.id}:${artifact.id}`;
+                        const expanded = expandedRows.has(rowKey);
+                        const alsoCrossRef = Boolean(crossRefIds?.has(artifact.id));
+                        return (
+                          <div key={artifact.id}>
+                            <div className="flex items-center gap-2 flex-wrap text-xs">
+                              {hasActions ? (
+                                <button
+                                  type="button"
+                                  onClick={() => toggleRow(rowKey)}
+                                  aria-expanded={expanded}
+                                  title={expanded ? 'Hide actions' : 'Show actions'}
+                                  className="group inline-flex items-center gap-2 text-left"
+                                >
+                                  <span
+                                    className={`inline-block text-gray-400 transition-transform group-hover:text-gray-600 ${
+                                      expanded ? 'rotate-90' : ''
+                                    }`}
+                                  >
+                                    →
+                                  </span>
+                                  <span className="font-medium text-gray-700 group-hover:text-gray-900">
+                                    {artifact.name}
+                                  </span>
+                                </button>
+                              ) : (
+                                <>
+                                  <span className="text-gray-300">→</span>
+                                  <span className="font-medium text-gray-700">{artifact.name}</span>
+                                </>
+                              )}
+                              <FormatBadge form={form} />
+                              {artifact.gate && (
+                                <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">
+                                  Gate
+                                </span>
+                              )}
+                              {alsoCrossRef && crossRefLabel && (
+                                <span
+                                  className="bg-red-50 text-red-600 px-1.5 py-0.5 rounded font-medium"
+                                  title="This artifact also addresses an open gap elsewhere in your assessment."
+                                >
+                                  {crossRefLabel}
+                                </span>
+                              )}
+                            </div>
+                            {hasActions && expanded && (
+                              <div className="flex items-center gap-x-3 gap-y-1 flex-wrap text-xs ml-6 mt-1">
+                                {form && (
+                                  <>
+                                    <a
+                                      href={getFormUrl(artifact.id, artifact.name, form)}
+                                      download
+                                      className="font-medium"
+                                      style={{ color: 'var(--ui-link)' }}
+                                    >
+                                      ↓ Download Template
+                                    </a>
+                                    {form === 'docx' && (
+                                      <button
+                                        onClick={() => setBuilderArtifact(artifact)}
+                                        className="font-medium text-emerald-600 hover:text-emerald-800"
+                                      >
+                                        ✦ Build Document
+                                      </button>
+                                    )}
+                                  </>
+                                )}
+                                {hasExample && (
+                                  <a
+                                    href={getExampleUrl(artifact.id, artifact.name, profile.baseline)}
+                                    download
+                                    className="font-medium"
+                                    style={{ color: 'var(--ui-link)' }}
+                                  >
+                                    ↓ Example · {levelName[profile.baseline]}
+                                  </a>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+    </div>
   );
 
   const renderFullLibrary = () => {
@@ -630,7 +801,7 @@ export default function Home() {
                   {artifactBuildList.length} artifacts with gaps · {fullLibraryList.length} total
                 </p>
                 <div className="flex gap-1 border-b" style={{ borderColor: 'var(--ui-border)' }}>
-                  {(['build', 'questions'] as const).map(tab => (
+                  {(['build', 'questions', 'reference'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
@@ -643,7 +814,7 @@ export default function Home() {
                           : {}
                       }
                     >
-                      {tab === 'build' ? 'Build Priority' : 'By Question'}
+                      {{ build: 'Build Priority', questions: 'By Question', reference: 'Reference' }[tab]}
                     </button>
                   ))}
                 </div>
@@ -745,123 +916,28 @@ export default function Home() {
                       );
                     })}
                   </div>
+                ) : activeTab === 'questions' ? (
+                  renderQuestionGroups(gapsByDomain, 'gap:')
+                ) : result.totalCovered === 0 ? (
+                  <p className="text-sm text-gray-400 text-center py-10">
+                    No questions were rated Yes or Not Applicable.
+                  </p>
                 ) : (
                   <div>
-                    {gapsByDomain &&
-                      Object.entries(gapsByDomain).map(([domain, gaps]) => (
-                        <div key={domain} className="mb-5">
-                          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                            {domain}
-                          </h3>
-                          <div className="space-y-1">
-                            {gaps.map(gap => (
-                              <div key={gap.id} className="py-2 border-b border-gray-50 last:border-0">
-                                <div className="flex items-center gap-3 text-sm">
-                                  <span className="font-mono text-xs text-gray-400 w-12 shrink-0">{gap.id}</span>
-                                  <span
-                                    className={`text-xs font-semibold px-2 py-0.5 rounded shrink-0 ${
-                                      gap.rating === 'NO'
-                                        ? 'bg-red-100 text-red-700'
-                                        : gap.rating === 'PLANNED'
-                                          ? 'bg-yellow-100 text-yellow-700'
-                                          : gap.rating === 'IN PROGRESS'
-                                            ? 'bg-sky-100 text-sky-700'
-                                            : 'bg-gray-100 text-gray-600'
-                                    }`}
-                                  >
-                                    {gap.rating}
-                                  </span>
-                                  <span className="text-gray-600">{gap.category}</span>
-                                </div>
-                                {gap.artifacts.length > 0 && (
-                                  <div className="ml-14 mt-1 space-y-2">
-                                    {gap.artifacts.map(artifact => {
-                                      const form = manifest[artifact.id]?.form;
-                                      const hasExample = (manifest[artifact.id]?.examples ?? []).includes(
-                                        profile.baseline
-                                      );
-                                      const hasActions = Boolean(form || hasExample);
-                                      const rowKey = `${gap.id}:${artifact.id}`;
-                                      const expanded = expandedRows.has(rowKey);
-                                      return (
-                                        <div key={artifact.id}>
-                                          <div className="flex items-center gap-2 flex-wrap text-xs">
-                                            {hasActions ? (
-                                              <button
-                                                type="button"
-                                                onClick={() => toggleRow(rowKey)}
-                                                aria-expanded={expanded}
-                                                title={expanded ? 'Hide actions' : 'Show actions'}
-                                                className="group inline-flex items-center gap-2 text-left"
-                                              >
-                                                <span
-                                                  className={`inline-block text-gray-400 transition-transform group-hover:text-gray-600 ${
-                                                    expanded ? 'rotate-90' : ''
-                                                  }`}
-                                                >
-                                                  →
-                                                </span>
-                                                <span className="font-medium text-gray-700 group-hover:text-gray-900">
-                                                  {artifact.name}
-                                                </span>
-                                              </button>
-                                            ) : (
-                                              <>
-                                                <span className="text-gray-300">→</span>
-                                                <span className="font-medium text-gray-700">{artifact.name}</span>
-                                              </>
-                                            )}
-                                            <FormatBadge form={form} />
-                                            {artifact.gate && (
-                                              <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">
-                                                Gate
-                                              </span>
-                                            )}
-                                          </div>
-                                          {hasActions && expanded && (
-                                            <div className="flex items-center gap-x-3 gap-y-1 flex-wrap text-xs ml-6 mt-1">
-                                              {form && (
-                                                <>
-                                                  <a
-                                                    href={getFormUrl(artifact.id, artifact.name, form)}
-                                                    download
-                                                    className="font-medium"
-                                                    style={{ color: 'var(--ui-link)' }}
-                                                  >
-                                                    ↓ Download Template
-                                                  </a>
-                                                  {form === 'docx' && (
-                                                    <button
-                                                      onClick={() => setBuilderArtifact(artifact)}
-                                                      className="font-medium text-emerald-600 hover:text-emerald-800"
-                                                    >
-                                                      ✦ Build Document
-                                                    </button>
-                                                  )}
-                                                </>
-                                              )}
-                                              {hasExample && (
-                                                <a
-                                                  href={getExampleUrl(artifact.id, artifact.name, profile.baseline)}
-                                                  download
-                                                  className="font-medium"
-                                                  style={{ color: 'var(--ui-link)' }}
-                                                >
-                                                  ↓ Example · {levelName[profile.baseline]}
-                                                </a>
-                                              )}
-                                            </div>
-                                          )}
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                    <div className="mb-4 space-y-1 text-sm text-gray-500">
+                      <p>
+                        {result.totalCovered} question{result.totalCovered !== 1 ? 's' : ''} rated Yes or Not
+                        Applicable — reference material already in place or not required.
+                      </p>
+                      {referenceStats.overlap > 0 && (
+                        <p>
+                          {referenceStats.overlap} of {referenceStats.total} referenced artifact
+                          {referenceStats.total !== 1 ? 's' : ''} also address an open gap (marked{' '}
+                          <span className="text-red-600 font-medium">Also a gap</span>).
+                        </p>
+                      )}
+                    </div>
+                    {renderQuestionGroups(coveredByDomain, 'ref:', gapArtifactIds, 'Also a gap')}
                   </div>
                 )}
               </div>
