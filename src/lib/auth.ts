@@ -79,12 +79,18 @@ export async function getSession(request: NextRequest): Promise<Session | null> 
   if (rawName !== undefined && typeof rawName !== 'string') return null;
   const name = (rawName as string | undefined) ?? '';
 
-  // roles must be an array of strings when present.
+  // roles: a JWT collapses a single-valued claim to a string and a multi-valued
+  // one to an array, so accept either form (normalizing to an array). Anything
+  // else present is malformed → reject.
   const rawRoles = payload.roles;
   let roles: string[] = [];
-  if (rawRoles !== undefined) {
-    if (!Array.isArray(rawRoles) || rawRoles.some((r) => typeof r !== 'string')) return null;
+  if (typeof rawRoles === 'string') {
+    roles = [rawRoles];
+  } else if (Array.isArray(rawRoles)) {
+    if (rawRoles.some((r) => typeof r !== 'string')) return null;
     roles = rawRoles as string[];
+  } else if (rawRoles !== undefined) {
+    return null;
   }
 
   return { subject, email, name, roles };
