@@ -64,13 +64,16 @@ function isHeading(text) {
  *  HTML keeps entities as-is since it's injected as innerHTML. */
 function decodeEntities(s) {
   return s
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'").replace(/&#39;/g, "'")
     .replace(/&#8217;/g, "'").replace(/&#8216;/g, "'")
-    .replace(/&#8220;/g, '"').replace(/&#8221;/g, '"');
+    .replace(/&#8220;/g, '"').replace(/&#8221;/g, '"')
+    // Decode &amp; LAST: unescaping the '&' meta-entity first would let a
+    // literally-encoded entity like "&amp;lt;" (text "&lt;") be re-decoded
+    // into "<". (CodeQL js/double-escaping.)
+    .replace(/&amp;/g, '&');
 }
 
 /** Inline "Label: {tag}" — the field label written just before a placeholder. */
