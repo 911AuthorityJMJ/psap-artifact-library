@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const limited = enforceRateLimit(request, { name: 'parse-assessment', limit: 30, windowMs: 5 * 60_000 });
     if (limited) return limited;
 
-    const auth = requireAuth(request);
+    const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
 
     // Buffer the multipart body with the size cap enforced DURING the read —
