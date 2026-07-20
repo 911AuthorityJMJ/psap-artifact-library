@@ -43,14 +43,30 @@ persisted or logged** — only error objects are logged, never request payloads.
 - docxtemplater runs with the **default parser** (no `angular-expressions`), so
   template values are XML-escaped and not evaluated as expressions.
 
-### Authentication & rate limiting (interim)
+### Authentication & rate limiting (ASP.NET bridge)
 - All three `/api` routes call `requireAuth` (`src/lib/auth.ts`) then
   `enforceRateLimit` (`src/lib/rate-limit.ts`) before doing any work.
-- **Auth is fail-closed in production**: with `APP_ACCESS_SECRET` set, requests
-  must present it (`Authorization: Bearer <secret>` or a `psap_access` cookie,
-  constant-time compared). Unset in production → 503; unset in dev → open, for
-  local convenience. `getSession()` is the single seam to replace with Entra
-  OIDC; the route handlers won't change.
+- **Identity is owned by the ASP.NET SurveyTool site.** A user in the
+  `Administrator` or `Manager` role opens *Tools → PSAP Artifact Library*, which
+  hits `GET /ArtifactLibrary/Launch` on the ASP.NET app. That endpoint validates
+  the OWIN cookie + role, mints a **short-lived (30 min) HS256 JWT**, writes it to
+  a **separate HttpOnly, Secure, SameSite=Lax, Path=/artifacts** cookie named
+  `psap_session`, and 302-redirects to `/artifacts/`.
+- This app only **verifies** that token (`getSession()` via `jose.jwtVerify`):
+  algorithm pinned to `HS256`, explicit issuer + audience checks, `nbf`/`exp`
+  with 60s clock tolerance, and required-claim type validation (`sub` must be a
+  non-empty string). Any failure (missing/malformed/expired/wrong-signature/
+  wrong-algorithm/wrong-issuer/wrong-audience) → `null` → **401**.
+- The signing key is the shared `PSAP_BRIDGE_SECRET` (base64, ≥32 bytes), which
+  must match the ASP.NET side. **Fail-closed in production**: if it is missing or
+  invalid, every API call returns **503**. Unset in dev → open, for local
+  convenience.
+- The token carries the ASP.NET Identity user id (`sub`), `email`, `name`, and
+  `roles`. `sub` is retained for the planned per-user persistence work; it is not
+  used for storage in Stage 1.
+- An expired or missing token causes a **401** on the next API call. Stage 1 has
+  no silent-renewal flow: **revisiting Tools → PSAP Artifact Library re-issues a
+  fresh 30-minute token.**
 - **Rate limits** are per-IP fixed windows: parse-assessment 30 / 5 min,
   generate-document 60 / 5 min, template-fields 120 / 5 min, returning 429 with
   `Retry-After`. In-memory ⇒ per-instance (see the deployment note in
