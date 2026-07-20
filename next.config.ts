@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { BASE_PATH } from "./src/lib/base-path";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -42,6 +43,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Hosted beneath /artifacts in production (IIS reverse-proxies /artifacts/* to
+  // this server, preserving the prefix). basePath makes Next serve pages, assets,
+  // and API routes under that prefix. Client fetch() calls use apiUrl() (see
+  // src/lib/base-path.ts) since Next does not rewrite fetch string literals.
+  // assetPrefix is intentionally omitted — basePath already scopes /_next assets,
+  // and testing did not show a need for a separate asset origin.
+  basePath: BASE_PATH,
   // Drop the "X-Powered-By: Next.js" fingerprint.
   poweredByHeader: false,
   async headers() {

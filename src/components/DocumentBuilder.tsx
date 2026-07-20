@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import type { ScalarField, LoopField, LoopSubField, TemplateSection } from '@/lib/builder-types';
+import { apiUrl } from '@/lib/base-path';
 
 interface PSAPInfo {
   name: string;
@@ -42,7 +43,7 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch(`/api/template-fields/${artifactId}`)
+    fetch(apiUrl(`/api/template-fields/${artifactId}`))
       .then(r => r.json())
       .then(data => {
         if (data.error) { setLoadError(data.error); return; }
@@ -158,7 +159,7 @@ export default function DocumentBuilder({ artifactId, artifactName, psapInfo, on
     setGenerating(true);
     setGenerateError(null);
     try {
-      const response = await fetch(`/api/generate-document/${artifactId}`, {
+      const response = await fetch(apiUrl(`/api/generate-document/${artifactId}`), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fields: values }),

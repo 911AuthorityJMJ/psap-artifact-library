@@ -8,6 +8,7 @@ import traceabilityData from '@/data/traceability.json';
 import tierMapData from '@/data/tier-map.json';
 import manifestData from '@/data/template-manifest.json';
 import { toFileNameStem } from '@/lib/file-naming.mjs';
+import { apiUrl } from '@/lib/base-path';
 
 interface ManifestEntry {
   form: 'docx' | 'xlsx' | false;
@@ -156,7 +157,7 @@ export default function Home() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('/api/parse-assessment', {
+      const response = await fetch(apiUrl('/api/parse-assessment'), {
         method: 'POST',
         body: formData,
       });
