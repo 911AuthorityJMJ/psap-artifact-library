@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { jwtVerify, type JWTPayload } from 'jose';
 
 /**
@@ -46,12 +47,9 @@ function asString(value: unknown): string | null {
  * audience, `nbf`/`exp` (60s clock tolerance). Any failure → null → 401.
  * ──────────────────────────────────────────────────────────────────────────────
  */
-export async function getSession(request: NextRequest): Promise<Session | null> {
+export async function verifySessionToken(token: string): Promise<Session | null> {
   const key = getSigningKey();
   if (!key) return null;
-
-  const token = request.cookies.get(COOKIE_NAME)?.value;
-  if (!token) return null;
 
   let payload: JWTPayload;
   try {
@@ -96,6 +94,12 @@ export async function getSession(request: NextRequest): Promise<Session | null> 
   return { subject, email, name, roles };
 }
 
+export async function getSession(request: NextRequest): Promise<Session | null> {
+  const token = request.cookies.get(COOKIE_NAME)?.value;
+  if (!token) return null;
+  return verifySessionToken(token);
+}
+
 /**
  * Gate an API route. Returns a Session when the caller may proceed, or a
  * NextResponse the handler must return immediately.
@@ -125,4 +129,44 @@ export async function requireAuth(request: NextRequest): Promise<Session | NextR
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   return session;
+}
+
+/**
+ * Page-level authentication state for Server Components (the `/artifacts` page
+ * shell). Mirrors `requireAuth`'s configuration semantics but returns a plain
+ * discriminated result the page can branch on, instead of an HTTP response:
+ *
+ *   - 'authenticated'  → valid `psap_session`, render the interactive app.
+ *   - 'unauthenticated'→ missing / invalid / expired session, show sign-in page.
+ *   - 'unavailable'    → production signing key missing/invalid (fail closed),
+ *                        show a service-unavailable page (never a sign-in prompt).
+ *
+ * Dev bypass (secret unset in development) is preserved exactly as in
+ * `requireAuth`: a synthetic principal so local work keeps rendering the app.
+ * `requireAuth` and the protected API contract are untouched.
+ */
+export type PageAuth =
+  | { status: 'authenticated'; session: Session }
+  | { status: 'unauthenticated' }
+  | { status: 'unavailable' };
+
+export async function getPageAuth(): Promise<PageAuth> {
+  const isProd = process.env.NODE_ENV === 'production';
+  const key = getSigningKey();
+
+  // Missing OR invalid (too-short) signing key = missing required configuration.
+  if (!key) {
+    if (isProd) {
+      console.error('PSAP_BRIDGE_SECRET missing or invalid — refusing to render authenticated page in production.');
+      return { status: 'unavailable' };
+    }
+    // Dev-only bypass, matching requireAuth's synthetic principal.
+    return { status: 'authenticated', session: { subject: 'dev', email: 'dev@local', name: 'Local Dev', roles: [] } };
+  }
+
+  // `cookies()` is async in this Next.js version — read the request cookie store.
+  const store = await cookies();
+  const token = store.get(COOKIE_NAME)?.value;
+  const session = token ? await verifySessionToken(token) : null;
+  return session ? { status: 'authenticated', session } : { status: 'unauthenticated' };
 }

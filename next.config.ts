@@ -18,14 +18,19 @@ const csp = [
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
-  "frame-ancestors 'none'",
+  // Same-origin only: the ASP.NET Tools page (same origin, behind the same
+  // reverse proxy) embeds /artifacts in a modal iframe. Third-party framing
+  // stays blocked.
+  "frame-ancestors 'self'",
   ...(isDev ? [] : ["upgrade-insecure-requests"]),
 ].join("; ");
 
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
   { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "X-Frame-Options", value: "DENY" },
+  // SAMEORIGIN (not DENY) so the same-origin Tools page can frame /artifacts;
+  // the CSP frame-ancestors 'self' above is the authoritative modern control.
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",

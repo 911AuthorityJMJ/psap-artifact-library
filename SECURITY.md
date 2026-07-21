@@ -56,16 +56,24 @@ identity and only **verifies** a token ASP.NET issues.
 
 ### Page-versus-API gating
 
-- The **page shell is currently public** — the UI loads without a session (there is
-  no middleware or page-level guard).
-- The **three API operations are protected independently** because they can be
-  called directly: `POST /api/parse-assessment`, `GET /api/template-fields/[id]`,
-  `POST /api/generate-document/[id]`.
-- A user has reported seeing a generic **"Failed to fetch"** on an unauthenticated
-  upload, whereas the API is **expected to return a JSON `{"error":"Unauthorized"}`
-  with HTTP 401**. That discrepancy has **not yet been reproduced or diagnosed via
-  browser network inspection** — it is an open UX/integration item, not a known
-  authentication bypass.
+- The **page shell is authentication-gated** as defense in depth: `src/app/page.tsx`
+  is a Server Component that verifies the `psap_session` session (`getPageAuth()`)
+  before rendering the client UI (`src/app/HomeClient.tsx`). No valid session → an
+  **"Authentication required"** page (never the upload UI); production signing
+  config missing → an **"Artifact Library unavailable"** page (fail closed). In
+  development with the secret unset, a synthetic dev principal is returned so the
+  app runs standalone (see README "Standalone development").
+- The **three API operations remain the authoritative gate** and are protected
+  independently because they can be called directly: `POST /api/parse-assessment`,
+  `GET /api/template-fields/[id]`, `POST /api/generate-document/[id]`. Their
+  `requireAuth()` checks are unchanged.
+- The earlier generic **"Failed to fetch"** on an unauthenticated upload is now
+  **handled in the client** (`HomeClient`): 401, 503, a network-level fetch
+  rejection, and other non-OK responses each map to a specific, actionable message,
+  so the raw browser text is no longer shown. The UX is corrected **regardless of
+  the underlying cause** — a network-level rejection is surfaced generically rather
+  than root-caused — and it was never an authentication bypass (the APIs still fail
+  closed server-side).
 
 ## Implemented controls
 
@@ -105,8 +113,11 @@ rate limit receives **401** (or **503** if the production secret is unconfigured
   cannot push unexpected or non-scalar data into the renderer.
 
 ### Response headers (`next.config.ts`)
-- CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`,
-  `Referrer-Policy`, `Permissions-Policy`, and (in production) HSTS.
+- CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`,
+  `Referrer-Policy`, `Permissions-Policy`, and (in production) HSTS. The CSP
+  `frame-ancestors 'self'` (with `X-Frame-Options: SAMEORIGIN`) lets the
+  same-origin ASP.NET Tools page embed `/artifacts` in a modal iframe while still
+  blocking third-party framing.
 - `X-Powered-By` is disabled.
 - docxtemplater runs with the **default parser** (no `angular-expressions`), so
   template values are XML-escaped and not evaluated as expressions.
@@ -142,12 +153,17 @@ rate limit receives **401** (or **503** if the production secret is unconfigured
 None of the following are approved changes — they are open items to weigh, scoped
 to the current IIS + ARR + NSSM + loopback-Node deployment on Windows Server:
 
-- **Whether to gate the page shell itself** (currently public), vs. leaving
-  enforcement solely on the API routes.
-- **Better UI handling of 401 / 503 / expired sessions** — including surfacing a
-  clear "re-open from Tools" message instead of a generic error.
-- **Investigate the reported "Failed to fetch"** on unauthenticated upload
-  (reproduce via browser network inspection; confirm status/body actually returned).
+- ~~**Whether to gate the page shell itself**~~ — **implemented.** The page shell
+  is now authentication-gated at the Server Component level (see "Page-versus-API
+  gating"); the API routes remain the authoritative enforcement.
+- ~~**Better UI handling of 401 / 503 / expired sessions**~~ — **implemented.** The
+  upload path maps 401 / 503 / network / other non-OK responses to clear messages
+  (see "Page-versus-API gating").
+- **Root-cause the "Failed to fetch" network path (open).** The client no longer
+  surfaces the raw browser text, but the *underlying* reason an unauthenticated
+  upload could reject at the network level (rather than return a JSON 401) has
+  still not been confirmed via browser network inspection. The diagnosis remains
+  open even though the UX is handled.
 - **CSRF (defense in depth).** Authentication is already cookie-based. `SameSite=Lax`
   on `psap_session` provides meaningful cross-site protection, but the multipart
   upload route (no preflight) may still merit an explicit **Origin/Referer check**.

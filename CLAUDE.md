@@ -48,20 +48,38 @@ authoritative for that tier and should be consulted alongside this file:
 - The **three protected Next.js API operations** require a valid `psap_session`:
   `POST /api/parse-assessment`, `GET /api/template-fields/[id]`, and
   `POST /api/generate-document/[id]`.
-- The **Next.js page shell itself is not currently access-gated** (no middleware,
-  no page-level guard).
-- A **direct unauthenticated visit can load the UI**, but protected operations
-  return **HTTP 401**.
-- **Missing production signing configuration fails closed with HTTP 503.**
+- The **Next.js page shell is authentication-gated at the page level.**
+  `src/app/page.tsx` is a Server Component that calls `getPageAuth()`
+  (`src/lib/auth.ts`) and renders the interactive UI (`src/app/HomeClient.tsx`)
+  only for a valid session; otherwise it renders an **"Authentication required"**
+  page (missing/invalid/expired) or an **"Artifact Library unavailable"** page
+  (production signing config missing → fail closed). There is no middleware — the
+  gate is a Server Component check, and it does not alter `requireAuth()`.
+- A **direct unauthenticated visit shows the "Authentication required" page**, not
+  the upload UI. The three protected APIs still enforce independently (**HTTP 401**,
+  or **503** when the prod secret is unconfigured); the page gate is defense in
+  depth.
+- **In development with `PSAP_BRIDGE_SECRET` unset, the page gate and the APIs both
+  bypass auth** (synthetic `dev` principal), so the app runs fully standalone with
+  no ASP.NET site — the normal solo-dev mode (e.g. macOS). See README "Standalone
+  development".
+- **Missing production signing configuration fails closed** — protected APIs return
+  **HTTP 503** and the page shell shows the "Artifact Library unavailable" state.
 - **Logout semantics.** ASP.NET logout expires the browser's `psap_session` cookie,
   ending normal browser access immediately. The JWT itself is stateless and is not
   placed on a revocation list; if independently copied, it remains cryptographically
   valid until its 30-minute expiration. Returning through *Tools → PSAP Artifact
   Library* mints a fresh token.
-- The user has observed **"Failed to fetch"** when attempting an unauthenticated
-  upload, although the API is **expected to return a JSON 401** response. The exact
-  discrepancy has **not yet been reproduced or diagnosed**; treat it as an open
-  UX/integration item, **not** an authentication bypass.
+- The earlier **"Failed to fetch"** symptom on an unauthenticated upload is now
+  **handled in the client** (`src/app/HomeClient.tsx`): responses are mapped to
+  clear messages — **401** → "session has expired, reopen from Tools", **503** →
+  "temporarily unavailable", a **network-level fetch rejection** → "could not reach
+  the server", and other non-OK responses → a safe server message or a concise
+  generic failure. The raw browser "Failed to fetch" text is no longer surfaced.
+  Note this corrects the **UX regardless of cause**; the underlying reason a fetch
+  might reject at the network level (rather than return a JSON 401) was **not
+  separately root-caused** via browser network inspection. It was never an
+  authentication bypass — the protected APIs still fail closed server-side.
 
 ## Current production topology
 

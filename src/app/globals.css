@@ -4,10 +4,7 @@
     --ui-bg:            #F7F8FA;
     --ui-border:        #D8DEE8;
     --ui-link:          #0F4C81;
-    --ui-link-hover:    #083456;
-    --ui-shell:         #1F2937; }
-html {
-    scroll-padding-top: 52px; }
+    --ui-link-hover:    #083456; }
 body {
     background: var(--ui-bg);
     color: #111827;
