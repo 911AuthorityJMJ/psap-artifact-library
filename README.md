@@ -9,6 +9,38 @@ completed `.docx` files.
 Developed by 911 Authority, LLC in partnership with the Indiana Statewide 911
 Board.
 
+## Status
+
+**Deployed in production**, served beneath the legacy ASP.NET site at
+**`/artifacts`** (`https://in911-ngsec.911authority.com/artifacts`):
+
+- **ASP.NET provides identity, authorization, and the launch flow.** It is the
+  identity authority (ASP.NET Identity + OWIN cookie) and mints the short-lived
+  bridge token that this app verifies.
+- **IIS (URL Rewrite + ARR) reverse-proxies** requests to a **loopback Node
+  service** (`127.0.0.1:3002`, run under the NSSM service `PsapArtifactLibrary`).
+  The Node process is not intended to be directly internet-reachable.
+- The Artifact Library remains a **separate Next.js repository and deployment**
+  from the ASP.NET application.
+
+See [SECURITY.md](SECURITY.md) for trust boundaries and remaining hardening, and
+[CLAUDE.md](CLAUDE.md) for agent operating rules and the full integration paths.
+(Production hosting facts are operator-reported unless inspected on the server.)
+
+## Integration (paths & entry point)
+
+| | |
+| --- | --- |
+| ASP.NET companion repo (identity authority) | `C:\dev\code\surveytool\sites\in911-ngsec.911authority.com\branches\master` |
+| Next.js source (this repo) | `C:\dev\code\next.js\sites\psap-artifact-library` |
+| Production Node deployment | `C:\inetpub\psap-artifact-library` |
+| Public URL | `https://in911-ngsec.911authority.com/artifacts` (canonical — no trailing slash; `/artifacts/` → `/artifacts`, 308) |
+| `basePath` | `/artifacts` |
+
+The **normal production entry point is the ASP.NET Tools page**
+(*Tools → PSAP Artifact Library*, available to `Administrator`/`Manager` users) —
+**not** direct navigation to `/artifacts`.
+
 ## What it does
 
 - **Setup** — upload a completed assessment matrix (`.xlsx`). The app parses
@@ -24,7 +56,24 @@ Board.
   fields auto-fill from the uploaded assessment where possible. Spreadsheet
   (`.xlsx`) artifacts are downloaded and completed in Excel instead.
 
+## Authentication & access
+
+- **The page shell is currently public** — the UI can load without an
+  authenticated session.
+- **Protected server operations require a valid `psap_session` session:**
+  spreadsheet parsing (`/api/parse-assessment`), template-field retrieval
+  (`/api/template-fields/[id]`), and document generation
+  (`/api/generate-document/[id]`). Missing, invalid, or expired user sessions
+  return **HTTP 401**. Missing or invalid production signing configuration returns
+  **HTTP 503**.
+- Auth is a **signed HS256 JWT** that ASP.NET issues into an HttpOnly
+  `psap_session` cookie and that this app **only verifies** (`src/lib/auth.ts`)
+  against the shared `PSAP_BRIDGE_SECRET`. Full details in [SECURITY.md](SECURITY.md).
+
 ## Getting started
+
+> **AI agents:** do not run installs, dev servers, or builds automatically — ask
+> first, per [CLAUDE.md](CLAUDE.md). The commands below are for human developers.
 
 ```bash
 npm install
@@ -33,10 +82,12 @@ npm run dev
 
 The dev server runs on **http://localhost:3002** (set in the `dev` script).
 
-Copy `.env.example` to `.env.local` if you need to exercise auth locally —
-with `APP_ACCESS_SECRET` unset, auth is bypassed in dev for convenience and
-**fails closed (503) in production**. See [SECURITY.md](SECURITY.md) for the
-full interim-auth and hardening story.
+**Local auth.** Copy `.env.example` to `.env.local` if you need to exercise the
+bridge locally. The signing key is **`PSAP_BRIDGE_SECRET`** (base64, ≥32 bytes,
+and it must match the ASP.NET side). With it **unset in development, auth is
+bypassed for convenience** (a synthetic dev principal in `requireAuth`); in
+**production a missing or invalid secret fails closed (503)**. Do **not** copy the
+real production secret into local config, and never commit secret values.
 
 ## Scripts
 
@@ -85,17 +136,12 @@ authoring repeating table rows.
 
 ```
 src/app/page.tsx                  the whole UI flow (setup / assessment / library)
+src/app/layout.tsx                app shell (header/footer); not auth-gated
 src/components/                   ProfileSelector, DocumentBuilder
 src/app/api/parse-assessment/     parses the uploaded matrix (in-memory only)
 src/app/api/template-fields/[id]/ template → builder field schema + live preview
 src/app/api/generate-document/[id]/ fills and returns a completed .docx
-src/lib/                          auth, rate limiting, field registry, docx tooling
+src/lib/                          auth (JWT verify), rate limiting, base-path, field registry, docx tooling
 src/data/                         generated lookups (traceability, manifest, tiers)
 scripts/                          template pipeline + data generation
 ```
-
-## Status
-
-Local development. Production deployment, Microsoft Entra authentication, and
-hosting topology are being coordinated separately — the open items are tracked
-in [SECURITY.md](SECURITY.md).
