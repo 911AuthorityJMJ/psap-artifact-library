@@ -175,12 +175,16 @@ architecture.
 
 ## Known / accepted
 
-- **`postcss`**: `npm audit` has historically reported moderate `postcss` findings
-  pulled in transitively by Next. `package.json` pins an override
-  (`overrides.next.postcss = 8.5.10`) to pick up the advisory fix. The exact
-  current count/severity **requires a separate dependency review** (`npm audit` is
-  not run here); do not present a stale number as current fact, and do not assume
-  the only remediation is downgrading Next.
+- **Dependency audit (current local audit):** `npm audit --omit=dev` reports
+  **0 production vulnerabilities** — the deployed dependency tree is clean. The
+  full audit reports **two high-severity findings, both transitive dev
+  dependencies**:
+  - `brace-expansion` (via the ESLint / TypeScript-ESLint toolchain)
+  - `js-yaml` (build/dev tooling)
+  Neither is present in the production dependency tree, so they affect
+  **development/build tooling only, not the deployed application runtime**. No
+  `npm audit fix` has been applied; remediation should be handled as a **separate
+  dependency-maintenance task**.
 - **CSP `script-src 'unsafe-inline'`**: for a strict policy, switch to per-request
   nonces via `proxy.ts` (see
   `node_modules/next/dist/docs/01-app/02-guides/content-security-policy.md`, which
