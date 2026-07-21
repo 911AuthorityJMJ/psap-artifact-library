@@ -8,7 +8,7 @@ import traceabilityData from '@/data/traceability.json';
 import tierMapData from '@/data/tier-map.json';
 import manifestData from '@/data/template-manifest.json';
 import { toFileNameStem } from '@/lib/file-naming.mjs';
-import { apiUrl } from '@/lib/base-path';
+import { apiUrl, assetUrl } from '@/lib/base-path';
 
 interface ManifestEntry {
   form: 'docx' | 'xlsx' | false;
@@ -29,12 +29,12 @@ const TIER_COLORS: Record<number, { text: string; muted: string }> = {
 };
 
 function getFormUrl(id: string, name: string, ext: string): string {
-  return `/templates/forms/${id}-${toFileNameStem(name)}-FORM.${ext}`;
+  return assetUrl(`/templates/forms/${id}-${toFileNameStem(name)}-FORM.${ext}`);
 }
 
 function getExampleUrl(id: string, name: string, profile: string): string {
   const ext = manifest[id]?.exampleExt ?? 'docx';
-  return `/templates/examples/${id}-${toFileNameStem(name)}-EXAMPLE-${profile}.${ext}`;
+  return assetUrl(`/templates/examples/${id}-${toFileNameStem(name)}-EXAMPLE-${profile}.${ext}`);
 }
 
 /**

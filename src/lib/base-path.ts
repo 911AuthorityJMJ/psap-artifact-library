@@ -17,3 +17,13 @@ export const BASE_PATH = '/artifacts';
 export function apiUrl(path: string): string {
   return `${BASE_PATH}${path.startsWith('/') ? path : `/${path}`}`;
 }
+
+/**
+ * Prefix a root-relative public/static asset path (e.g. `/templates/forms/x.docx`)
+ * with BASE_PATH. Needed for plain `<a href>`/`src` string literals, which Next
+ * does NOT auto-prefix (only `next/link`, `next/image`, the router, and its own
+ * assets get the base path). Keeps callers from hard-coding `/artifacts`.
+ */
+export function assetUrl(path: string): string {
+  return `${BASE_PATH}${path.startsWith('/') ? path : `/${path}`}`;
+}
