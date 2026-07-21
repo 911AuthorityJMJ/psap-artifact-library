@@ -47,12 +47,23 @@ function FormatBadge({ form }: { form?: 'docx' | 'xlsx' | false }) {
   if (form === 'docx') {
     return (
       <span
-        title="Word document — fill it in-app with “Build Document,” or download the template"
+        title='Word document — fill it in-app with "Build Document," or download the template'
         className="text-xs bg-sky-50 text-sky-700 px-1.5 py-0.5 rounded font-medium inline-flex items-center gap-1"
       >
-        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className="w-3 h-3"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <path d="M14 2v6h6" /><path d="M16 13H8" /><path d="M16 17H8" />
+          <path d="M14 2v6h6" />
+          <path d="M16 13H8" />
+          <path d="M16 17H8" />
         </svg>
         Document
       </span>
@@ -64,9 +75,21 @@ function FormatBadge({ form }: { form?: 'docx' | 'xlsx' | false }) {
         title="Excel spreadsheet — download and fill it in Excel"
         className="text-xs bg-green-50 text-green-700 px-1.5 py-0.5 rounded font-medium inline-flex items-center gap-1"
       >
-        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className="w-3 h-3"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="3" y="3" width="18" height="18" rx="2" />
-          <path d="M3 9h18" /><path d="M3 15h18" /><path d="M9 3v18" /><path d="M15 3v18" />
+          <path d="M3 9h18" />
+          <path d="M3 15h18" />
+          <path d="M9 3v18" />
+          <path d="M15 3v18" />
         </svg>
         Spreadsheet
       </span>
@@ -131,14 +154,35 @@ interface ParseResult {
   psapInfo: PSAPInfo;
   gaps: Gap[];
   totalGaps: number;
+  /** Questions rated YES / NOT APPLICABLE — not gaps, but their artifacts are
+   *  worth surfacing as reference. Same shape as a gap. */
+  covered: Gap[];
+  totalCovered: number;
 }
+
+/** Rating → badge classes. The four gap colors match the pre-existing By-Question
+ *  ternary verbatim; YES / NOT APPLICABLE add distinct non-gap styling. */
+const RATING_BADGE: Record<string, string> = {
+  'NO': 'bg-red-100 text-red-700',
+  'PLANNED': 'bg-yellow-100 text-yellow-700',
+  'IN PROGRESS': 'bg-sky-100 text-sky-700',
+  'UNKNOWN': 'bg-gray-100 text-gray-600',
+  'YES': 'bg-emerald-100 text-emerald-700',
+  'NOT APPLICABLE': 'bg-slate-100 text-slate-600',
+};
+const ratingBadgeClass = (rating: string) => RATING_BADGE[rating] ?? 'bg-gray-100 text-gray-600';
 
 const lv: Record<string, number> = { S: 1, M: 2, L: 3 };
 
 /** Fallback when the builder is opened from the Full Library with no assessment
  *  uploaded — auto-fill fields simply start empty and are filled by hand. */
 const EMPTY_PSAP: PSAPInfo = {
-  name: '', address: '', cityZip: '', director: '', directorPhone: '', directorEmail: '',
+  name: '',
+  address: '',
+  cityZip: '',
+  director: '',
+  directorPhone: '',
+  directorEmail: '',
 };
 
 export default function Home() {
@@ -166,15 +210,13 @@ export default function Home() {
         throw new Error(err.error || 'Upload failed');
       }
       setResult(await response.json());
-    }
-    catch (e) {
+    } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong');
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   }
-  
+
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     // Clear the input so selecting the same file again (e.g. after fixing it
@@ -182,14 +224,21 @@ export default function Home() {
     e.target.value = '';
     if (file) handleUpload(file);
   }
-  
+
   const gapsByDomain = result?.gaps.reduce((acc, gap) => {
     if (!acc[gap.domain]) acc[gap.domain] = [];
     acc[gap.domain].push(gap);
     return acc;
   }, {} as Record<string, Gap[]>);
-  
-  const [activeTab, setActiveTab] = useState<'build' | 'questions'>('build');
+
+  // The Reference tab mirrors By Question for the covered (YES / N/A) questions.
+  const coveredByDomain = result?.covered.reduce((acc, q) => {
+    if (!acc[q.domain]) acc[q.domain] = [];
+    acc[q.domain].push(q);
+    return acc;
+  }, {} as Record<string, Gap[]>);
+
+  const [activeTab, setActiveTab] = useState<'build' | 'questions' | 'reference'>('build');
   // By-Question rows collapse their action line; keyed per gap+artifact occurrence
   // so the same artifact under different questions toggles independently.
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
@@ -203,7 +252,7 @@ export default function Home() {
   }, []);
   const [librarySearch, setLibrarySearch] = useState('');
   const [libraryType, setLibraryType] = useState('');
-  
+
   const categoryToTier = useMemo(() => {
     const map = new Map<string, { tierNumber: number; tierName: string; tierPosition: number }>();
     for (const tier of tierMapData.tiers) {
@@ -213,20 +262,23 @@ export default function Home() {
     }
     return map;
   }, []);
-  
+
   const getArtifactTier = useCallback((artifactId: string) => {
     const categories = (traceabilityData.artifactCategories as Record<string, string[]>)[artifactId] ?? [];
     let best = { tierNumber: 99, tierName: 'Uncategorized', tierPosition: 99 };
     for (const catId of categories) {
       const tier = categoryToTier.get(catId);
-      if (tier && (tier.tierNumber < best.tierNumber ||
-        (tier.tierNumber === best.tierNumber && tier.tierPosition < best.tierPosition))) {
+      if (
+        tier &&
+        (tier.tierNumber < best.tierNumber ||
+          (tier.tierNumber === best.tierNumber && tier.tierPosition < best.tierPosition))
+      ) {
         best = tier;
       }
     }
     return best;
   }, [categoryToTier]);
-  
+
   const artifactBuildList = useMemo(() => {
     if (!result) return [];
     const map = new Map<string, { artifact: Artifact; gapIds: string[] }>();
@@ -245,7 +297,7 @@ export default function Home() {
       return a.artifact.seqId.localeCompare(b.artifact.seqId);
     });
   }, [result, getArtifactTier]);
-  
+
   const artifactsByTier = useMemo(() => {
     const groups: Record<string, { tierName: string; tierNumber: number; items: typeof artifactBuildList }> = {};
     for (const item of artifactBuildList) {
@@ -256,11 +308,27 @@ export default function Home() {
     }
     return groups;
   }, [artifactBuildList, getArtifactTier]);
-  
+
+  // Artifact ids referenced by at least one gap question — drives the Full
+  // Library "Gap" badge and the Reference tab's "Also a gap" overlap marker.
+  const gapArtifactIds = useMemo(
+    () => new Set(artifactBuildList.map(a => a.artifact.id)),
+    [artifactBuildList],
+  );
+
+  // Reference-tab overlap: how many distinct artifacts surfaced by covered
+  // (YES / N/A) questions also address an open gap. Varies per assessment.
+  const referenceStats = useMemo(() => {
+    const ids = new Set<string>();
+    for (const q of result?.covered ?? []) for (const a of q.artifacts) ids.add(a.id);
+    let overlap = 0;
+    for (const id of ids) if (gapArtifactIds.has(id)) overlap++;
+    return { total: ids.size, overlap };
+  }, [result, gapArtifactIds]);
+
   const fullLibraryList = useMemo(() => {
-    const gapIds = new Set(artifactBuildList.map(a => a.artifact.id));
     return Object.values(traceabilityData.artifactMap as Record<string, Artifact & { status: string }>)
-      .map(artifact => ({ artifact, isGap: gapIds.has(artifact.id) }))
+      .map(artifact => ({ artifact, isGap: gapArtifactIds.has(artifact.id) }))
       .sort((a, b) => {
         const tierA = getArtifactTier(a.artifact.id);
         const tierB = getArtifactTier(b.artifact.id);
@@ -269,7 +337,7 @@ export default function Home() {
         if (a.artifact.gate !== b.artifact.gate) return a.artifact.gate ? -1 : 1;
         return a.artifact.seqId.localeCompare(b.artifact.seqId);
       });
-  }, [artifactBuildList, getArtifactTier]);
+  }, [gapArtifactIds, getArtifactTier]);
 
   const fullLibraryByTier = useMemo(() => {
     const groups: Record<string, { tierName: string; tierNumber: number; items: typeof fullLibraryList }> = {};
@@ -281,58 +349,226 @@ export default function Home() {
     }
     return groups;
   }, [fullLibraryList, getArtifactTier]);
-  
+
   const [profile, setProfile] = useState<ProfileState>({
-    baseline: 'S', technicalLevel: 'S', governanceLevel: 'S',
-    cjis: false, consolidated: false, colocated: false,
+    baseline: 'S',
+    technicalLevel: 'S',
+    governanceLevel: 'S',
+    cjis: false,
+    consolidated: false,
+    colocated: false,
   });
 
   const handleProfileChange = useCallback((p: ProfileState) => setProfile(p), []);
-  
+
   const exceptionMapById = useMemo(() => {
     const map = new Map<string, typeof exceptionData.artifacts[0]>();
     for (const entry of exceptionData.artifacts) map.set(entry.id, entry);
     return map;
   }, []);
-  
+
   function getScaleBadges(artifactId: string, classification: string) {
     const entry = exceptionMapById.get(artifactId);
     const badges: React.ReactNode[] = [];
     if (entry) {
-      if (entry.flags.includes('Technical footprint') && lv[profile.technicalLevel] > lv[profile.baseline])
-        badges.push(<span key="tech" className="text-xs bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded font-medium">↑ Technical · {levelName[profile.technicalLevel]}</span>);
+      if (
+        entry.flags.includes('Technical footprint') &&
+        lv[profile.technicalLevel] > lv[profile.baseline]
+      )
+        badges.push(
+          <span key="tech" className="text-xs bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded font-medium">
+            ↑ Technical · {levelName[profile.technicalLevel]}
+          </span>
+        );
       if (entry.flags.includes('Governance') && lv[profile.governanceLevel] > lv[profile.baseline])
-        badges.push(<span key="gov" className="text-xs bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded font-medium">↑ Governance · {levelName[profile.governanceLevel]}</span>);
+        badges.push(
+          <span key="gov" className="text-xs bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded font-medium">
+            ↑ Governance · {levelName[profile.governanceLevel]}
+          </span>
+        );
       if (entry.flags.includes('Consolidated / multi-agency') && profile.consolidated)
-        badges.push(<span key="consol" className="text-xs bg-orange-50 text-orange-700 px-1.5 py-0.5 rounded font-medium">Multi-agency</span>);
+        badges.push(
+          <span key="consol" className="text-xs bg-orange-50 text-orange-700 px-1.5 py-0.5 rounded font-medium">
+            Multi-agency
+          </span>
+        );
       if (entry.flags.includes('Co-located / shared space') && profile.colocated)
-        badges.push(<span key="coloc" className="text-xs bg-teal-50 text-teal-700 px-1.5 py-0.5 rounded font-medium">Co-located</span>);
+        badges.push(
+          <span key="coloc" className="text-xs bg-teal-50 text-teal-700 px-1.5 py-0.5 rounded font-medium">
+            Co-located
+          </span>
+        );
     }
     if (profile.cjis && classification?.includes('CJIS'))
-      badges.push(<span key="cjis" className="text-xs bg-amber-50 text-amber-700 px-1.5 py-0.5 rounded font-medium">CJIS</span>);
+      badges.push(
+        <span key="cjis" className="text-xs bg-amber-50 text-amber-700 px-1.5 py-0.5 rounded font-medium">
+          CJIS
+        </span>
+      );
     return badges;
   }
-  
+
   const libraryTypes = useMemo(
     () => Array.from(new Set(fullLibraryList.map(i => i.artifact.type))).filter(Boolean).sort(),
-    [fullLibraryList],
+    [fullLibraryList]
   );
 
-  const matchesLibraryFilter = useCallback((artifact: Artifact) => {
-    const q = librarySearch.trim().toLowerCase();
-    if (libraryType && artifact.type !== libraryType) return false;
-    if (q && !artifact.name.toLowerCase().includes(q) && !artifact.type.toLowerCase().includes(q)) return false;
-    return true;
-  }, [librarySearch, libraryType]);
+  const matchesLibraryFilter = useCallback(
+    (artifact: Artifact) => {
+      const q = librarySearch.trim().toLowerCase();
+      if (libraryType && artifact.type !== libraryType) return false;
+      if (q && !artifact.name.toLowerCase().includes(q) && !artifact.type.toLowerCase().includes(q)) return false;
+      return true;
+    },
+    [librarySearch, libraryType]
+  );
 
   const libraryMatchCount = useMemo(
     () => fullLibraryList.filter(i => matchesLibraryFilter(i.artifact)).length,
-    [fullLibraryList, matchesLibraryFilter],
+    [fullLibraryList, matchesLibraryFilter]
+  );
+
+  // Shared By-Question renderer for both the gap tab and the Reference tab.
+  // Defined inside Home() and INVOKED as a function (like renderFullLibrary) so
+  // it reuses closures with no new component boundary — rendering it as a JSX
+  // element would remount the whole list on every expand/tab/profile change.
+  // `crossRefIds` (optional) badges artifacts that also appear in another set
+  // (the Reference tab passes the gap-artifact ids → "Also a gap").
+  const renderQuestionGroups = (
+    groups: Record<string, Gap[]> | undefined,
+    keyPrefix: string,
+    crossRefIds?: Set<string>,
+    crossRefLabel?: string,
+  ) => (
+    <div>
+      {groups &&
+        Object.entries(groups).map(([domain, questions]) => (
+          <div key={domain} className="mb-5">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              {domain}
+            </h3>
+            <div className="space-y-1">
+              {questions.map(q => (
+                <div key={q.id} className="py-2 border-b border-gray-50 last:border-0">
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="font-mono text-xs text-gray-400 w-12 shrink-0">{q.id}</span>
+                    <span
+                      className={`text-xs font-semibold px-2 py-0.5 rounded shrink-0 ${ratingBadgeClass(q.rating)}`}
+                    >
+                      {q.rating}
+                    </span>
+                    <span className="text-gray-600">{q.category}</span>
+                  </div>
+                  {q.artifacts.length > 0 && (
+                    <div className="ml-14 mt-1 space-y-2">
+                      {q.artifacts.map(artifact => {
+                        const form = manifest[artifact.id]?.form;
+                        const hasExample = (manifest[artifact.id]?.examples ?? []).includes(
+                          profile.baseline
+                        );
+                        const hasActions = Boolean(form || hasExample);
+                        const rowKey = `${keyPrefix}${q.id}:${artifact.id}`;
+                        const expanded = expandedRows.has(rowKey);
+                        const alsoCrossRef = Boolean(crossRefIds?.has(artifact.id));
+                        return (
+                          <div key={artifact.id}>
+                            <div className="flex items-center gap-2 flex-wrap text-xs">
+                              {hasActions ? (
+                                <button
+                                  type="button"
+                                  onClick={() => toggleRow(rowKey)}
+                                  aria-expanded={expanded}
+                                  title={expanded ? 'Hide actions' : 'Show actions'}
+                                  className="group inline-flex items-center gap-2 text-left"
+                                >
+                                  <span
+                                    className={`inline-block text-gray-400 transition-transform group-hover:text-gray-600 ${
+                                      expanded ? 'rotate-90' : ''
+                                    }`}
+                                  >
+                                    →
+                                  </span>
+                                  <span className="font-medium text-gray-700 group-hover:text-gray-900">
+                                    {artifact.name}
+                                  </span>
+                                </button>
+                              ) : (
+                                <>
+                                  <span className="text-gray-300">→</span>
+                                  <span className="font-medium text-gray-700">{artifact.name}</span>
+                                </>
+                              )}
+                              <FormatBadge form={form} />
+                              {artifact.gate && (
+                                <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">
+                                  Gate
+                                </span>
+                              )}
+                              {alsoCrossRef && crossRefLabel && (
+                                <span
+                                  className="bg-red-50 text-red-600 px-1.5 py-0.5 rounded font-medium"
+                                  title="This artifact also addresses an open gap elsewhere in your assessment."
+                                >
+                                  {crossRefLabel}
+                                </span>
+                              )}
+                            </div>
+                            {hasActions && expanded && (
+                              <div className="flex items-center gap-x-3 gap-y-1 flex-wrap text-xs ml-6 mt-1">
+                                {form && (
+                                  <>
+                                    <a
+                                      href={getFormUrl(artifact.id, artifact.name, form)}
+                                      download
+                                      className="font-medium"
+                                      style={{ color: 'var(--ui-link)' }}
+                                    >
+                                      ↓ Download Template
+                                    </a>
+                                    {form === 'docx' && (
+                                      <button
+                                        onClick={() => setBuilderArtifact(artifact)}
+                                        className="font-medium text-emerald-600 hover:text-emerald-800"
+                                      >
+                                        ✦ Build Document
+                                      </button>
+                                    )}
+                                  </>
+                                )}
+                                {hasExample && (
+                                  <a
+                                    href={getExampleUrl(artifact.id, artifact.name, profile.baseline)}
+                                    download
+                                    className="font-medium"
+                                    style={{ color: 'var(--ui-link)' }}
+                                  >
+                                    ↓ Example · {levelName[profile.baseline]}
+                                  </a>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+    </div>
   );
 
   const renderFullLibrary = () => {
     const groups = Object.entries(fullLibraryByTier)
-      .map(([tierKey, group]) => [tierKey, { ...group, items: group.items.filter(({ artifact }) => matchesLibraryFilter(artifact)) }] as const)
+      .map(
+        ([tierKey, group]) =>
+          [
+            tierKey,
+            { ...group, items: group.items.filter(({ artifact }) => matchesLibraryFilter(artifact)) },
+          ] as const
+      )
       .filter(([, group]) => group.items.length > 0);
 
     if (groups.length === 0) {
@@ -346,24 +582,30 @@ export default function Home() {
           return (
             <div key={tierKey} className="mb-6 last:mb-0">
               <div className="flex items-center gap-2 mb-3">
-                <h3 className="text-xs font-semibold uppercase tracking-wide"
-                    style={{ color: tc?.text ?? '#4B5563' }}>
+                <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: tc?.text ?? '#4B5563' }}>
                   {tierKey}
                 </h3>
-                <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>· {tierName}</span>
+                <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>
+                  · {tierName}
+                </span>
                 <span className="text-gray-400 text-xs">
                   — {items.length} artifact{items.length !== 1 ? 's' : ''}
                 </span>
               </div>
               <div className="space-y-2">
                 {items.map(({ artifact, isGap }) => (
-                  <div key={artifact.id} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
+                  <div
+                    key={artifact.id}
+                    className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100"
+                  >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-sm font-medium text-gray-900">{artifact.name}</span>
                         <FormatBadge form={manifest[artifact.id]?.form} />
                         {artifact.gate && (
-                          <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
+                          <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">
+                            Gate
+                          </span>
                         )}
                         {isGap && (
                           <span className="text-xs bg-red-50 text-red-600 px-1.5 py-0.5 rounded font-medium">Gap</span>
@@ -376,25 +618,42 @@ export default function Home() {
                         <span>{artifact.type}</span>
                       </div>
                       {(manifest[artifact.id]?.form || (manifest[artifact.id]?.examples ?? []).length > 0) && (
-                        <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
+                        <div
+                          className="flex items-center gap-4 mt-2 pt-2 border-t"
+                          style={{ borderColor: 'var(--ui-border)' }}
+                        >
                           {manifest[artifact.id]?.form && (
                             <>
-                              <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
-                                className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
+                              <a
+                                href={getFormUrl(
+                                  artifact.id,
+                                  artifact.name,
+                                  manifest[artifact.id].form as string
+                                )}
+                                download
+                                className="text-xs font-medium"
+                                style={{ color: 'var(--ui-link)' }}
+                              >
                                 ↓ Download Template
                               </a>
                               {manifest[artifact.id]?.form === 'docx' && (
                                 <button
                                   onClick={() => setBuilderArtifact(artifact)}
-                                  className="text-xs font-medium text-emerald-600 hover:text-emerald-800">
+                                  className="text-xs font-medium text-emerald-600 hover:text-emerald-800"
+                                >
                                   ✦ Build Document
                                 </button>
                               )}
                             </>
                           )}
                           {(manifest[artifact.id]?.examples ?? []).map(p => (
-                            <a key={p} href={getExampleUrl(artifact.id, artifact.name, p)} download
-                              className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
+                            <a
+                              key={p}
+                              href={getExampleUrl(artifact.id, artifact.name, p)}
+                              download
+                              className="text-xs font-medium"
+                              style={{ color: 'var(--ui-link)' }}
+                            >
                               ↓ Example · {levelName[p as keyof typeof levelName]}
                             </a>
                           ))}
@@ -415,7 +674,6 @@ export default function Home() {
     <React.Fragment>
       <main className="min-h-screen p-8">
         <div className="max-w-3xl mx-auto">
-
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900 mb-1">PSAP Artifact Library</h1>
@@ -425,7 +683,7 @@ export default function Home() {
               <p className="text-gray-500 text-sm">Upload your completed assessment matrix to get started.</p>
             )}
           </div>
-          
+
           {/* Top-level navigation */}
           <div className="flex gap-1 border-b mb-6" style={{ borderColor: 'var(--ui-border)' }}>
             {(['setup', 'assessment', 'library'] as const).map(view => {
@@ -434,7 +692,10 @@ export default function Home() {
               return (
                 <button
                   key={view}
-                  onClick={() => { if (isDisabled) return; setActiveView(view); }}
+                  onClick={() => {
+                    if (isDisabled) return;
+                    setActiveView(view);
+                  }}
                   disabled={isDisabled}
                   className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
                     view === 'library' ? 'ml-auto' : ''
@@ -443,20 +704,26 @@ export default function Home() {
                       ? 'border-transparent text-gray-300 cursor-not-allowed'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
                   }`}
-                  style={activeView === view ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 } : {}}
+                  style={
+                    activeView === view
+                      ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 }
+                      : {}
+                  }
                 >
                   {label}
                 </button>
               );
             })}
           </div>
-          
+
           {/* Setup view */}
           {activeView === 'setup' && (
             <div className="space-y-6">
-              
               {/* Upload area */}
-              <div className="relative border-2 border-dashed rounded-lg p-12 text-center transition-colors bg-white" style={{ borderColor: 'var(--ui-border)' }}>
+              <div
+                className="relative border-2 border-dashed rounded-lg p-12 text-center transition-colors bg-white"
+                style={{ borderColor: 'var(--ui-border)' }}
+              >
                 <input
                   type="file"
                   accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -466,14 +733,14 @@ export default function Home() {
                 {loading ? (
                   <p className="text-gray-500">Parsing assessment matrix...</p>
                 ) : result ? (
-                    <>
-                      <p className="text-gray-700 font-medium">Upload a different assessment matrix</p>
-                      <p className="text-gray-400 text-sm mt-1">.xlsx files only</p>
-                    </>
-                  ) : (
-                      <>
-                        <p className="text-gray-700 font-medium">Click to upload your assessment matrix</p>
-                        <p className="text-gray-400 text-sm mt-1">.xlsx files only</p>
+                  <>
+                    <p className="text-gray-700 font-medium">Upload a different assessment matrix</p>
+                    <p className="text-gray-400 text-sm mt-1">.xlsx files only</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-gray-700 font-medium">Click to upload your assessment matrix</p>
+                    <p className="text-gray-400 text-sm mt-1">.xlsx files only</p>
                   </>
                 )}
               </div>
@@ -506,7 +773,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Profile Selector */}
                   <ProfileSelector onChange={handleProfileChange} />
                   <div className="flex justify-end">
@@ -524,7 +791,7 @@ export default function Home() {
               )}
             </div>
           )}
-          
+
           {/* Assessment view */}
           {activeView === 'assessment' && result && (
             <div className="bg-white rounded-lg" style={{ border: '1px solid var(--ui-border)' }}>
@@ -535,21 +802,25 @@ export default function Home() {
                   {artifactBuildList.length} artifacts with gaps · {fullLibraryList.length} total
                 </p>
                 <div className="flex gap-1 border-b" style={{ borderColor: 'var(--ui-border)' }}>
-                  {(['build', 'questions'] as const).map(tab => (
+                  {(['build', 'questions', 'reference'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
                         activeTab === tab ? '' : 'border-transparent text-gray-500 hover:text-gray-700'
                       }`}
-                      style={activeTab === tab ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 } : {}}
+                      style={
+                        activeTab === tab
+                          ? { borderBottomColor: 'var(--ui-link)', color: 'var(--ui-link)', borderBottomWidth: 2 }
+                          : {}
+                      }
                     >
-                      {tab === 'build' ? 'Build Priority' : 'By Question'}
+                      {{ build: 'Build Priority', questions: 'By Question', reference: 'Reference' }[tab]}
                     </button>
                   ))}
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <FormatLegend className="mb-4" />
                 {activeTab === 'build' ? (
@@ -557,154 +828,117 @@ export default function Home() {
                     {Object.entries(artifactsByTier).map(([tierKey, { tierName, tierNumber, items }]) => {
                       const tc = TIER_COLORS[tierNumber];
                       return (
-                      <div key={tierKey} className="mb-6 last:mb-0">
-                        <div className="flex items-center gap-2 mb-3">
-                          <h3 className="text-xs font-semibold uppercase tracking-wide"
-                              style={{ color: tc?.text ?? '#4B5563' }}>
-                            {tierKey}
-                          </h3>
-                          <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>· {tierName}</span>
-                          <span className="text-xs text-gray-400">
-                            — {items.length} artifact{items.length !== 1 ? 's' : ''}
-                          </span>
-                        </div>
-                        <div className="space-y-2">
-                          {items.map(({ artifact, gapIds }) => (
-                            <div key={artifact.id} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 flex-wrap">
-                                  <span className="text-sm font-medium text-gray-900">{artifact.name}</span>
-                                  <FormatBadge form={manifest[artifact.id]?.form} />
-                                  {artifact.gate && (
-                                    <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
-                                  )}
-                                  {getScaleBadges(artifact.id, artifact.classification).map((badge, i) => (
-                                    <span key={i}>{badge}</span>
-                                  ))}
-                                </div>
-                                <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
-                                  <span>{artifact.type}</span>
-                                  <span>·</span>
-                                  <span>{gapIds.length} gap{gapIds.length !== 1 ? 's' : ''}</span>
-                                </div>
-                                {(manifest[artifact.id]?.form || (manifest[artifact.id]?.examples ?? []).length > 0) && (
-                                  <div className="flex items-center gap-4 mt-2 pt-2 border-t" style={{ borderColor: 'var(--ui-border)' }}>
-                                    {manifest[artifact.id]?.form && (
-                                      <>
-                                        <a href={getFormUrl(artifact.id, artifact.name, manifest[artifact.id].form as string)} download
-                                          className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                          ↓ Download Template
-                                        </a>
-                                        {manifest[artifact.id]?.form === 'docx' && (
-                                          <button
-                                            onClick={() => setBuilderArtifact(artifact)}
-                                            className="text-xs font-medium text-emerald-600 hover:text-emerald-800">
-                                            ✦ Build Document
-                                          </button>
-                                        )}
-                                      </>
+                        <div key={tierKey} className="mb-6 last:mb-0">
+                          <div className="flex items-center gap-2 mb-3">
+                            <h3
+                              className="text-xs font-semibold uppercase tracking-wide"
+                              style={{ color: tc?.text ?? '#4B5563' }}
+                            >
+                              {tierKey}
+                            </h3>
+                            <span className="text-xs" style={{ color: tc?.muted ?? '#6B7280' }}>
+                              · {tierName}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              — {items.length} artifact{items.length !== 1 ? 's' : ''}
+                            </span>
+                          </div>
+                          <div className="space-y-2">
+                            {items.map(({ artifact, gapIds }) => (
+                              <div
+                                key={artifact.id}
+                                className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100"
+                              >
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <span className="text-sm font-medium text-gray-900">{artifact.name}</span>
+                                    <FormatBadge form={manifest[artifact.id]?.form} />
+                                    {artifact.gate && (
+                                      <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">
+                                        Gate
+                                      </span>
                                     )}
-                                    {(manifest[artifact.id]?.examples ?? []).includes(profile.baseline) && (
-                                      <a href={getExampleUrl(artifact.id, artifact.name, profile.baseline)} download
-                                        className="text-xs font-medium" style={{ color: 'var(--ui-link)' }}>
-                                        ↓ Worked Example ({levelName[profile.baseline]})
-                                      </a>
-                                    )}
+                                    {getScaleBadges(artifact.id, artifact.classification).map((badge, i) => (
+                                      <span key={i}>{badge}</span>
+                                    ))}
                                   </div>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                      <div>
-                        {gapsByDomain && Object.entries(gapsByDomain).map(([domain, gaps]) => (
-                          <div key={domain} className="mb-5">
-                            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{domain}</h3>
-                            <div className="space-y-1">
-                              {gaps.map(gap => (
-                                <div key={gap.id} className="py-2 border-b border-gray-50 last:border-0">
-                                  <div className="flex items-center gap-3 text-sm">
-                                    <span className="font-mono text-xs text-gray-400 w-12 shrink-0">{gap.id}</span>
-                                    <span className={`text-xs font-semibold px-2 py-0.5 rounded shrink-0 ${
-                                      gap.rating === 'NO' ? 'bg-red-100 text-red-700'
-                                      : gap.rating === 'PLANNED' ? 'bg-yellow-100 text-yellow-700'
-                                      : gap.rating === 'IN PROGRESS' ? 'bg-sky-100 text-sky-700'
-                                          : 'bg-gray-100 text-gray-600'
-                                      }`}>{gap.rating}</span>
-                                    <span className="text-gray-600">{gap.category}</span>
+                                  <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                                    <span>{artifact.type}</span>
+                                    <span>·</span>
+                                    <span>{gapIds.length} gap{gapIds.length !== 1 ? 's' : ''}</span>
                                   </div>
-                                  {gap.artifacts.length > 0 && (
-                                    <div className="ml-14 mt-1 space-y-2">
-                                      {gap.artifacts.map(artifact => {
-                                        const form = manifest[artifact.id]?.form;
-                                        const hasExample = (manifest[artifact.id]?.examples ?? []).includes(profile.baseline);
-                                        const hasActions = Boolean(form || hasExample);
-                                        const rowKey = `${gap.id}:${artifact.id}`;
-                                        const expanded = expandedRows.has(rowKey);
-                                        return (
-                                        <div key={artifact.id}>
-                                          <div className="flex items-center gap-2 flex-wrap text-xs">
-                                            {hasActions ? (
-                                              <button
-                                                type="button"
-                                                onClick={() => toggleRow(rowKey)}
-                                                aria-expanded={expanded}
-                                                title={expanded ? 'Hide actions' : 'Show actions'}
-                                                className="group inline-flex items-center gap-2 text-left">
-                                                <span className={`inline-block text-gray-400 transition-transform group-hover:text-gray-600 ${expanded ? 'rotate-90' : ''}`}>→</span>
-                                                <span className="font-medium text-gray-700 group-hover:text-gray-900">{artifact.name}</span>
-                                              </button>
-                                            ) : (
-                                              <>
-                                                <span className="text-gray-300">→</span>
-                                                <span className="font-medium text-gray-700">{artifact.name}</span>
-                                              </>
+                                  {(manifest[artifact.id]?.form ||
+                                    (manifest[artifact.id]?.examples ?? []).length > 0) && (
+                                    <div
+                                      className="flex items-center gap-4 mt-2 pt-2 border-t"
+                                      style={{ borderColor: 'var(--ui-border)' }}
+                                    >
+                                      {manifest[artifact.id]?.form && (
+                                        <>
+                                          <a
+                                            href={getFormUrl(
+                                              artifact.id,
+                                              artifact.name,
+                                              manifest[artifact.id].form as string
                                             )}
-                                            <FormatBadge form={form} />
-                                            {artifact.gate && (
-                                              <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-medium">Gate</span>
-                                            )}
-                                          </div>
-                                          {hasActions && expanded && (
-                                            <div className="flex items-center gap-x-3 gap-y-1 flex-wrap text-xs ml-6 mt-1">
-                                              {form && (
-                                                <>
-                                                  <a href={getFormUrl(artifact.id, artifact.name, form)} download
-                                                    className="font-medium" style={{ color: 'var(--ui-link)' }}>
-                                                    ↓ Download Template
-                                                  </a>
-                                                  {form === 'docx' && (
-                                                    <button
-                                                      onClick={() => setBuilderArtifact(artifact)}
-                                                      className="font-medium text-emerald-600 hover:text-emerald-800">
-                                                      ✦ Build Document
-                                                    </button>
-                                                  )}
-                                                </>
-                                              )}
-                                              {hasExample && (
-                                                <a href={getExampleUrl(artifact.id, artifact.name, profile.baseline)} download
-                                                  className="font-medium" style={{ color: 'var(--ui-link)' }}>
-                                                  ↓ Example · {levelName[profile.baseline]}
-                                                </a>
-                                              )}
-                                            </div>
+                                            download
+                                            className="text-xs font-medium"
+                                            style={{ color: 'var(--ui-link)' }}
+                                          >
+                                            ↓ Download Template
+                                          </a>
+                                          {manifest[artifact.id]?.form === 'docx' && (
+                                            <button
+                                              onClick={() => setBuilderArtifact(artifact)}
+                                              className="text-xs font-medium text-emerald-600 hover:text-emerald-800"
+                                            >
+                                              ✦ Build Document
+                                            </button>
                                           )}
-                                        </div>
-                                        );
-                                      })}
+                                        </>
+                                      )}
+                                      {(manifest[artifact.id]?.examples ?? []).includes(profile.baseline) && (
+                                        <a
+                                          href={getExampleUrl(artifact.id, artifact.name, profile.baseline)}
+                                          download
+                                          className="text-xs font-medium"
+                                          style={{ color: 'var(--ui-link)' }}
+                                        >
+                                          ↓ Worked Example ({levelName[profile.baseline]})
+                                        </a>
+                                      )}
                                     </div>
                                   )}
                                 </div>
-                              ))}
-                            </div>
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : activeTab === 'questions' ? (
+                  renderQuestionGroups(gapsByDomain, 'gap:')
+                ) : result.totalCovered === 0 ? (
+                  <p className="text-sm text-gray-400 text-center py-10">
+                    No questions were rated Yes or Not Applicable.
+                  </p>
+                ) : (
+                  <div>
+                    <div className="mb-4 space-y-1 text-sm text-gray-500">
+                      <p>
+                        {result.totalCovered} question{result.totalCovered !== 1 ? 's' : ''} rated Yes or Not
+                        Applicable — reference material already in place or not required.
+                      </p>
+                      {referenceStats.overlap > 0 && (
+                        <p>
+                          {referenceStats.overlap} of {referenceStats.total} referenced artifact
+                          {referenceStats.total !== 1 ? 's' : ''} also address an open gap (marked{' '}
+                          <span className="text-red-600 font-medium">Also a gap</span>).
+                        </p>
+                      )}
+                    </div>
+                    {renderQuestionGroups(coveredByDomain, 'ref:', gapArtifactIds, 'Also a gap')}
                   </div>
                 )}
               </div>
@@ -721,7 +955,8 @@ export default function Home() {
                     `Showing ${libraryMatchCount} of ${fullLibraryList.length} artifacts.`
                   ) : (
                     <>
-                      Browse all {fullLibraryList.length} artifacts.{!result && (
+                      Browse all {fullLibraryList.length} artifacts.
+                      {!result && (
                         <>
                           {' '}
                           <button
@@ -754,20 +989,20 @@ export default function Home() {
                   >
                     <option value="">All types</option>
                     {libraryTypes.map(t => (
-                      <option key={t} value={t}>{t}</option>
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
                     ))}
                   </select>
                 </div>
                 <FormatLegend className="mt-4" />
               </div>
-              <div className="px-6 pb-6">
-                {renderFullLibrary()}
-              </div>
+              <div className="px-6 pb-6">{renderFullLibrary()}</div>
             </div>
           )}
         </div>
       </main>
-      
+
       {builderArtifact && (
         <DocumentBuilder
           artifactId={builderArtifact.id}

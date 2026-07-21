@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import Image from "next/image";
+import type { Metadata } from 'next';
+import './globals.css';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: "PSAP Artifact Library",
-  description: "911 Authority — PSAP compliance artifact library",
+  title: 'PSAP Artifact Library',
+  description: '911 Authority — PSAP compliance artifact library',
 };
 
 export default function RootLayout({
@@ -17,7 +17,11 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {/* Topbar */}
         <header
-          style={{ background: 'var(--ui-shell)', height: 52, boxShadow: '0 2px 8px rgba(0,0,0,.25)' }}
+          style={{
+            background: 'var(--ui-shell)',
+            height: 52,
+            boxShadow: '0 2px 8px rgba(0,0,0,.25)',
+          }}
           className="sticky top-0 z-50 flex items-center gap-3 px-4 shrink-0"
         >
           <div
@@ -35,18 +39,13 @@ export default function RootLayout({
               />
             </span>
           </div>
-          <span
-            className="font-semibold text-white text-base whitespace-nowrap"
-            style={{ fontSize: 16 }}
-          >
+          <span className="font-semibold text-white text-base whitespace-nowrap" style={{ fontSize: 16 }}>
             PSAP Artifact Library
           </span>
         </header>
 
         {/* Page content */}
-        <div className="flex-1">
-          {children}
-        </div>
+        <div className="flex-1">{children}</div>
 
         {/* Footer */}
         <footer

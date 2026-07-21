@@ -23,11 +23,14 @@
 export function normalizeBracket(raw) {
   let s = String(raw).replace(/^\[/, '').replace(/\]$/, '');
   s = s
-    .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#8217;/g, "'").replace(/&#8216;/g, "'")
     .replace(/&#8220;/g, '"').replace(/&#8221;/g, '"')
-    .replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    // Decode &amp; LAST: unescaping the '&' meta-entity first would let a
+    // literally-encoded entity like "&amp;lt;" (text "&lt;") be re-decoded
+    // into "<". (CodeQL js/double-escaping.)
+    .replace(/&amp;/g, '&');
   s = s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
   s = s.replace(/\s+/g, ' ').trim().toLowerCase();
   return s;
