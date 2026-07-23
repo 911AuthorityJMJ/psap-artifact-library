@@ -114,6 +114,38 @@ export const FIELDS = [
   { id: 'currentDue',            label: 'Current / Due',             type: 'select', options: ['Current', 'Due'], aliases: ['current / due'] },
   { id: 'trendArrow',            label: 'Trend',                     type: 'select', options: ['↑', '↓', 'flat'], aliases: ['↑ / ↓ / flat'] },
   { id: 'criticality',           label: 'Criticality',               type: 'select', options: ['Critical', 'Important', 'Supporting'], aliases: ['critical / important / supporting: from the asset criticality ranking matrix'] },
+  // A mandated two-way choice on the access-request form: the outer "[Permanent /
+  // Temporary]" bracket is the decision; the temporary end date is its own field.
+  { id: 'accessDuration',        label: 'Access Duration',           type: 'select', options: ['Permanent', 'Temporary'], aliases: ['permanent / temporary', 'permanent or temporary'] },
+
+  // ── Dates (beyond the shared [Date] → effectiveDate) ─────────────────────
+  { id: 'temporaryEndDate',      label: 'Temporary End Date',        type: 'date', aliases: ['temporary end date'] },
+
+  // ── Ambiguous-bracket triage (2026-07-23, adversarially verified) ─────────
+  // Enum choices that had been left literal → dropdowns.
+  { id: 'routingMethod',   label: 'Routing Method',   type: 'select', options: ['ESInet re-route', 'Ten-digit transfer', 'Radio patch'], aliases: ['the agreed method: esinet re-route, ten-digit transfer, or radio patch'] }, // A-021
+  { id: 'mfaMethod',       label: 'MFA Method',       type: 'select', options: ['Authenticator app', 'Hardware token', 'One-time code'], aliases: ['authenticator app / hardware token / one-time code'] }, // A-040
+  { id: 'deviceClass',     label: 'Device Class',     type: 'select', options: ['General endpoint', 'Email server', 'VoIP or multimedia server'], aliases: ['general endpoint / email server / voip or multimedia server'] }, // A-119
+  { id: 'timeSourceType',  label: 'Time Source Type', type: 'select', options: ['Internal NTP', 'GPS', 'External NTP'], aliases: ['internal ntp / gps / external ntp'] }, // A-138
+  // Genuine fill-in prompts that had been left literal → labeled fields.
+  { id: 'systemsInScope',               label: 'Systems in Scope',                type: 'textarea', aliases: ['name the public-safety systems in scope: cad, esinet/ngcs, radio, ali/gis, recording, network'] }, // A-008
+  { id: 'alternateSiteLocationAndSetup', label: 'Alternate Site Location and Setup', type: 'textarea', aliases: ['location, and how call taking and dispatch are stood up there'] }, // A-019
+  { id: 'mobileOrFallbackOption',       label: 'Mobile or Fallback Option',       type: 'text',     aliases: ['mobile command unit or radio dispatch, if any'] }, // A-019
+  { id: 'excludedSystems',              label: 'Excluded Systems',                type: 'textarea', aliases: ['systems another agency owns and backs up under a separate agreement. if none, state none'] }, // A-022
+  { id: 'providersAndAssessmentPeriod', label: 'Providers and Assessment Period', type: 'textarea', aliases: ['providers assessed and period; itemize in the providers assessed table below'] }, // A-076
+  { id: 'vendorServiceType',            label: 'Service',                         type: 'text',     aliases: ['cad / gis / voip / cloud storage'] }, // A-076
+  { id: 'monitoringMethod',             label: 'Monitoring Method',               type: 'text',     aliases: ['vendor soc report / posture tool / attestations / advisories'] }, // A-076
+  { id: 'toolMethodology',              label: 'Tool / Methodology',              type: 'textarea', aliases: ['scanner, authenticated scan, or penetration test; rules of engagement'] }, // A-081
+  { id: 'deliveryMethods',              label: 'Delivery Methods',                type: 'textarea', aliases: ['methods, for example short online modules, briefings at shift change, tabletop participation, and phishing simulations'] }, // A-086
+  { id: 'completionTargets',            label: 'Completion Targets',              type: 'textarea', aliases: ['for example, all staff complete annual awareness training; new hires complete the baseline before system access is granted'] }, // A-086
+  { id: 'dataSensitivity',              label: 'Data Sensitivity',                type: 'textarea', aliases: ['classification tier(s) the system handles: from the data classification policy; note if cjis-regulated data is in scope'] }, // A-092
+  { id: 'ntpServiceAndVersion',         label: 'NTP Service and Version',         type: 'textarea', aliases: ['service and version, on all synchronized hosts'] }, // A-138
+  { id: 'failoverBehavior',             label: 'Failover Behavior',               type: 'textarea', aliases: ['automatic to gps or secondary; holdover period'] }, // A-138
+  { id: 'cadPrimaryAndCounterpart',     label: 'CAD Primary and Counterpart',     type: 'text',     aliases: ['primary cad; backup cad or manual procedures'] }, // A-143
+  // Recurring fields (curated once they recurred across >=3 forms).
+  { id: 'itSupportLead',                    label: 'IT Support Lead',                     type: 'text', aliases: ['it support lead'] },
+  { id: 'personnelCorrectiveActionProcess', label: 'Personnel Corrective Action Process', type: 'text', aliases: ['personnel corrective action process'] },
+  { id: 'completedByRole',                  label: 'Completed By (role)',                 type: 'text', aliases: ['completed by role'] },
 ];
 
 /**

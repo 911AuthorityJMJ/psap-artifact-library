@@ -1938,7 +1938,7 @@
       "seqId": "T2-13",
       "gate": false,
       "classification": "Confidential / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-012": {
       "id": "A-012",
@@ -1958,7 +1958,7 @@
       "seqId": "T3-27",
       "gate": false,
       "classification": "Internal / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-014": {
       "id": "A-014",
@@ -1978,7 +1978,7 @@
       "seqId": "T3-15",
       "gate": false,
       "classification": "Restricted / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-016": {
       "id": "A-016",
@@ -1988,7 +1988,7 @@
       "seqId": "T3-16",
       "gate": false,
       "classification": "Confidential / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-017": {
       "id": "A-017",
@@ -1998,7 +1998,7 @@
       "seqId": "T3-14",
       "gate": true,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-018": {
       "id": "A-018",
@@ -2008,7 +2008,7 @@
       "seqId": "T3-17",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-019": {
       "id": "A-019",
@@ -2018,7 +2018,7 @@
       "seqId": "T3-19",
       "gate": true,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-020": {
       "id": "A-020",
@@ -2028,7 +2028,7 @@
       "seqId": "T3-10",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-021": {
       "id": "A-021",
@@ -2038,7 +2038,7 @@
       "seqId": "T3-20",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-022": {
       "id": "A-022",
@@ -2048,7 +2048,7 @@
       "seqId": "T3-11",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-023": {
       "id": "A-023",
@@ -2168,7 +2168,7 @@
       "seqId": "T4-27",
       "gate": false,
       "classification": "Confidential / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-035": {
       "id": "A-035",
@@ -2188,7 +2188,7 @@
       "seqId": "T3-33",
       "gate": false,
       "classification": "Internal / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-038": {
       "id": "A-038",
@@ -2218,7 +2218,7 @@
       "seqId": "T4-24",
       "gate": false,
       "classification": "Restricted / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-041": {
       "id": "A-041",
@@ -2228,7 +2228,7 @@
       "seqId": "T4-25",
       "gate": false,
       "classification": "Restricted / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-042": {
       "id": "A-042",
@@ -2238,7 +2238,7 @@
       "seqId": "T3-34",
       "gate": false,
       "classification": "Restricted / CJIS",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-043": {
       "id": "A-043",
@@ -2267,8 +2267,8 @@
       "phase": "Tier 4",
       "seqId": "T4-22",
       "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "classification": "Confidential",
+      "status": "Final"
     },
     "A-046": {
       "id": "A-046",
@@ -2288,7 +2288,7 @@
       "seqId": "T4-06",
       "gate": true,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-048": {
       "id": "A-048",
@@ -2298,7 +2298,7 @@
       "seqId": "T2-10",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-049": {
       "id": "A-049",
@@ -2328,7 +2328,7 @@
       "seqId": "T3-01",
       "gate": true,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-053": {
       "id": "A-053",
@@ -2338,7 +2338,7 @@
       "seqId": "T4-13",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-054": {
       "id": "A-054",
@@ -2348,7 +2348,7 @@
       "seqId": "T4-12",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-055": {
       "id": "A-055",
@@ -2358,7 +2358,7 @@
       "seqId": "T4-11",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-056": {
       "id": "A-056",
@@ -2368,7 +2368,7 @@
       "seqId": "T3-06",
       "gate": true,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-057": {
       "id": "A-057",
@@ -2383,12 +2383,12 @@
     "A-058": {
       "id": "A-058",
       "name": "Log Retention Schedule",
-      "type": "Schedule",
+      "type": "Reference Matrix",
       "phase": "Tier 3",
       "seqId": "T3-24",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-059": {
       "id": "A-059",
@@ -2398,7 +2398,7 @@
       "seqId": "T4-01",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-060": {
       "id": "A-060",
@@ -2458,7 +2458,7 @@
       "seqId": "T3-21",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-066": {
       "id": "A-066",
@@ -2468,7 +2468,7 @@
       "seqId": "T3-12",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-067": {
       "id": "A-067",
@@ -2478,7 +2478,7 @@
       "seqId": "T3-13",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-068": {
       "id": "A-068",
@@ -2488,7 +2488,7 @@
       "seqId": "T4-32",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-069": {
       "id": "A-069",
@@ -2538,7 +2538,7 @@
       "seqId": "T4-36",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-074": {
       "id": "A-074",
@@ -2548,7 +2548,7 @@
       "seqId": "T2-25",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-076": {
       "id": "A-076",
@@ -2558,17 +2558,17 @@
       "seqId": "T3-29",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-077": {
       "id": "A-077",
       "name": "Security Requirements in Vendor Contracts / SLAs",
-      "type": "Agreement / Form",
+      "type": "Standard",
       "phase": "Tier 3",
       "seqId": "T3-30",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-078": {
       "id": "A-078",
@@ -2578,7 +2578,7 @@
       "seqId": "T3-28",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-079": {
       "id": "A-079",
@@ -2608,7 +2608,7 @@
       "seqId": "T3-25",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-083": {
       "id": "A-083",
@@ -2648,7 +2648,7 @@
       "seqId": "T3-18",
       "gate": false,
       "classification": "Confidential / CJIS",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-088": {
       "id": "A-088",
@@ -2728,7 +2728,7 @@
       "seqId": "T4-28",
       "gate": false,
       "classification": "Internal / CJIS",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-096": {
       "id": "A-096",
@@ -2738,7 +2738,7 @@
       "seqId": "T4-29",
       "gate": false,
       "classification": "Confidential / CJIS",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-097": {
       "id": "A-097",
@@ -2778,7 +2778,7 @@
       "seqId": "T3-07",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-101": {
       "id": "A-101",
@@ -2787,8 +2787,8 @@
       "phase": "Tier 4",
       "seqId": "T4-23",
       "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "classification": "Confidential",
+      "status": "Final"
     },
     "A-102": {
       "id": "A-102",
@@ -2808,7 +2808,7 @@
       "seqId": "T4-07",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-104": {
       "id": "A-104",
@@ -2818,7 +2818,7 @@
       "seqId": "T3-02",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-105": {
       "id": "A-105",
@@ -2938,7 +2938,7 @@
       "seqId": "T1-25",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-118": {
       "id": "A-118",
@@ -2948,7 +2948,7 @@
       "seqId": "T3-03",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-119": {
       "id": "A-119",
@@ -2958,7 +2958,7 @@
       "seqId": "T3-05",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-120": {
       "id": "A-120",
@@ -2968,7 +2968,7 @@
       "seqId": "T3-04",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-121": {
       "id": "A-121",
@@ -2978,7 +2978,7 @@
       "seqId": "T4-09",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-122": {
       "id": "A-122",
@@ -2988,7 +2988,7 @@
       "seqId": "T4-14",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-123": {
       "id": "A-123",
@@ -3018,7 +3018,7 @@
       "seqId": "T3-08",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-127": {
       "id": "A-127",
@@ -3028,7 +3028,7 @@
       "seqId": "T4-15",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-128": {
       "id": "A-128",
@@ -3037,8 +3037,8 @@
       "phase": "Tier 4",
       "seqId": "T4-16",
       "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "classification": "Restricted",
+      "status": "Final"
     },
     "A-129": {
       "id": "A-129",
@@ -3048,7 +3048,7 @@
       "seqId": "T3-09",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-130": {
       "id": "A-130",
@@ -3057,8 +3057,8 @@
       "phase": "Tier 4",
       "seqId": "T4-18",
       "gate": false,
-      "classification": "Restricted",
-      "status": "Not Started"
+      "classification": "Confidential",
+      "status": "Final"
     },
     "A-131": {
       "id": "A-131",
@@ -3068,7 +3068,7 @@
       "seqId": "T4-20",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-132": {
       "id": "A-132",
@@ -3078,7 +3078,7 @@
       "seqId": "T4-19",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-133": {
       "id": "A-133",
@@ -3137,8 +3137,8 @@
       "phase": "Tier 4",
       "seqId": "T4-03",
       "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "classification": "Restricted",
+      "status": "Final"
     },
     "A-139": {
       "id": "A-139",
@@ -3147,8 +3147,8 @@
       "phase": "Tier 4",
       "seqId": "T4-04",
       "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "classification": "Restricted",
+      "status": "Final"
     },
     "A-140": {
       "id": "A-140",
@@ -3157,8 +3157,8 @@
       "phase": "Tier 4",
       "seqId": "T4-05",
       "gate": false,
-      "classification": "Internal",
-      "status": "Not Started"
+      "classification": "Restricted",
+      "status": "Final"
     },
     "A-141": {
       "id": "A-141",
@@ -3188,7 +3188,7 @@
       "seqId": "T3-22",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-144": {
       "id": "A-144",
@@ -3198,7 +3198,7 @@
       "seqId": "T3-23",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-145": {
       "id": "A-145",
@@ -3208,7 +3208,7 @@
       "seqId": "T4-30",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-146": {
       "id": "A-146",
@@ -3218,7 +3218,7 @@
       "seqId": "T4-31",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-147": {
       "id": "A-147",
@@ -3228,7 +3228,7 @@
       "seqId": "T4-33",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-148": {
       "id": "A-148",
@@ -3268,7 +3268,7 @@
       "seqId": "T4-34",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-154": {
       "id": "A-154",
@@ -3278,7 +3278,7 @@
       "seqId": "T4-35",
       "gate": false,
       "classification": "Internal",
-      "status": "Not Started"
+      "status": "Draft - In Progress"
     },
     "A-155": {
       "id": "A-155",
@@ -3338,7 +3338,7 @@
       "seqId": "T3-26",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-161": {
       "id": "A-161",
@@ -3348,7 +3348,7 @@
       "seqId": "T3-31",
       "gate": false,
       "classification": "Confidential",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-162": {
       "id": "A-162",
@@ -3378,7 +3378,7 @@
       "seqId": "T2-26",
       "gate": false,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-166": {
       "id": "A-166",
@@ -3388,7 +3388,7 @@
       "seqId": "T4-21",
       "gate": true,
       "classification": "Restricted",
-      "status": "Not Started"
+      "status": "Final"
     },
     "A-167": {
       "id": "A-167",
