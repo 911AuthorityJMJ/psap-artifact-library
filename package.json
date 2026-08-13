@@ -15,11 +15,11 @@
   },
   "dependencies": {
     "docxtemplater": "^3.68.7",
-    "next": "^16.2.10",
+    "next": "^16.3.0",
     "pizzip": "^3.2.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.0",
     "unrs-resolver": "^1.12.2",
     "xlsx": "npm:@e965/xlsx@0.20.3"
   },
