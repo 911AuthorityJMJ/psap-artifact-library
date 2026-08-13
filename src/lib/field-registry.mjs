@@ -72,6 +72,8 @@ export const FIELDS = [
   { id: 'finding',               label: 'Finding',                   type: 'textarea', aliases: ['finding'] },
   { id: 'systemOwnerRole',       label: 'System Owner (role)',       type: 'text', aliases: ['system owner (role)', 'system owner role', 'system / data owner'] },
   { id: 'securityReviewerRole',  label: 'Security Reviewer (role)',  type: 'text', aliases: ['security reviewer (role)', 'security reviewer', 'security coordinator / log reviewer'] },
+  // Recurs across 15 forms as one document-wide role → fill once.
+  { id: 'securityCoordinator',   label: 'Security Coordinator',      type: 'text', shared: true, aliases: ['security coordinator'] },
 
   // ── Curated reusable roles / values (1-2 templates, clearly reusable) ─────
   { id: 'assessorRole',          label: 'Assessor (role)',           type: 'text', aliases: ['assessor (role)'] },
@@ -146,6 +148,24 @@ export const FIELDS = [
   { id: 'itSupportLead',                    label: 'IT Support Lead',                     type: 'text', aliases: ['it support lead'] },
   { id: 'personnelCorrectiveActionProcess', label: 'Personnel Corrective Action Process', type: 'text', aliases: ['personnel corrective action process'] },
   { id: 'completedByRole',                  label: 'Completed By (role)',                 type: 'text', aliases: ['completed by role'] },
+
+  // ── Corpus-complete ambiguous triage (adversarially verified) ────────────
+  { id: 'findingSeverity',            label: 'Severity',                          type: 'select', options: ['High', 'Med', 'Low', 'NA'], aliases: ['high / med / low / na'] }, // A-060
+  { id: 'remoteAccessMethod',         label: 'Remote-Access Method',              type: 'select', options: ['Staff VPN', 'Vendor support session', 'Virtual desktop'], aliases: ['remote-access method: staff vpn / vendor support session / virtual desktop'] }, // A-115
+  { id: 'scopeOfReview',              label: 'Scope of Review',                   type: 'textarea', aliases: ['the incident or exercise reviewed, and the incident log / register entry it draws from'] }, // A-060
+  { id: 'incidentReference',          label: 'Incident Reference',                type: 'text',     aliases: ['incident id or incident log / register entry'] }, // A-063
+  { id: 'hostEscort',                 label: 'Host / Escort',                     type: 'text',     aliases: ['staff member or role hosting and escorting the visit'] }, // A-072
+  { id: 'mailSecuritySystem',         label: 'Mail Security System',              type: 'text',     aliases: ['mail filtering gateway / hosted mail-security service'] }, // A-111
+  { id: 'alertTriggersAndRouting',    label: 'Alert Triggers and Routing',        type: 'textarea', aliases: ['what raises an alert; where it goes'] }, // A-111
+  { id: 'continuousMonitoring',       label: 'Continuous / Automated Monitoring', type: 'textarea', aliases: ['what is watched in real time or near real time, by which tool'] }, // A-133
+  { id: 'periodicReviewCadence',      label: 'Periodic Review Cadence & Coverage', type: 'textarea', aliases: ['daily alert review, weekly log review, and what each covers'] }, // A-133
+  { id: 'sourcesAndPeriodReviewed',   label: 'Sources and Period Reviewed',       type: 'textarea', aliases: ['log and monitoring sources, and the time span'] }, // A-137
+  { id: 'anomaliesReviewed',          label: 'Anomalies Reviewed',                type: 'textarea', aliases: ['anomalies reviewed and how each was investigated'] }, // A-137
+  { id: 'forensicExaminer',           label: 'Forensic Examiner',                 type: 'text',     aliases: ['who conducts forensics, whether an internal analyst, county or vendor it, or a contracted firm'] }, // A-141
+  { id: 'evidenceStorageLocation',    label: 'Evidence Storage Location',         type: 'textarea', aliases: ['where evidence is held so it cannot be altered: a locked, access-controlled location or a sealed digital store'] }, // A-141
+  { id: 'evidenceAuthorizingOfficial', label: 'Authorizing Official',             type: 'text',     aliases: ['who may authorize collection, isolation, and release of evidence'] }, // A-141
+  { id: 'poweredLoads',               label: 'Powered Loads',                     type: 'textarea', aliases: ['what it powers in an extended outage'] }, // A-147
+  { id: 'trainingDeliveryMethods',    label: 'Delivery Methods',                  type: 'textarea', aliases: ['methods, for example a short online module, a briefing at shift change, a vendor-led session, or a supervised walkthrough on the system itself'] }, // A-162
 ];
 
 /**
@@ -501,11 +521,35 @@ export function resolveLoopById(id) {
  * @param {string} id
  * @returns {string}
  */
+// Domain acronyms that keep their casing in generated labels — without these,
+// humanizeTag title-cases them to "Mfa", "It", "Vlan", "Ntp", etc.
+const LABEL_ACRONYMS = new Map([
+  ['mfa', 'MFA'], ['it', 'IT'], ['cad', 'CAD'], ['ntp', 'NTP'], ['sip', 'SIP'], ['cjis', 'CJIS'], ['cji', 'CJI'],
+  ['gis', 'GIS'], ['voip', 'VoIP'], ['dr', 'DR'], ['esinet', 'ESInet'], ['ngcs', 'NGCS'], ['ali', 'ALI'], ['ani', 'ANI'],
+  ['rto', 'RTO'], ['rpo', 'RPO'], ['soc', 'SOC'], ['ids', 'IDS'], ['ips', 'IPS'], ['siem', 'SIEM'], ['vpn', 'VPN'],
+  ['tls', 'TLS'], ['ssl', 'SSL'], ['pii', 'PII'], ['idacs', 'IDACS'], ['hr', 'HR'], ['sla', 'SLA'], ['mou', 'MOU'],
+  ['psap', 'PSAP'], ['dmz', 'DMZ'], ['poa', 'POA'], ['acl', 'ACL'], ['dns', 'DNS'], ['dhcp', 'DHCP'], ['otp', 'OTP'],
+  ['nts', 'NTS'], ['gps', 'GPS'], ['usb', 'USB'], ['ip', 'IP'], ['os', 'OS'], ['vlan', 'VLAN'], ['sso', 'SSO'],
+  ['rbac', 'RBAC'], ['pam', 'PAM'], ['laso', 'LASO'], ['tac', 'TAC'], ['irp', 'IRP'], ['coop', 'COOP'],
+  ['raci', 'RACI'], ['sop', 'SOP'], ['kpi', 'KPI'], ['api', 'API'], ['sbc', 'SBC'],
+]);
+
 export function humanizeTag(id) {
-  const s = String(id)
+  const words = String(id)
     .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
     .replace(/[_-]+/g, ' ')
     .replace(/\s+/g, ' ')
-    .trim();
-  return s ? s.charAt(0).toUpperCase() + s.slice(1) : id;
+    .trim()
+    .split(' ')
+    .filter(Boolean);
+  if (!words.length) return id;
+  return words
+    .map((w) => {
+      const m = w.match(/^([A-Za-z]+)(\d*)$/); // split trailing disambiguation digits
+      if (!m) return w.charAt(0).toUpperCase() + w.slice(1);
+      const ac = LABEL_ACRONYMS.get(m[1].toLowerCase());
+      return (ac ?? m[1].charAt(0).toUpperCase() + m[1].slice(1)) + m[2];
+    })
+    .join(' ');
 }

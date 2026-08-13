@@ -1,5 +1,5 @@
 {
-    "generated_from": "--Artifact_Development_Tracker.xlsx",
+    "generated_from": "Artifact_Development_Tracker.xlsx",
     "flag_definitions": {
         "Technical footprint": "Q5 \u2014 scale up if the call-handling environment is more complex than the baseline. Domains 4,5,6,7.",
         "Governance": "Q6 \u2014 scale up if governance maturity exceeds the baseline. Domain 1.",
