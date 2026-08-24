@@ -1,6 +1,8 @@
 import HomeClient from './HomeClient';
 import { getPageAuth } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Server-side authentication gate for the Artifact Library page shell.
  *
@@ -72,3 +74,4 @@ function ServiceUnavailable() {
     </main>
   );
 }
+
