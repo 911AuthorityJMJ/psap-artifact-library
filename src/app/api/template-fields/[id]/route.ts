@@ -48,7 +48,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             name: 'template-fields', limit: 120, windowMs: 5 * 60_000 });
         if (limited) return limited;
 
-        const auth = requireAuth(request);
+        const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
 
         const { id } = await params;

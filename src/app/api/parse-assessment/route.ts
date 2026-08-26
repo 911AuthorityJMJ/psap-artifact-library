@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     });
     if (limited) return limited;
 
-    const auth = requireAuth(request);
+    const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
 
     // Buffer the multipart body with the size cap enforced DURING the read —

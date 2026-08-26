@@ -117,7 +117,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         const limited = enforceRateLimit(request, { name: 'generate-document', limit: 60, windowMs: 5 * 60_000 });
         if (limited) return limited;
 
-        const auth = requireAuth(request);
+        const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
 
         const { id } = await params;

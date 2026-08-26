@@ -1,7 +1,9 @@
 # Security notes
 
-How this app handles untrusted input, what's been hardened, and what still
-needs to happen before it goes public-facing.
+How this app handles untrusted input, what's been hardened, the trust boundaries
+of the ASP.NET ↔ Next.js integration, and what remains as future hardening. The
+app is **already publicly reachable** through the production ASP.NET domain at
+`/artifacts`, so this is a live-system document, not a pre-launch checklist.
 
 ## Data handling
 
@@ -9,19 +11,92 @@ The app ingests an uploaded `.xlsx` assessment matrix and fills `.docx`
 templates. Uploaded data (agency name, director contact details, and the
 agency's security-gap answers) is **processed in-memory per request and never
 persisted or logged** — only error objects are logged, never request payloads.
+There is **no persistence** on this tier (see "Not implemented").
+
+## Trust boundary (ASP.NET is the identity authority)
+
+Identity is owned by the **ASP.NET SurveyTool site**; this app never mints
+identity and only **verifies** a token ASP.NET issues.
+
+- **Launch is role-gated on the ASP.NET side.** A user in the `Administrator` or
+  `Manager` role opens *Tools → PSAP Artifact Library*, which hits
+  `GET /ArtifactLibrary/Launch` on the ASP.NET app. That endpoint validates the
+  OWIN cookie + role, mints a **short-lived (30 min) HS256 JWT**, writes it to an
+  **HttpOnly, `Secure` (over the production HTTPS flow), `SameSite=Lax`,
+  `Path=/artifacts`** cookie named **`psap_session`**, and 302-redirects to
+  `/artifacts/` (which canonicalizes to `/artifacts`).
+- **This app validates the token** (`getSession()` via `jose.jwtVerify`):
+  algorithm pinned to **`HS256`**, explicit **issuer** and **audience** checks,
+  **signature**, **`exp`** and **`nbf`** (60s clock tolerance), and **required-claim
+  type validation** (`sub` must be a non-empty string; `email`/`name`/`roles` are
+  type-checked). Any failure (missing / malformed / expired / not-yet-valid /
+  wrong-signature / wrong-algorithm / wrong-issuer / wrong-audience) → `null` → **401**.
+- **Symmetric-key model — read carefully.** The signing key is the shared
+  **`PSAP_BRIDGE_SECRET`** (base64, ≥32 bytes), sourced from a machine-level
+  environment variable that both the IIS app pool and the NSSM Node service inherit.
+  The current Next.js implementation uses this secret **only for verification**, but
+  because **HS256 is symmetric the same key can also sign** — anyone holding the
+  secret could mint tokens. Keeping "ASP.NET issues, Next.js only verifies" true is
+  therefore an **implementation responsibility, not a cryptographic guarantee**.
+  This app does **not** hold a public verification key; do not describe it as doing
+  so. (Enforcing the split in cryptography would require an asymmetric scheme such
+  as RS256/ES256, which is not used today.)
+- **Fail-closed in production.** If `PSAP_BRIDGE_SECRET` is missing or invalid,
+  every protected API call returns **503**. Unset in development → auth is bypassed
+  (a synthetic dev principal), for local convenience only.
+- **Logout.** ASP.NET logout expires the browser's `psap_session` cookie, ending
+  normal browser access immediately. The JWT itself is stateless and is not placed
+  on a revocation list; if independently copied, it remains cryptographically valid
+  until its 30-minute expiration. There is **no silent-renewal flow**: revisiting
+  *Tools → PSAP Artifact Library* mints a fresh 30-minute token.
+- **`sub` is present but unused for storage.** The token carries the ASP.NET
+  Identity user id (`sub`), plus `email`, `name`, and `roles`. `sub` is retained for
+  possible future per-user work; **no artifact data is persisted or scoped by it in
+  Stage 1**.
+
+### Page-versus-API gating
+
+- The **page shell is authentication-gated** as defense in depth: `src/app/page.tsx`
+  is a Server Component that verifies the `psap_session` session (`getPageAuth()`)
+  before rendering the client UI (`src/app/HomeClient.tsx`). No valid session → an
+  **"Authentication required"** page (never the upload UI); production signing
+  config missing → an **"Artifact Library unavailable"** page (fail closed). In
+  development with the secret unset, a synthetic dev principal is returned so the
+  app runs standalone (see README "Standalone development").
+- The **three API operations remain the authoritative gate** and are protected
+  independently because they can be called directly: `POST /api/parse-assessment`,
+  `GET /api/template-fields/[id]`, `POST /api/generate-document/[id]`. Their
+  `requireAuth()` checks are unchanged.
+- The earlier generic **"Failed to fetch"** on an unauthenticated upload is now
+  **handled in the client** (`HomeClient`): 401, 503, a network-level fetch
+  rejection, and other non-OK responses each map to a specific, actionable message,
+  so the raw browser text is no longer shown. The UX is corrected **regardless of
+  the underlying cause** — a network-level rejection is surfaced generically rather
+  than root-caused — and it was never an authentication bypass (the APIs still fail
+  closed server-side).
 
 ## Implemented controls
 
+### Request order in each API route
+All three routes run **`enforceRateLimit` first, then `requireAuth`**, before doing
+any work (verified in the route sources). A rate-limited caller receives **429**
+before authentication is evaluated; an unauthenticated caller that is within the
+rate limit receives **401** (or **503** if the production secret is unconfigured).
+
 ### Dependencies
-- `xlsx` is pinned to the patched SheetJS build from the official CDN
-  (`https://cdn.sheetjs.com/xlsx-0.20.3/...`), not the npm registry's frozen
-  `0.18.5`. This closes the prototype-pollution (GHSA-4r6h-8v6p-xvw6) and ReDoS
-  (GHSA-5pgg-2g8v-p4x9) advisories. **CI must be able to reach `cdn.sheetjs.com`.**
-  `npm audit` no longer tracks `xlsx` because it's a URL dependency — re-check it
-  manually against https://cdn.sheetjs.com/ periodically.
+- **`xlsx` is aliased to the maintained fork `@e965/xlsx`, pinned at `0.20.3`**
+  (`"xlsx": "npm:@e965/xlsx@0.20.3"` in `package.json`) rather than the npm
+  registry's frozen SheetJS `0.18.5`. The `0.20.3` line addresses the
+  prototype-pollution (GHSA-4r6h-8v6p-xvw6) and ReDoS (GHSA-5pgg-2g8v-p4x9)
+  advisories. Because it is a registry alias (not the base `xlsx` package),
+  advisory tooling may attribute findings differently — **treat exact
+  `npm audit` status as requiring a separate dependency review** (this document
+  does not run audits).
 
 ### Upload endpoint (`/api/parse-assessment`)
-- Rejects requests whose `Content-Length` exceeds ~266 KB before buffering.
+- Rejects requests whose `Content-Length` exceeds ~266 KB before buffering, and
+  enforces the same bound **during** the streamed read (so a chunked body with no
+  `Content-Length` can't bypass it).
 - Rejects files over **250 KB** (`MAX_FILE_BYTES`) and any file not ending in
   `.xlsx`. The client-side `accept=".xlsx"` is cosmetic and is not relied on.
 
@@ -33,82 +108,101 @@ persisted or logged** — only error objects are logged, never request payloads.
 - Both handlers are wrapped in `try/catch` and return generic errors.
 - `generate-document` rejects oversized JSON bodies, and **allow-lists** the
   submitted fields against the tags the template actually declares, coercing
-  values to strings and capping length (`sanitizeFields`). The client cannot
-  push unexpected or non-scalar data into the renderer.
+  values to strings and capping length (`sanitizeFields`). Loop rows are bounded
+  (per-loop cap plus a global leaf cap) and object depth is fixed, so the client
+  cannot push unexpected or non-scalar data into the renderer.
 
 ### Response headers (`next.config.ts`)
-- CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`,
-  `Referrer-Policy`, `Permissions-Policy`, and (in production) HSTS.
+- CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`,
+  `Referrer-Policy`, `Permissions-Policy`, and (in production) HSTS. The CSP
+  `frame-ancestors 'self'` (with `X-Frame-Options: SAMEORIGIN`) lets the
+  same-origin ASP.NET Tools page embed `/artifacts` in a modal iframe while still
+  blocking third-party framing.
 - `X-Powered-By` is disabled.
 - docxtemplater runs with the **default parser** (no `angular-expressions`), so
   template values are XML-escaped and not evaluated as expressions.
 
-### Authentication & rate limiting (interim)
-- All three `/api` routes call `requireAuth` (`src/lib/auth.ts`) then
-  `enforceRateLimit` (`src/lib/rate-limit.ts`) before doing any work.
-- **Auth is fail-closed in production**: with `APP_ACCESS_SECRET` set, requests
-  must present it (`Authorization: Bearer <secret>` or a `psap_access` cookie,
-  constant-time compared). Unset in production → 503; unset in dev → open, for
-  local convenience. `getSession()` is the single seam to replace with Entra
-  OIDC; the route handlers won't change.
-- **Rate limits** are per-IP fixed windows: parse-assessment 30 / 5 min,
-  generate-document 60 / 5 min, template-fields 120 / 5 min, returning 429 with
-  `Retry-After`. In-memory ⇒ per-instance (see the deployment note in
-  `rate-limit.ts`).
+### Rate limiting (`src/lib/rate-limit.ts`)
+- Per-IP fixed windows: **parse-assessment 30 / 5 min**, **generate-document
+  60 / 5 min**, **template-fields 120 / 5 min**; over-limit returns **429** with
+  `Retry-After`. Client IP is taken from `x-forwarded-for` / `x-real-ip`, which is
+  only trustworthy behind a trusted proxy (here, IIS on loopback).
+- **In-memory ⇒ per-instance.** Counters live in the process, so limiting is exact
+  for the single production Node instance; it would become per-instance if the
+  deployment ever scaled out (see the deployment note in `rate-limit.ts`).
 
-## Before going public-facing — remaining
+## Current hosting & deployment security
 
-Gating the UI is **not enough** — the API routes are protected independently
-(above) because they can be called directly. Still to finalize:
+*Operator-reported unless inspected directly on the server.*
 
-- [ ] **Wire Microsoft Entra (OIDC)** by replacing `getSession()` in
-      `src/lib/auth.ts`. Once it returns per-user identities, key rate limits
-      per-user and retire `APP_ACCESS_SECRET`.
-- [ ] **Pick the rate-limit store for the AWS topology.** Single instance →
-      in-memory is fine. Multiple instances / Lambda → move `hit()` to a shared
-      store (ElastiCache Redis or DynamoDB); call sites don't change.
-- [ ] **CSRF**: once auth is cookie-based, the multipart upload is CSRF-reachable
-      (no preflight). Use `SameSite=Lax/Strict` cookies + an Origin/Referer check
-      (Entra's OIDC flow + a session cookie covers most of this).
-- [ ] **Body-size backstop**: optionally set `experimental.proxyClientMaxBodySize`
-      (requires a `proxy.ts`) and/or an ALB request-size limit. Note it
-      *truncates* rather than rejects, so it complements — doesn't replace — the
-      in-route `Content-Length`/`file.size` check.
-- [ ] **If uploaded assessments ever become persisted**, add per-tenant
-      authorization (avoid IDOR on assessment IDs). Nothing is stored today.
-- [ ] Keep CORS closed (same-origin default). Do not add `Access-Control-Allow-Origin: *`.
+- **Same-origin `/artifacts` deployment**: the Next.js app is served beneath the
+  ASP.NET site via **IIS URL Rewrite + ARR**, which proxies `/artifacts/*` to the
+  Node process. `basePath: '/artifacts'` keeps the prefix intact.
+- **Node binds only to `127.0.0.1:3002`** (NSSM service `PsapArtifactLibrary`);
+  there is **no intended direct public Node exposure** — all public traffic arrives
+  through IIS.
+- The signing secret is a **machine-level environment variable inherited by both
+  IIS (app pool) and the NSSM service**; both tiers must read the same value.
+- **Fail-closed** when either tier cannot obtain the secret: ASP.NET issues no token
+  (its launch returns 500), and Next.js returns 503 on protected APIs.
+- **No production secret values** appear in documentation or source, and the
+  production service must not be modified or restarted without approval.
 
-## Integration details needed (to wire Entra + finalize hosting)
+## Current remaining hardening & future decisions
 
-Questions for the infrastructure/tech owner — answering these unblocks the real
-auth wiring and the rate-limit store choice:
+None of the following are approved changes — they are open items to weigh, scoped
+to the current IIS + ARR + NSSM + loopback-Node deployment on Windows Server:
 
-**Microsoft Entra**
-- Which tenant, and an App Registration: client ID, client secret (or cert), and
-  the redirect URI(s) for the deployed domain.
-- How do **external** users (PSAP staff, not 911 Authority employees) sign in —
-  as guests in the corporate tenant, or via an Entra External ID (CIAM) / B2C
-  tenant? This sets the OIDC authority and whether an invite/signup flow is needed.
-- Authorization model: allowlist specific users/groups, or anyone who
-  authenticates? Any group/role claims to gate on?
-- Expected session lifetime and sign-out behavior.
+- ~~**Whether to gate the page shell itself**~~ — **implemented.** The page shell
+  is now authentication-gated at the Server Component level (see "Page-versus-API
+  gating"); the API routes remain the authoritative enforcement.
+- ~~**Better UI handling of 401 / 503 / expired sessions**~~ — **implemented.** The
+  upload path maps 401 / 503 / network / other non-OK responses to clear messages
+  (see "Page-versus-API gating").
+- **Root-cause the "Failed to fetch" network path (open).** The client no longer
+  surfaces the raw browser text, but the *underlying* reason an unauthenticated
+  upload could reject at the network level (rather than return a JSON 401) has
+  still not been confirmed via browser network inspection. The diagnosis remains
+  open even though the UX is handled.
+- **CSRF (defense in depth).** Authentication is already cookie-based. `SameSite=Lax`
+  on `psap_session` provides meaningful cross-site protection, but the multipart
+  upload route (no preflight) may still merit an explicit **Origin/Referer check**.
+  This is a potential hardening item, **not proof of a current exploit** — confirm
+  the exact behavior before implementing.
+- **Rate-limit storage** only if production later becomes multi-instance — move
+  `hit()` to a shared store; call sites don't change. Not needed for the single
+  loopback instance today.
+- **Tenant / IDOR controls** — only relevant **if persistence is ever introduced**.
+  Nothing is stored today; do not build tenant scoping speculatively (see
+  "Not implemented").
+- **Keep CORS same-origin** (default). Do not add `Access-Control-Allow-Origin: *`.
+- **Dependency review** — periodically re-check advisories (notably the `xlsx`
+  fork and transitive `postcss`); see "Known / accepted".
+- **CSP nonce tradeoff** — see "Known / accepted".
 
-**AWS hosting**
-- Hosting model: single EC2/container, ECS/Fargate with N tasks behind an ALB,
-  or Lambda? (Decides whether in-memory rate limiting is sufficient.)
-- Is the app strictly behind the ALB, so `x-forwarded-for` is trustworthy and the
-  instance isn't directly reachable?
-- Where will secrets live (AWS Secrets Manager / SSM Parameter Store)? — for
-  `APP_ACCESS_SECRET` now and the Entra client secret later.
-- TLS termination point (ALB / CloudFront), so HSTS and `Secure` cookies apply.
+## Not implemented
+
+The following do **not** exist yet and must not be documented as present:
+upload persistence, saved assessments, saved drafts, per-user document libraries,
+agency-wide sharing, Artifact Library database changes, and agency/tenant
+authorization inside Next.js. **Storage ownership and tenant design require a
+separate design review** — this document does not prescribe a persistence
+architecture.
 
 ## Known / accepted
 
-- `npm audit` reports 2 moderate `postcss` issues pulled in transitively by Next
-  itself; the only "fix" is downgrading Next to v9, so it's accepted until Next
-  updates its bundled `postcss`.
-- The CSP uses `script-src 'unsafe-inline'`. For a strict policy, switch to
-  per-request nonces via `proxy.ts` (see
-  `node_modules/next/dist/docs/01-app/02-guides/content-security-policy.md`).
-  This forces dynamic rendering, so it's a deliberate tradeoff rather than a
-  default.
+- **Dependency audit (current local audit):** `npm audit --omit=dev` reports
+  **0 production vulnerabilities** — the deployed dependency tree is clean. The
+  full audit reports **two high-severity findings, both transitive dev
+  dependencies**:
+  - `brace-expansion` (via the ESLint / TypeScript-ESLint toolchain)
+  - `js-yaml` (build/dev tooling)
+  Neither is present in the production dependency tree, so they affect
+  **development/build tooling only, not the deployed application runtime**. No
+  `npm audit fix` has been applied; remediation should be handled as a **separate
+  dependency-maintenance task**.
+- **CSP `script-src 'unsafe-inline'`**: for a strict policy, switch to per-request
+  nonces via `proxy.ts` (see
+  `node_modules/next/dist/docs/01-app/02-guides/content-security-policy.md`, which
+  is present for this Next version). That forces dynamic rendering, so it is a
+  deliberate tradeoff rather than a default.

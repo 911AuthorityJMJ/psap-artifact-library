@@ -9,6 +9,38 @@ completed `.docx` files.
 Developed by 911 Authority, LLC in partnership with the Indiana Statewide 911
 Board.
 
+## Status
+
+**Deployed in production**, served beneath the legacy ASP.NET site at
+**`/artifacts`** (`https://in911-ngsec.911authority.com/artifacts`):
+
+- **ASP.NET provides identity, authorization, and the launch flow.** It is the
+  identity authority (ASP.NET Identity + OWIN cookie) and mints the short-lived
+  bridge token that this app verifies.
+- **IIS (URL Rewrite + ARR) reverse-proxies** requests to a **loopback Node
+  service** (`127.0.0.1:3002`, run under the NSSM service `PsapArtifactLibrary`).
+  The Node process is not intended to be directly internet-reachable.
+- The Artifact Library remains a **separate Next.js repository and deployment**
+  from the ASP.NET application.
+
+See [SECURITY.md](SECURITY.md) for trust boundaries and remaining hardening, and
+[CLAUDE.md](CLAUDE.md) for agent operating rules and the full integration paths.
+(Production hosting facts are operator-reported unless inspected on the server.)
+
+## Integration (paths & entry point)
+
+| | |
+| --- | --- |
+| ASP.NET companion repo (identity authority) | `C:\dev\code\surveytool\sites\in911-ngsec.911authority.com\branches\master` |
+| Next.js source (this repo) | `C:\dev\code\next.js\sites\psap-artifact-library` |
+| Production Node deployment | `C:\inetpub\psap-artifact-library` |
+| Public URL | `https://in911-ngsec.911authority.com/artifacts` (canonical — no trailing slash; `/artifacts/` → `/artifacts`, 308) |
+| `basePath` | `/artifacts` |
+
+The **normal production entry point is the ASP.NET Tools page**
+(*Tools → PSAP Artifact Library*, available to `Administrator`/`Manager` users) —
+**not** direct navigation to `/artifacts`.
+
 ## What it does
 
 - **Setup** — upload a completed assessment matrix (`.xlsx`). The app parses
@@ -24,19 +56,106 @@ Board.
   fields auto-fill from the uploaded assessment where possible. Spreadsheet
   (`.xlsx`) artifacts are downloaded and completed in Excel instead.
 
+## Authentication & access
+
+- **The page shell is authentication-gated.** `src/app/page.tsx` is a Server
+  Component that checks the `psap_session` session (via `getPageAuth()` in
+  `src/lib/auth.ts`) before rendering the interactive UI (`src/app/HomeClient.tsx`).
+  It resolves to one of three states:
+  - **Authenticated** → the full Setup / Assessment / Library UI.
+  - **Missing / invalid / expired session** → an **"Authentication required"**
+    page linking to the ASP.NET launch endpoint (`/ArtifactLibrary/Launch`) —
+    not the upload interface.
+  - **Production signing configuration unavailable** → an **"Artifact Library
+    unavailable"** page (fail closed; no sign-in prompt).
+- **Protected server operations independently require a valid `psap_session`
+  session:** spreadsheet parsing (`/api/parse-assessment`), template-field
+  retrieval (`/api/template-fields/[id]`), and document generation
+  (`/api/generate-document/[id]`). Missing, invalid, or expired sessions return
+  **HTTP 401**; missing or invalid production signing configuration returns
+  **HTTP 503**. These `requireAuth()` checks are unchanged and remain the
+  authoritative server-side gate — the page gate is defense in depth.
+- Auth is a **signed HS256 JWT** that ASP.NET issues into an HttpOnly
+  `psap_session` cookie and that this app **only verifies** (`src/lib/auth.ts`)
+  against the shared `PSAP_BRIDGE_SECRET`. Full details in [SECURITY.md](SECURITY.md).
+- **In local development with `PSAP_BRIDGE_SECRET` unset, both the page gate and
+  the APIs bypass auth** (a synthetic dev principal), so the app runs fully
+  standalone — see [Standalone development](#standalone-development-without-the-aspnet-site).
+
 ## Getting started
+
+> **AI agents:** do not run installs, dev servers, or builds automatically — ask
+> first, per [CLAUDE.md](CLAUDE.md). The commands below are for human developers.
 
 ```bash
 npm install
 npm run dev
 ```
 
-The dev server runs on **http://localhost:3002** (set in the `dev` script).
+The dev server runs on **http://localhost:3002**. Because the app sets
+`basePath: '/artifacts'`, open **http://localhost:3002/artifacts** — the bare
+`http://localhost:3002/` root is not served.
 
-Copy `.env.example` to `.env.local` if you need to exercise auth locally —
-with `APP_ACCESS_SECRET` unset, auth is bypassed in dev for convenience and
-**fails closed (503) in production**. See [SECURITY.md](SECURITY.md) for the
-full interim-auth and hardening story.
+**Local auth.** Copy `.env.example` to `.env.local` if you need to exercise the
+bridge locally. The signing key is **`PSAP_BRIDGE_SECRET`** (base64, ≥32 bytes,
+and it must match the ASP.NET side). With it **unset in development, auth is
+bypassed for convenience** — a synthetic dev principal is returned by both
+`requireAuth` (APIs) and `getPageAuth` (the page shell), so the full UI loads and
+uploads/builds work. In **production a missing or invalid secret fails closed
+(503)**. Do **not** copy the real production secret into local config, and never
+commit secret values.
+
+### Standalone development (without the ASP.NET site)
+
+The Artifact Library is a standard Next.js app and **runs entirely on its own** —
+no ASP.NET MVC site, IIS, Windows, or SQL Server required. This is the normal way
+to develop it (for example, on macOS).
+
+```bash
+npm install
+npm run dev
+# then open http://localhost:3002/artifacts
+```
+
+- **Leave `PSAP_BRIDGE_SECRET` unset** (don't create `.env.local`, or leave the
+  value blank). In development with no signing key, the page gate and all three
+  protected APIs return a synthetic **`dev`** principal, so you get the full UI and
+  can upload an assessment, browse the library, and build documents without any
+  session cookie. You will **not** hit the "Authentication required" page in this
+  mode.
+- The "Authentication required" / "Artifact Library unavailable" pages, the
+  `psap_session` cookie, and the `/ArtifactLibrary/Launch` link only apply to the
+  **integrated deployment** (below). That launch link targets the ASP.NET site and
+  will 404 in standalone dev — expected; it isn't part of the standalone flow.
+- **Everything except the auth bridge is self-contained:** the template pipeline
+  (`npm run sync-templates`), data generation, and the Document Builder need no
+  external services. Uploads are processed in memory; there is no database.
+- **To exercise the real bridge locally** (optional, rarely needed): set a
+  matching `PSAP_BRIDGE_SECRET` in `.env.local`. Auth then enforces, but because
+  only ASP.NET mints `psap_session`, a browser with no valid cookie sees the
+  "Authentication required" page and the APIs return 401. Use this only to test the
+  verification/error paths, not for normal feature work.
+
+### Integrated (production) authentication
+
+In production the app is served beneath the ASP.NET site at `/artifacts`, and the
+ASP.NET site is the identity authority. End-to-end:
+
+1. A user signs into the ASP.NET SurveyTool site (OWIN cookie).
+2. An `Administrator`/`Manager` opens **Tools → PSAP Artifact Library**, which
+   opens a near-full-screen modal whose iframe loads `GET /ArtifactLibrary/Launch`.
+3. That endpoint role-checks the user, mints a 30-minute HS256 JWT, sets the
+   HttpOnly `psap_session` cookie (`Path=/artifacts`, `SameSite=Lax`, `Secure` over
+   HTTPS), and redirects the iframe to `/artifacts`.
+4. The page gate verifies the cookie and renders the UI; client `fetch()` calls
+   carry the cookie and pass `requireAuth()`.
+5. Reopening the modal re-runs the launch endpoint and refreshes the session; the
+   iframe `src` is cleared to `about:blank` on close. ASP.NET logout expires the
+   cookie, ending access immediately.
+
+The same-origin modal iframe is why the framing headers are
+`X-Frame-Options: SAMEORIGIN` and CSP `frame-ancestors 'self'` (third-party
+framing stays blocked). See [SECURITY.md](SECURITY.md) for the full trust boundary.
 
 ## Scripts
 
@@ -84,18 +203,14 @@ authoring repeating table rows.
 ## Project structure
 
 ```
-src/app/page.tsx                  the whole UI flow (setup / assessment / library)
+src/app/page.tsx                  server-side auth gate → HomeClient / auth-required / unavailable
+src/app/HomeClient.tsx            the whole client UI flow (setup / assessment / library)
+src/app/layout.tsx                minimal document shell + footer (header removed)
 src/components/                   ProfileSelector, DocumentBuilder
 src/app/api/parse-assessment/     parses the uploaded matrix (in-memory only)
 src/app/api/template-fields/[id]/ template → builder field schema + live preview
 src/app/api/generate-document/[id]/ fills and returns a completed .docx
-src/lib/                          auth, rate limiting, field registry, docx tooling
+src/lib/                          auth (JWT verify), rate limiting, base-path, field registry, docx tooling
 src/data/                         generated lookups (traceability, manifest, tiers)
 scripts/                          template pipeline + data generation
 ```
-
-## Status
-
-Local development. Production deployment, Microsoft Entra authentication, and
-hosting topology are being coordinated separately — the open items are tracked
-in [SECURITY.md](SECURITY.md).
