@@ -1,0 +1,71 @@
+# Dependabot version updates for the PSAP Artifact Library.
+# Docs: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+#
+# One ecosystem only: npm at the repo root. There is no .github/workflows
+# directory and no Dockerfile, so no github-actions or docker entry is defined.
+# Add a github-actions entry at the same time the first workflow lands.
+
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: America/New_York
+
+    open-pull-requests-limit: 5
+
+    labels:
+      - dependencies
+
+    commit-message:
+      prefix: chore
+      prefix-development: chore
+      include: scope
+
+    # Let a release sit on the registry before opening a PR against it. This
+    # trades a few days of latency for skipping releases that get pulled or
+    # patched immediately after publish.
+    cooldown:
+      default-days: 5
+      semver-patch-days: 3
+      semver-minor-days: 5
+      semver-major-days: 14
+
+    # A dependency lands in the FIRST group it matches, so the framework groups
+    # below are listed ahead of the two catch-all groups. Anything left over
+    # (a major bump of a production dependency such as sharp or docxtemplater)
+    # gets its own pull request, which is the intent.
+    groups:
+      next:
+        patterns:
+          - next
+          - "@next/*"
+          - eslint-config-next
+
+      react:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react"
+          - "@types/react-dom"
+
+      tailwind:
+        patterns:
+          - tailwindcss
+          - "@tailwindcss/*"
+
+      dev-minor-and-patch:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+
+      prod-minor-and-patch:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch

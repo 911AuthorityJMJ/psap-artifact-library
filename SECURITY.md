@@ -191,16 +191,20 @@ architecture.
 
 ## Known / accepted
 
-- **Dependency audit (current local audit):** `npm audit --omit=dev` reports
-  **0 production vulnerabilities** — the deployed dependency tree is clean. The
-  full audit reports **two high-severity findings, both transitive dev
-  dependencies**:
-  - `brace-expansion` (via the ESLint / TypeScript-ESLint toolchain)
-  - `js-yaml` (build/dev tooling)
-  Neither is present in the production dependency tree, so they affect
-  **development/build tooling only, not the deployed application runtime**. No
-  `npm audit fix` has been applied; remediation should be handled as a **separate
-  dependency-maintenance task**.
+- **Dependency audit (current local audit):** `npm audit` reports **0
+  vulnerabilities**, for the full tree and for `--omit=dev` alike. Dependabot
+  alerts and Dependabot security updates are both enabled on the repository, and
+  `.github/dependabot.yml` adds weekly `npm` version updates on top of them.
+- **Do not reintroduce an `overrides` pin for `postcss`.** One was added on
+  2026-07-15 by automated review tooling as `overrides.next.postcss` = `8.5.10`,
+  at a point when Next 16.2.7 shipped `postcss` 8.4.31 and the pin was a genuine
+  bump for GHSA-qx2v-qp2m-jg93. Next 16.3.0 ships `postcss` 8.5.23, so the pin
+  silently inverted into a 13-patch downgrade and reintroduced
+  GHSA-6g55-p6wh-862q and GHSA-r28c-9q8g-f849 (both high) plus
+  GHSA-fxqj-rqcc-2cmp. **Dependabot cannot patch a transitive version that an
+  `overrides` entry pins**, so those alerts stayed open even after it bumped
+  every unpinned `postcss` copy in the tree. Upgrade the parent package rather
+  than pinning its transitive dependency.
 - **CSP `script-src 'unsafe-inline'`**: for a strict policy, switch to per-request
   nonces via `proxy.ts` (see
   `node_modules/next/dist/docs/01-app/02-guides/content-security-policy.md`, which
