@@ -175,10 +175,11 @@ export async function getProfile(): Promise<ProfileWire | null> {
   return (await resp.json()) as ProfileWire;
 }
 
-/** PUT /ArtifactData/Profile — upsert the current user's profile (JSON). */
+/** POST /ArtifactData/Profile — upsert the current user's profile (JSON).
+ *  POST (not PUT): production IIS rejects the PUT verb before it reaches MVC. */
 export async function saveProfile(wire: ProfileWire): Promise<void> {
   const resp = await writeWithToken(`${BASE}/Profile`, {
-    method: 'PUT',
+    method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(wire),
   });
