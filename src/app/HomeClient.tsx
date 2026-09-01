@@ -1,7 +1,25 @@
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
-import ProfileSelector, { ProfileState, levelName } from '@/components/ProfileSelector';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import ProfileSelector, {
+  ProfileAnswers,
+  levelName,
+  emptyAnswers,
+  deriveProfile,
+  isProfileComplete,
+  answersToWire,
+  wireToAnswers,
+} from '@/components/ProfileSelector';
+import {
+  getAssessmentMeta,
+  getAssessmentContent,
+  saveAssessment,
+  getProfile,
+  saveProfile,
+  SessionExpiredError,
+  HttpError,
+  XLSX_MIME,
+} from '@/lib/asp-net';
 import DocumentBuilder from '@/components/DocumentBuilder';
 import exceptionData from '@/data/exception-map.json';
 import traceabilityData from '@/data/traceability.json';
@@ -192,53 +210,156 @@ export default function HomeClient() {
   const [activeView, setActiveView] = useState<'setup' | 'assessment' | 'library'>('setup');
   const [builderArtifact, setBuilderArtifact] = useState<Artifact | null>(null);
 
-  async function handleUpload(file: File) {
-    setLoading(true);
-    setError(null);
-    setResult(null);
+  // Persistence-integration state.
+  const [bootstrapping, setBootstrapping] = useState(true);
+  const [currentFileName, setCurrentFileName] = useState<string | null>(null);
+  const [answers, setAnswers] = useState<ProfileAnswers>(emptyAnswers());
+  const [showProfileErrors, setShowProfileErrors] = useState(false);
+  const [profileError, setProfileError] = useState<string | null>(null);
 
+  // Derived profile — recomputed from the raw answers; never persisted.
+  const profile = useMemo(() => deriveProfile(answers), [answers]);
+
+  /** Map an ArtifactData/persistence error to a user-facing message. */
+  const describeError = useCallback((e: unknown): string => {
+    if (e instanceof SessionExpiredError) return 'Session expired. Reopen the Artifact Library from Tools.';
+    if (e instanceof HttpError) {
+      if (e.status === 413) return 'File too large (250 KB max).';
+      if (e.status === 415) return 'Only .xlsx files are accepted.';
+      if (e.status === 400) return e.message || 'The request was rejected. Please check and try again.';
+      if (e.status >= 500) return 'Could not save right now — your work is kept. Please try again.';
+      return e.message || `Request failed (HTTP ${e.status}).`;
+    }
+    return 'Could not reach the server. Check your connection and try again.';
+  }, []);
+
+  /** Parse an .xlsx through the EXISTING parse-assessment endpoint. Returns the
+   *  parsed result or null (with an error set). Does NOT persist. */
+  const parseAssessment = useCallback(async (file: File): Promise<ParseResult | null> => {
     const formData = new FormData();
     formData.append('file', file);
-
     try {
-      const response = await fetch(apiUrl('/api/parse-assessment'), {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await fetch(apiUrl('/api/parse-assessment'), { method: 'POST', body: formData });
       if (!response.ok) {
-        // Map the auth/config failure modes to clear, actionable messages.
         if (response.status === 401) {
           setError('Your Artifact Library session has expired. Close and reopen it from Tools.');
-          return;
+          return null;
         }
         if (response.status === 503) {
           setError('The Artifact Library is temporarily unavailable.');
-          return;
+          return null;
         }
-        // Other non-success: prefer a safe server-provided message, else generic.
-        // The body may not be JSON (proxy/gateway pages) — don't let parsing it
-        // eat the real failure.
         const err = await response.json().catch(() => null);
         setError(err?.error ?? `Upload failed (HTTP ${response.status}). Please try again.`);
-        return;
+        return null;
       }
-      setResult(await response.json());
+      return await response.json();
     } catch {
-      // fetch() itself rejected (network-level TypeError). Never surface the
-      // browser-generated "Failed to fetch" text.
       setError('Could not reach the server. Check your connection and try again.');
+      return null;
+    }
+  }, []);
+
+  /** Handle a newly selected assessment file (first upload OR replace): parse and
+   *  validate first; only on success reflect it in the UI and persist. On a parse
+   *  failure any previously loaded assessment is left untouched. */
+  const handleAssessmentFile = useCallback(async (file: File) => {
+    setLoading(true);
+    setError(null);
+    const parsed = await parseAssessment(file);
+    if (!parsed) { setLoading(false); return; } // keep existing result/saved file unchanged
+    setResult(parsed);
+    setCurrentFileName(file.name);
+    setActiveView('setup');
+    try {
+      const meta = await saveAssessment(file);
+      setCurrentFileName(meta.fileName ?? file.name);
+    } catch (e) {
+      // Parsed OK but storage failed — keep the parsed result, surface the error.
+      setError(describeError(e));
+    }
+    setLoading(false);
+  }, [parseAssessment, describeError]);
+
+  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    // Clear the input so selecting the same file again still fires a change event.
+    e.target.value = '';
+    if (file) handleAssessmentFile(file);
+  }, [handleAssessmentFile]);
+
+  /** Continue to Assessment: validate q1–q7, persist the profile, then navigate. */
+  const handleContinue = useCallback(async () => {
+    if (!isProfileComplete(answers)) {
+      setShowProfileErrors(true);
+      setProfileError('Please answer all required questions (1–7) before continuing.');
+      return;
+    }
+    setProfileError(null);
+    setLoading(true);
+    try {
+      await saveProfile(answersToWire(answers));
+      setActiveView('assessment');
+    } catch (e) {
+      setProfileError(describeError(e));
     } finally {
       setLoading(false);
     }
-  }
+  }, [answers, describeError]);
 
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    // Clear the input so selecting the same file again (e.g. after fixing it
-    // in Excel) still fires a change event.
-    e.target.value = '';
-    if (file) handleUpload(file);
-  }
+  // On mount: detect a saved assessment. If present, load its bytes, parse them
+  // through the existing endpoint, and hydrate the saved profile. A 401 shows the
+  // session message; any other failure (e.g. standalone dev with no ASP.NET) falls
+  // through to the normal first-use upload screen.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const meta = await getAssessmentMeta();
+        if (cancelled) return;
+        if (meta.exists) {
+          setCurrentFileName(meta.fileName ?? 'assessment.xlsx');
+          try {
+            const { blob, fileName } = await getAssessmentContent();
+            const file = new File([blob], meta.fileName ?? fileName, { type: XLSX_MIME });
+            const parsed = await parseAssessment(file);
+            if (!cancelled && parsed) setResult(parsed);
+          } catch (e) {
+            if (!cancelled) setError(describeError(e));
+          }
+          try {
+            const wire = await getProfile();
+            if (!cancelled && wire) setAnswers(wireToAnswers(wire));
+          } catch (e) {
+            // Only a session failure is worth surfacing; otherwise leave the profile blank.
+            if (!cancelled && e instanceof SessionExpiredError) setError(describeError(e));
+          }
+        }
+      } catch (e) {
+        if (!cancelled) {
+          if (e instanceof SessionExpiredError) {
+            // 401 → session expired.
+            setError(describeError(e));
+          } else if (e instanceof HttpError && e.status === 404) {
+            // No ASP.NET persistence backend (e.g. standalone dev) → first-use screen.
+          } else if (e instanceof HttpError) {
+            // 5xx / other HTTP error: surface it; do NOT masquerade as "no assessment".
+            setError(
+              e.status >= 500
+                ? 'Could not load your saved assessment right now. Please try again.'
+                : e.message || `Could not load your saved assessment (HTTP ${e.status}).`,
+            );
+          } else {
+            // Network / unexpected failure: surface, don't pretend there's no assessment.
+            setError('Could not reach the server. Check your connection and try again.');
+          }
+        }
+      } finally {
+        if (!cancelled) setBootstrapping(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [parseAssessment, describeError]);
 
   const gapsByDomain = result?.gaps.reduce((acc, gap) => {
     if (!acc[gap.domain]) acc[gap.domain] = [];
@@ -364,17 +485,6 @@ export default function HomeClient() {
     }
     return groups;
   }, [fullLibraryList, getArtifactTier]);
-
-  const [profile, setProfile] = useState<ProfileState>({
-    baseline: 'S',
-    technicalLevel: 'S',
-    governanceLevel: 'S',
-    cjis: false,
-    consolidated: false,
-    colocated: false,
-  });
-
-  const handleProfileChange = useCallback((p: ProfileState) => setProfile(p), []);
 
   const exceptionMapById = useMemo(() => {
     const map = new Map<string, typeof exceptionData.artifacts[0]>();
@@ -734,31 +844,62 @@ export default function HomeClient() {
           {/* Setup view */}
           {activeView === 'setup' && (
             <div className="space-y-6">
-              {/* Upload area */}
-              <div
-                className="relative border-2 border-dashed rounded-lg p-12 text-center transition-colors bg-white"
-                style={{ borderColor: 'var(--ui-border)' }}
-              >
-                <input
-                  type="file"
-                  accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                  onChange={handleFileChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-                {loading ? (
-                  <p className="text-gray-500">Parsing assessment matrix...</p>
-                ) : result ? (
-                  <>
-                    <p className="text-gray-700 font-medium">Upload a different assessment matrix</p>
-                    <p className="text-gray-400 text-sm mt-1">.xlsx files only</p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-gray-700 font-medium">Click to upload your assessment matrix</p>
-                    <p className="text-gray-400 text-sm mt-1">.xlsx files only</p>
-                  </>
-                )}
-              </div>
+              {bootstrapping ? (
+                <div
+                  className="border rounded-lg p-12 text-center bg-white text-gray-500"
+                  style={{ borderColor: 'var(--ui-border)' }}
+                >
+                  Loading your saved assessment…
+                </div>
+              ) : !result ? (
+                /* First-use: the full upload box. */
+                <div
+                  className="relative border-2 border-dashed rounded-lg p-12 text-center transition-colors bg-white"
+                  style={{ borderColor: 'var(--ui-border)' }}
+                >
+                  <input
+                    type="file"
+                    accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    onChange={handleFileChange}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  {loading ? (
+                    <p className="text-gray-500">Parsing assessment matrix...</p>
+                  ) : (
+                    <>
+                      <p className="text-gray-700 font-medium">Click to upload your assessment matrix</p>
+                      <p className="text-gray-400 text-sm mt-1">.xlsx files only</p>
+                    </>
+                  )}
+                </div>
+              ) : (
+                /* Assessment already saved: compact filename bar + Replace action. */
+                <div
+                  className="flex items-center justify-between gap-3 bg-white rounded-lg px-5 py-4"
+                  style={{ border: '1px solid var(--ui-border)' }}
+                >
+                  <div className="min-w-0">
+                    <span className="text-gray-400 text-xs uppercase tracking-wide">Current assessment</span>
+                    <p className="text-sm font-medium text-gray-800 truncate">
+                      {currentFileName ?? 'assessment.xlsx'}
+                    </p>
+                  </div>
+                  <label
+                    className="relative shrink-0 inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg cursor-pointer text-white transition-colors"
+                    style={{ background: 'var(--ui-link)' }}
+                  >
+                    <input
+                      type="file"
+                      accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                      onChange={handleFileChange}
+                      disabled={loading}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                    />
+                    {loading ? 'Working…' : 'Replace Assessment Matrix'}
+                  </label>
+                </div>
+              )}
+
               {error && (
                 <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
                   {error}
@@ -789,17 +930,23 @@ export default function HomeClient() {
                     </div>
                   </div>
 
-                  {/* Profile Selector */}
-                  <ProfileSelector onChange={handleProfileChange} />
+                  {/* Profile Selector (controlled by raw answers) */}
+                  <ProfileSelector answers={answers} onChange={setAnswers} showErrors={showProfileErrors} />
+                  {profileError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                      {profileError}
+                    </div>
+                  )}
                   <div className="flex justify-end">
                     <button
-                      onClick={() => setActiveView('assessment')}
-                      className="px-5 py-2.5 text-white text-sm font-medium rounded-lg transition-colors"
+                      onClick={handleContinue}
+                      disabled={loading}
+                      className="px-5 py-2.5 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-60"
                       style={{ background: 'var(--ui-link)' }}
                       onMouseEnter={e => (e.currentTarget.style.background = 'var(--ui-link-hover)')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'var(--ui-link)')}
                     >
-                      Continue to Assessment →
+                      {loading ? 'Saving…' : 'Continue to Assessment →'}
                     </button>
                   </div>
                 </>
