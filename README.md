@@ -29,16 +29,16 @@ See [SECURITY.md](SECURITY.md) for trust boundaries and remaining hardening, and
 
 ## Integration (paths & entry point)
 
-| | |
-| --- | --- |
-| ASP.NET companion repo (identity authority) | `C:\dev\code\surveytool\sites\in911-ngsec.911authority.com\branches\master` |
-| Next.js source (this repo) | `C:\dev\code\next.js\sites\psap-artifact-library` |
-| Production Node deployment | `C:\inetpub\psap-artifact-library` |
-| Public URL | `https://in911-ngsec.911authority.com/artifacts` (canonical — no trailing slash; `/artifacts/` → `/artifacts`, 308) |
-| `basePath` | `/artifacts` |
+|                                             |                                                                                                                     |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| ASP.NET companion repo (identity authority) | `C:\dev\code\surveytool\sites\in911-ngsec.911authority.com\branches\master`                                         |
+| Next.js source (this repo)                  | `C:\dev\code\next.js\sites\psap-artifact-library`                                                                   |
+| Production Node deployment                  | `C:\inetpub\psap-artifact-library`                                                                                  |
+| Public URL                                  | `https://in911-ngsec.911authority.com/artifacts` (canonical — no trailing slash; `/artifacts/` → `/artifacts`, 308) |
+| `basePath`                                  | `/artifacts`                                                                                                        |
 
 The **normal production entry point is the ASP.NET Tools page**
-(*Tools → PSAP Artifact Library*, available to `Administrator`/`Manager` users) —
+(_Tools → PSAP Artifact Library_, available to `Administrator`/`Manager` users) —
 **not** direct navigation to `/artifacts`.
 
 ## What it does
@@ -47,14 +47,17 @@ The **normal production entry point is the ASP.NET Tools page**
   PSAP contact info and every question rated `NO`, `IN PROGRESS`, `PLANNED`,
   or `UNKNOWN` (all treated as gaps), and calibrates a PSAP profile
   (Small / Medium / Large, plus CJIS and structure flags).
-- **Assessment** — gap-driven views of the artifact library: *Build Priority*
-  (artifacts deduplicated and ordered by tier) and *By Question* (gaps grouped
+- **Assessment** — gap-driven views of the artifact library: _Build Priority_
+  (artifacts deduplicated and ordered by tier) and _By Question_ (gaps grouped
   by domain, each linked to its artifacts).
 - **Full Library** — browse, search, and filter all artifacts, no upload
   required.
 - **Document Builder** — fill a `.docx` template in-app with a live preview;
   fields auto-fill from the uploaded assessment where possible. Spreadsheet
   (`.xlsx`) artifacts are downloaded and completed in Excel instead.
+- **Help** documentation: an in-app Quick Start, Quick Reference, and full
+  User Guide under `/artifacts/help`, linked from the Help menu in the app
+  header.
 
 ## Authentication & access
 
@@ -62,12 +65,16 @@ The **normal production entry point is the ASP.NET Tools page**
   Component that checks the `psap_session` session (via `getPageAuth()` in
   `src/lib/auth.ts`) before rendering the interactive UI (`src/app/HomeClient.tsx`).
   It resolves to one of three states:
-  - **Authenticated** → the full Setup / Assessment / Library UI.
-  - **Missing / invalid / expired session** → an **"Authentication required"**
-    page linking to the ASP.NET launch endpoint (`/ArtifactLibrary/Launch`) —
-    not the upload interface.
-  - **Production signing configuration unavailable** → an **"Artifact Library
-    unavailable"** page (fail closed; no sign-in prompt).
+    - **Authenticated** → the full Setup / Assessment / Library UI.
+    - **Missing / invalid / expired session** → an **"Authentication required"**
+      page linking to the ASP.NET launch endpoint (`/ArtifactLibrary/Launch`) —
+      not the upload interface.
+    - **Production signing configuration unavailable** → an **"Artifact Library
+      unavailable"** page (fail closed; no sign-in prompt).
+- **The Help routes share the same gate.** `src/app/help/layout.tsx` calls the
+  same `getPageAuth()` and renders the same three states, using shared
+  components in `src/components/AuthGateScreens.tsx`, so Quick Start, Quick
+  Reference, and the Full Guide require the same session as the main app.
 - **Protected server operations independently require a valid `psap_session`
   session:** spreadsheet parsing (`/api/parse-assessment`), template-field
   retrieval (`/api/template-fields/[id]`), and document generation
@@ -159,15 +166,15 @@ framing stays blocked). See [SECURITY.md](SECURITY.md) for the full trust bounda
 
 ## Scripts
 
-| Command | What it does |
-| --- | --- |
-| `npm run dev` | Dev server on port 3002 |
-| `npm run build` | Production build (runs the strict template lint first) |
-| `npm run sync-templates` | Scan `public/templates/`, compile changed masters, regenerate the manifest, validate file names |
-| `npm run lint:templates` | Template coverage report (informational) |
-| `npm run lint:templates:strict` | Same, but exits 1 on coverage/loop errors — this gates `build` |
-| `npm run lint` | ESLint |
-| `node scripts/generate-lookup.js` | Regenerate `src/data/traceability.json` from the artifact development tracker workbook |
+| Command                           | What it does                                                                                    |
+| --------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `npm run dev`                     | Dev server on port 3002                                                                         |
+| `npm run build`                   | Production build (runs the strict template lint first)                                          |
+| `npm run sync-templates`          | Scan `public/templates/`, compile changed masters, regenerate the manifest, validate file names |
+| `npm run lint:templates`          | Template coverage report (informational)                                                        |
+| `npm run lint:templates:strict`   | Same, but exits 1 on coverage/loop errors — this gates `build`                                  |
+| `npm run lint`                    | ESLint                                                                                          |
+| `node scripts/generate-lookup.js` | Regenerate `src/data/traceability.json` from the artifact development tracker workbook          |
 
 ## Template pipeline
 
@@ -206,7 +213,9 @@ authoring repeating table rows.
 src/app/page.tsx                  server-side auth gate → HomeClient / auth-required / unavailable
 src/app/HomeClient.tsx            the whole client UI flow (setup / assessment / library)
 src/app/layout.tsx                minimal document shell + footer (header removed)
-src/components/                   ProfileSelector, DocumentBuilder
+src/app/help/                     Quick Start, Quick Reference, Full Guide (same auth gate as page.tsx)
+src/components/                   ProfileSelector, DocumentBuilder, AuthGateScreens
+src/components/docs/              presentational building blocks for the Help pages
 src/app/api/parse-assessment/     parses the uploaded matrix (in-memory only)
 src/app/api/template-fields/[id]/ template → builder field schema + live preview
 src/app/api/generate-document/[id]/ fills and returns a completed .docx
