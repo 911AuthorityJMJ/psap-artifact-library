@@ -43,9 +43,9 @@ export default function GuidePage() {
                         This guide covers everything a PSAP needs to use it. You do not need a
                         security background to follow it.
                     </p>
-                    <p className={`${prose} mt-3 italic text-gray-500`}>
-                        Developed by 911 Authority, LLC in partnership with the Indiana Statewide
-                        911 Board.
+                    <p className={`${prose} mt-3`}>
+                        If you are just getting started, the <strong>Quick Start</strong> covers the
+                        same path in five steps.
                     </p>
 
                     <nav
@@ -182,10 +182,6 @@ export default function GuidePage() {
                                 the first time only.
                             </li>
                             <li>
-                                <strong>Your 911 Authority site account.</strong> The same one you
-                                used to complete your assessment. Nothing new to request.
-                            </li>
-                            <li>
                                 <strong>Word and Excel</strong>, or another program that opens{" "}
                                 <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">
                                     .docx
@@ -197,31 +193,18 @@ export default function GuidePage() {
                                 files.
                             </li>
                         </ul>
-                        <p>
-                            There is nothing to install and nothing to configure. The library runs
-                            in your browser.
-                        </p>
                     </DocSection>
 
-                    <DocSection id="1.5" title="How to open it">
-                        <ol className="list-decimal pl-5 space-y-1.5">
-                            <li>Sign in to the 911 Authority site as you normally would.</li>
-                            <li>
-                                Open the <strong>Tools</strong> menu.
-                            </li>
-                            <li>
-                                Choose <strong>PSAP Artifact Library</strong>.
-                            </li>
-                        </ol>
+                    <DocSection id="1.5" title="Signing in, and your session">
                         <p>
-                            The library opens in a panel over the site. There is no second sign-in
-                            and no separate password: your site login carries through.
+                            You reached this guide from the <strong>Help</strong> menu inside the
+                            library, so you are already signed in. Your 911 Authority site login
+                            carries through: no second sign-in, no separate password.
                         </p>
                         <p>
-                            If <strong>PSAP Artifact Library</strong> is not on your Tools menu,
-                            contact 911 Authority.
+                            For the record, the library opens in a panel over the site, from{" "}
+                            <strong>Tools</strong>, then <strong>PSAP Artifact Library</strong>.
                         </p>
-                        <ScreenshotPlaceholder label="the Tools menu, PSAP Artifact Library highlighted" />
                         <p>
                             <strong>A note on time.</strong> Your session lasts a limited time and
                             does not renew while you work. If you have been idle a while and
@@ -255,6 +238,10 @@ export default function GuidePage() {
                             loaded, whether you just uploaded it or the library restored it for you.{" "}
                             <strong>Full Library</strong> is always available, so you can look up a
                             single document any time without going through Setup.
+                        </p>
+                        <p>
+                            A fourth item, <strong>Help</strong>, holds this guide alongside the
+                            quick start and the quick reference. It is where you are now.
                         </p>
                         <ScreenshotPlaceholder label="the three tabs, Assessment greyed out" />
                     </DocSection>

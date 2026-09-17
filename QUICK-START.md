@@ -4,12 +4,11 @@ The Artifact Library turns your completed security assessment into a build list:
 
 ## Get started
 
-1. **Open the library.** On the 911 Authority site, choose **Tools**, then **PSAP Artifact Library**.
-2. **Upload your assessment matrix.** Use the `.xlsx` workbook from your deliverable package, exactly as you received it. It stays saved to your login.
-3. **Complete your profile.** Answer questions 1 to 7, then press **Continue to Assessment**.
-4. **Open Build Priority.** Settle the artifacts marked **Gate** first, then work through the rest.
-5. **Build each artifact.** For a Word document, use **Build Document** or **Download Template**. For a spreadsheet, download it and complete it in Excel. If you have never written one before, open the **Worked Example** first.
-6. **Finish, then adopt.** Complete the document in Word or Excel, then approve and adopt it through your center's usual process.
+1. **Upload your assessment matrix.** Use the `.xlsx` workbook from your deliverable package, exactly as you received it. It stays saved to your login.
+2. **Complete your profile.** Answer questions 1 to 7, then press **Continue to Assessment**.
+3. **Open Build Priority.** Settle the artifacts marked **Gate** first, then work through the rest.
+4. **Build each artifact.** For a Word document, use **Build Document** or **Download Template**. For a spreadsheet, download it and complete it in Excel. If you have never written one before, open the **Worked Example** first.
+5. **Finish, then adopt.** Complete the document in Word or Excel, then approve and adopt it through your center's usual process.
 
 Full guide: Parts 1 to 7.
 

@@ -4,7 +4,7 @@ The PSAP Artifact Library turns your completed security assessment into a workin
 
 This guide covers everything a PSAP needs to use it. You do not need a security background to follow it.
 
-_Developed by 911 Authority, LLC in partnership with the Indiana Statewide 911 Board._
+If you are just getting started, the **Quick Start** covers the same path in five steps.
 
 ---
 
@@ -49,22 +49,13 @@ The practical rule: **start a document only when you have time to finish and dow
 ## 1.4 What you need before you start
 
 - **Your completed assessment matrix**, the `.xlsx` workbook from your 911 Authority posture assessment. You need this the first time only.
-- **Your 911 Authority site account.** The same one you used to complete your assessment. Nothing new to request.
 - **Word and Excel**, or another program that opens `.docx` and `.xlsx` files.
 
-There is nothing to install and nothing to configure. The library runs in your browser.
+## 1.5 Signing in, and your session
 
-## 1.5 How to open it
+You reached this guide from the **Help** menu inside the library, so you are already signed in. Your 911 Authority site login carries through: no second sign-in, no separate password.
 
-1. Sign in to the 911 Authority site as you normally would.
-2. Open the **Tools** menu.
-3. Choose **PSAP Artifact Library**.
-
-The library opens in a panel over the site. There is no second sign-in and no separate password: your site login carries through.
-
-If **PSAP Artifact Library** is not on your Tools menu, contact 911 Authority.
-
-`[SCREENSHOT: the Tools menu, PSAP Artifact Library highlighted]`
+For the record, the library opens in a panel over the site, from **Tools**, then **PSAP Artifact Library**.
 
 **A note on time.** Your session lasts a limited time and does not renew while you work. If you have been idle a while and something stops working, close the panel and reopen it from **Tools**. That gives you a fresh session. It is the fix for almost every "it stopped responding" moment in this guide.
 
@@ -79,6 +70,8 @@ Everything in the library lives under three tabs across the top.
 | **Full Library** | All 163 artifacts, searchable. Available whether or not you have an assessment loaded.                       |
 
 **Assessment** stays greyed out until an assessment is loaded, whether you just uploaded it or the library restored it for you. **Full Library** is always available, so you can look up a single document any time without going through Setup.
+
+A fourth item, **Help**, holds this guide alongside the quick start and the quick reference. It is where you are now.
 
 `[SCREENSHOT: the three tabs, Assessment greyed out]`
 

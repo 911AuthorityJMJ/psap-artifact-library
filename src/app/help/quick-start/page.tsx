@@ -19,10 +19,6 @@ export default function QuickStartPage() {
                     <DocH2>Get started</DocH2>
                     <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700 leading-relaxed">
                         <li>
-                            <strong>Open the library.</strong> On the 911 Authority site, choose{" "}
-                            <strong>Tools</strong>, then <strong>PSAP Artifact Library</strong>.
-                        </li>
-                        <li>
                             <strong>Upload your assessment matrix.</strong> Use the{" "}
                             <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">.xlsx</code>{" "}
                             workbook from your deliverable package, exactly as you received it. It
