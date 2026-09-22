@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { assetUrl } from "@/lib/base-path";
 
 const DOCS = [
     { href: "/help/quick-start", label: "Quick Start" },
@@ -152,13 +154,79 @@ export function Callout({ children }: { children: ReactNode }) {
     );
 }
 
-export function ScreenshotPlaceholder({ label }: { label: string }) {
+// Pixel sizes of the 2x PNGs in public/help/screenshots; update an entry when a file is replaced with a different size.
+const SCREENSHOTS = {
+    "assessment-artifact-row-actions": [1584, 216],
+    "assessment-build-priority-tier1": [1584, 1206],
+    "assessment-by-question-domain": [1584, 1095],
+    "assessment-reference-tab": [1584, 1153],
+    "assessment-results-tabs": [1584, 108],
+    "assessment-spreadsheet-and-document-rows": [1584, 436],
+    "assessment-summary-and-tabs": [1584, 587],
+    "builder-agency-name-and-highlights": [2304, 662],
+    "builder-field-highlight-plain": [2303, 335],
+    "builder-form-and-preview": [2304, 1660],
+    "builder-suggestion-list": [2303, 480],
+    "excel-psap-information-sheet": [2000, 1615],
+    "help-menu-open": [1584, 622],
+    "library-type-filter": [1584, 1080],
+    "markers-on-artifact-rows": [1156, 328],
+    "nav-tabs-assessment-disabled": [1584, 279],
+    "setup-current-assessment-bar": [1584, 204],
+    "setup-first-use-vs-returning": [1584, 1576],
+    "setup-profile-answered": [1584, 1501],
+    "setup-profile-answered-baseline": [1584, 729],
+    "setup-profile-panel-empty": [1584, 1510],
+    "setup-profile-validation": [1584, 1777],
+    "setup-upload-panel": [1584, 623],
+    "word-cleanup-annotated": [1440, 2187],
+    "word-sign-off-and-revision-history": [1024, 356],
+} as const;
+
+export type ScreenshotName = keyof typeof SCREENSHOTS;
+
+// unoptimized keeps the 2x PNGs pixel-exact; assetUrl adds the basePath that next/image leaves off a string src.
+// maxWidth holds an image narrower than the column to its natural size (half its pixel width, plus the border) so it is not stretched.
+export function Screenshot({
+    name,
+    alt,
+    enlarge = false,
+}: {
+    name: ScreenshotName;
+    alt: string;
+    enlarge?: boolean;
+}) {
+    const [width, height] = SCREENSHOTS[name];
+    const src = assetUrl(`/help/screenshots/${name}.png`);
+    const image = (
+        <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            unoptimized
+            className="block w-full h-auto"
+        />
+    );
     return (
-        <div
-            className="my-4 flex items-center justify-center text-center text-xs text-gray-400 rounded-lg border-2 border-dashed py-10 px-4"
-            style={{ borderColor: "var(--ui-border)" }}>
-            Screenshot: {label}
-        </div>
+        <figure
+            className="my-4 mx-auto rounded-lg overflow-hidden"
+            style={{ border: "1px solid var(--ui-border)", maxWidth: width / 2 + 2 }}>
+            {enlarge ? (
+                <a href={src} target="_blank" rel="noopener noreferrer" className="block cursor-zoom-in">
+                    {image}
+                </a>
+            ) : (
+                image
+            )}
+            {enlarge && (
+                <figcaption
+                    className="px-3 py-1.5 text-xs text-gray-500 border-t"
+                    style={{ borderColor: "var(--ui-border)" }}>
+                    Click the image to open it full size.
+                </figcaption>
+            )}
+        </figure>
     );
 }
 

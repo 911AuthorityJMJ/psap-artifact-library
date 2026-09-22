@@ -5,9 +5,15 @@ The Artifact Library turns your completed security assessment into a build list:
 ## Get started
 
 1. **Upload your assessment matrix.** Use the `.xlsx` workbook from your deliverable package, exactly as you received it. It stays saved to your login.
+
+   ![The Setup screen on first use, showing the dashed panel to click to upload the assessment matrix.](public/help/screenshots/setup-upload-panel.png)
 2. **Complete your profile.** Answer questions 1 to 7, then press **Continue to Assessment**.
+
+   ![The top of the PSAP Profile panel with questions 1 to 3 answered and the resulting baseline profile, Small, shown beneath them.](public/help/screenshots/setup-profile-answered-baseline.png)
 3. **Open Build Priority.** Settle the artifacts marked **Gate** first, then work through the rest.
 4. **Build each artifact.** For a Word document, use **Build Document** or **Download Template**. For a spreadsheet, download it and complete it in Excel. If you have never written one before, open the **Worked Example** first.
+
+   ![One artifact on the Build Priority tab: Cybersecurity & Privacy Policy, marked Document and Gate, with its Download Template, Build Document, and Worked Example (Small) links.](public/help/screenshots/assessment-artifact-row-actions.png)
 5. **Finish, then adopt.** Complete the document in Word or Excel, then approve and adopt it through your center's usual process.
 
 Full guide: Parts 1 to 7.
@@ -35,6 +41,8 @@ Full guide: 1.3, 4.3, 6.1, 7.7.
 | **By Question**    | See why an artifact is on your list    |
 | **Reference**      | Check what you already have in place   |
 
+![The three results tabs: Build Priority, By Question, and Reference.](public/help/screenshots/assessment-results-tabs.png)
+
 Full guide: 4.5 to 4.7.
 
 ## What you can do with an artifact
@@ -44,6 +52,8 @@ Full guide: 4.5 to 4.7.
 | **Build Document**    | Fill in the recurring details on the site, then download the Word file. Word documents only |
 | **Download Template** | The blank file, to complete yourself                                                        |
 | **Worked Example**    | A completed specimen for a center your size                                                 |
+
+![One artifact on the Build Priority tab: Cybersecurity & Privacy Policy, marked Document and Gate, with its Download Template, Build Document, and Worked Example (Small) links.](public/help/screenshots/assessment-artifact-row-actions.png)
 
 Full guide: 4.9.
 
@@ -60,6 +70,8 @@ Full guide: 4.9.
 | **Technical**, **Governance**    | Your profile scales this above your baseline                                            |
 | **Multi-agency**, **Co-located** | Applies because of your center's structure                                              |
 
+![Six artifact rows showing every marker: Document, Spreadsheet, Gate, Gap, Also a gap, CJIS, the Technical and Governance markers with their levels, Multi-agency, and Co-located.](public/help/screenshots/markers-on-artifact-rows.png)
+
 Full guide: 4.8.
 
 ## Ratings
@@ -71,12 +83,13 @@ Full guide: 2.3.
 
 ## Before you publish a document
 
-- [ ] Tables and registers completed
+- [ ] Tables completed
 - [ ] Bracketed prompts answered or removed
 - [ ] **How to use this template** box deleted
 - [ ] **Drafter's note** deleted
 - [ ] Guidance notes between « and » deleted
 - [ ] Small, Medium, and Large guidance rows reduced to the one for your profile
+- [ ] Instruction lines under **Profile Scaling Notes** and **Source Authority** deleted
 - [ ] Version, dates, and named roles checked
 - [ ] Classification checked. You may raise it, never lower it
 

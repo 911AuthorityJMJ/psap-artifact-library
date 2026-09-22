@@ -216,6 +216,7 @@ src/app/layout.tsx                minimal document shell + footer (header remove
 src/app/help/                     Quick Start, Quick Reference, Full Guide (same auth gate as page.tsx)
 src/components/                   ProfileSelector, DocumentBuilder, AuthGateScreens
 src/components/docs/              presentational building blocks for the Help pages
+public/help/screenshots/          Help guide images (2x PNGs); pixel sizes registered in src/components/docs/DocPrimitives.tsx
 src/app/api/parse-assessment/     parses the uploaded matrix (in-memory only)
 src/app/api/template-fields/[id]/ template → builder field schema + live preview
 src/app/api/generate-document/[id]/ fills and returns a completed .docx

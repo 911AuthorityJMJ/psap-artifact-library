@@ -55,6 +55,8 @@ The practical rule: **start a document only when you have time to finish and dow
 
 You reached this guide from the **Help** menu inside the library, so you are already signed in. Your 911 Authority site login carries through: no second sign-in, no separate password.
 
+![The library's Setup screen with the Help menu open at the right of the tab row, listing Quick Start, Quick Reference, and Full Guide.](public/help/screenshots/help-menu-open.png)
+
 For the record, the library opens in a panel over the site, from **Tools**, then **PSAP Artifact Library**.
 
 **A note on time.** Your session lasts a limited time and does not renew while you work. If you have been idle a while and something stops working, close the panel and reopen it from **Tools**. That gives you a fresh session. It is the fix for almost every "it stopped responding" moment in this guide.
@@ -73,7 +75,7 @@ Everything in the library lives under three tabs across the top.
 
 A fourth item, **Help**, holds this guide alongside the quick start and the quick reference. It is where you are now.
 
-`[SCREENSHOT: the three tabs, Assessment greyed out]`
+![The tab row at the top of the library: Setup, Assessment greyed out, Full Library, and the Help menu.](public/help/screenshots/nav-tabs-assessment-disabled.png)
 
 ## 1.7 What you will see when you open it
 
@@ -83,7 +85,7 @@ You will land on one of two versions of the Setup screen. Which one tells you wh
 
 **Every time after**, the library briefly shows _Loading your saved assessment_, then Setup appears already populated: a compact bar naming your saved matrix with a **Replace Assessment Matrix** button beside it, your center's contact details, and your profile answers as you left them. Your build list is ready under the **Assessment** tab.
 
-`[SCREENSHOT: first-use upload panel and returning Current assessment bar, side by side]`
+![Two versions of the Setup screen. Top: first use, with a dashed panel for uploading the assessment matrix. Bottom: a later visit, with the Current assessment bar, a Replace Assessment Matrix button, and the center's contact details.](public/help/screenshots/setup-first-use-vs-returning.png)
 
 If you expected the second and got the first, your session may have ended. Close the panel, reopen it from **Tools**, and check again before uploading anything.
 
@@ -108,6 +110,8 @@ The workbook has several sheets. The library reads two.
 **Question Set** supplies every assessment item: its ID, the domain and category it sits under, and its rating.
 
 The scoring tables and charts are for your report. The library ignores them.
+
+![A sample assessment matrix open in Excel on the PSAP Information sheet: the PSAP name, address, city and ZIP, and the director's name, phone, and email in the first rows. The sheet tabs along the bottom are General Information, PSAP Information, Question Set, Full Score Table, Domain-Level Score Table, Bar Chart, and Radar Chart.](public/help/screenshots/excel-psap-information-sheet.png)
 
 > **Upload the workbook as you received it.** The library reads your contact details from fixed positions on the PSAP Information sheet, so inserting or deleting rows there will pull in the wrong values or leave them blank. There is no reason to edit the workbook before uploading, and good reason not to.
 
@@ -160,7 +164,7 @@ On the Setup screen, click anywhere in the dashed panel and choose your matrix.
 
 The library accepts `.xlsx` files up to 250 KB. A matrix runs well under that, so the limit is unlikely to trouble you.
 
-`[SCREENSHOT: the Setup screen with the upload panel]`
+![The Setup screen on first use, showing the dashed panel to click to upload the assessment matrix.](public/help/screenshots/setup-upload-panel.png)
 
 Uploading takes a moment. The library reads the workbook first and only saves it if it can read it, so a file it rejects is never stored. When it succeeds, three things appear: your center's details, the **PSAP Profile** questions, and a **Continue to Assessment** button.
 
@@ -172,7 +176,7 @@ Go to Part 3 to complete your profile.
 
 Once a matrix is saved, the dashed panel is replaced by a compact bar showing the file you have stored, with a **Replace Assessment Matrix** button beside it.
 
-`[SCREENSHOT: the Current assessment bar with the Replace button]`
+![The Current assessment bar, showing the saved file name and the Replace Assessment Matrix button.](public/help/screenshots/setup-current-assessment-bar.png)
 
 Use it when your center is reassessed, or if you were sent a corrected workbook. The new file takes the place of the old one. Each person stores one matrix, so replacing yours does not change anyone else's: after a reassessment, everyone at your center who uses the library replaces their own, or they go on working from the old results.
 
@@ -215,13 +219,15 @@ A control you cannot maintain is not a control. So the profile is set by what yo
 
 The profile appears on the **Setup** screen once an assessment is loaded, below your center's details, under the heading **PSAP Profile**.
 
-`[SCREENSHOT: the PSAP Profile panel, freshly loaded with nothing selected]`
+![The PSAP Profile panel as first loaded: questions 1 to 8 with nothing selected.](public/help/screenshots/setup-profile-panel-empty.png)
 
 Two things to know before you start.
 
 **You answer it yourself.** The library does not work your profile out from your assessment. Your assessment says what is missing; the profile says what you are able to build. They are different questions and the second one needs you.
 
 **Questions 1 through 7 are all required.** Every dropdown starts empty, showing _Select…_, and nothing is chosen on your behalf. You cannot move on to your results until all seven are answered. If you try, the library outlines the unanswered questions in red and tells you what is missing.
+
+![The PSAP Profile panel after pressing Continue to Assessment with the questions unanswered: the seven required dropdowns are outlined in red, and a message below tells you to answer all required questions (1 to 7) before continuing.](public/help/screenshots/setup-profile-validation.png)
 
 Question 8 is a pair of checkboxes and is optional. Leave both unticked if neither applies.
 
@@ -256,6 +262,8 @@ These three set your profile. Answer them honestly rather than aspirationally.
 **Your baseline is the lowest of the three.** Two Larges and a Small make a Small profile, not a Medium one. The reasoning is the same as before: the thing you cannot sustain is the thing that will fail, and building to a level you cannot maintain produces documents that go stale and controls that quietly stop working.
 
 Once all three are answered, the panel shows your baseline. Until then it tells you it is waiting on questions 1 to 3, so you are never given a profile you did not choose.
+
+![Questions 1 to 3 of the PSAP Profile answered (vendor-managed or no dedicated IT, no one formally assigned, manual checklists and spreadsheets), with the Baseline Profile box below reading Small.](public/help/screenshots/setup-profile-answered-baseline.png)
 
 ## 3.4 Questions 4 to 6: confirming and scaling up
 
@@ -302,6 +310,8 @@ Your profile affects two things, and it is worth being precise about both so you
 
 Your profile does **not** change which artifacts are on your list. That comes from your assessment. The profile changes how you should build them, not whether you need them.
 
+![The PSAP Profile panel filled in: a Small baseline from questions 1 to 3, questions 5 and 6 answered Large, CJIS access set to Yes, and both structure boxes ticked.](public/help/screenshots/setup-profile-answered.png)
+
 ## 3.7 Saving it
 
 Your profile is saved when you press **Continue to Assessment**. The button shows that it is saving, then takes you to your results.
@@ -347,11 +357,11 @@ That gap is the whole point of scaling by area. It is common, it is not a failin
 
 The **Assessment** tab opens on a summary line: how many questions were rated as gaps, how many artifacts address them, and how many artifacts exist in the library altogether.
 
-The first two numbers will not match, and that is the point. A single well-written policy can answer several assessment questions at once, so the artifact count is almost always the smaller of the two. **That difference is the first piece of good news the library gives you.** A list of ninety gaps becomes a list of perhaps forty documents.
+The first two numbers measure different things, so do not expect them to match. Questions are what your assessment found; artifacts are the documents that answer them. One policy can answer several questions, and one question can call for several documents, so the counts can differ in either direction. The artifact count is the one to plan around: each document is listed once, however many gaps it closes, and the total can never exceed the library's 163.
 
 Below the summary are three tabs: **Build Priority**, **By Question**, and **Reference**. They show the same findings arranged for three different jobs.
 
-`[SCREENSHOT: the Assessment screen with the summary line and three tabs]`
+![The top of the Assessment screen: the summary line of gap questions and artifacts, and the Build Priority, By Question, and Reference tabs.](public/help/screenshots/assessment-summary-and-tabs.png)
 
 ## 4.2 Tiers, and why the order matters
 
@@ -374,7 +384,9 @@ Some artifacts carry a **Gate** marker. These deserve more attention than the ba
 
 > **A gate is an artifact that must be reviewed, approved, and adopted before the work that follows it can be done correctly.** A gate settles a decision the rest of your program inherits: what your agency owns, how your data is classified, who may have access, how your network is laid out, how calls keep being answered when the CAD is down.
 
-Drafting past an open gate produces documents you will have to rewrite once the decision lands. Sixteen of the 163 artifacts are gates, and they sort to the top of their tier for that reason.
+Drafting past an open gate produces documents you will have to rewrite once the decision lands. Sixteen of the 163 artifacts are gates, and each one carries the **Gate** marker wherever it appears.
+
+![One artifact on the Build Priority tab, Cybersecurity & Privacy Policy, carrying the Document marker and the Gate marker.](public/help/screenshots/assessment-artifact-row-actions.png)
 
 A gate is a **decision checkpoint, not a source document others quote**: a point where your program should pause, get something approved, and only then carry on.
 
@@ -408,13 +420,13 @@ Notice that the waves cut across the tiers. The Document Handling Standard sits 
 
 ## 4.5 Build Priority: your working list
 
-This is the tab to work from. It takes every artifact your gaps point to, removes the duplicates, and puts them in build order: by tier, with gates first inside each tier.
+This is the tab to work from. It takes every artifact your gaps point to, removes the duplicates, and puts them in build order: by tier, then by the tier's own sequence of assessment categories. Among artifacts for the same category, gates come first.
 
 Each row shows the artifact name, whether it is a Word document or a spreadsheet, any markers that apply, its type, and how many of your gaps it closes.
 
-That last number is worth watching. An artifact closing six gaps earns its place ahead of one closing a single gap, all else being equal.
+That last number is worth watching, though the list is not ordered by it. An artifact closing six gaps is worth building ahead of one closing a single gap, all else being equal.
 
-`[SCREENSHOT: the Build Priority tab, Tier 1 expanded]`
+![The Build Priority tab, showing the start of Tier 1: each artifact with its format marker, any Gate marker, its type and gap count, and its Download Template, Build Document, and Worked Example links.](public/help/screenshots/assessment-build-priority-tier1.png)
 
 ## 4.6 By Question: why something is on your list
 
@@ -424,7 +436,7 @@ Use this tab when you want to answer "why is this on my list?" or when you are w
 
 This is also the view to bring to a conversation with leadership, because it connects each document back to the assessment finding that calls for it.
 
-`[SCREENSHOT: the By Question tab, one domain expanded]`
+![The By Question tab, showing the first domain, Governance, Risk & Strategy. The first question, rated Planned, has its three artifacts opened to show Download Template, Build Document, and Example links; the next two questions, rated No, list their artifacts unopened.](public/help/screenshots/assessment-by-question-domain.png)
 
 ## 4.7 Reference: what you already have
 
@@ -433,6 +445,8 @@ Questions you rated **Yes** or **Not Applicable**, and the artifacts behind them
 These are not gaps. The tab exists for two reasons. It lets you confirm that what you believe is in place genuinely is, which is worth doing before an assessor asks. And it flags overlap: where an artifact you already hold also answers an open gap elsewhere, it is marked **Also a gap**.
 
 That marker usually means you do not need to write a new document. You need to extend the one you already have.
+
+![The Reference tab: a summary saying 49 questions were rated Yes or Not Applicable and 60 of 80 referenced artifacts also address an open gap, then each Yes question with its artifacts and the Also a gap marker.](public/help/screenshots/assessment-reference-tab.png)
 
 ## 4.8 What the markers mean
 
@@ -449,11 +463,15 @@ That marker usually means you do not need to write a new document. You need to e
 | **Multi-agency**             | Build Priority, Full Library | Applies because you are consolidated or multi-agency                               |
 | **Co-located**               | Build Priority, Full Library | Applies because you share space with another agency                                |
 
+![Six artifact rows showing every marker: Document, Spreadsheet, Gate, Gap, Also a gap, CJIS, the Technical and Governance markers with their levels, Multi-agency, and Co-located.](public/help/screenshots/markers-on-artifact-rows.png)
+
 On the **By Question** and **Reference** tabs, each question also carries its rating, so you can see at a glance which gaps are untouched and which are already moving.
 
 ## 4.9 What you can do with an artifact
 
 Every artifact offers up to three actions. On **Build Priority** they are on the row; on **By Question** and **Reference**, click the artifact name to reveal them.
+
+![One artifact on the Build Priority tab, Cybersecurity & Privacy Policy, with its three actions on the row: Download Template, Build Document, and Worked Example (Small).](public/help/screenshots/assessment-artifact-row-actions.png)
 
 **Download Template.** The blank document, with its guidance notes intact. Use it when you would rather work in Word from the start, or when you want to read the whole thing before filling anything in.
 
@@ -479,7 +497,7 @@ Three good reasons to come here:
 
 If you have an assessment loaded, artifacts that address one of your gaps carry a **Gap** marker here, so you can tell your priorities from the rest at a glance.
 
-`[SCREENSHOT: the Full Library with a type filter applied]`
+![The Full Library with the type filter set to Checklist, showing 6 of 163 artifacts.](public/help/screenshots/library-type-filter.png)
 
 ## 5.2 Searching and filtering
 
@@ -547,7 +565,7 @@ Here is the honest division of labour on a typical artifact.
 
 **The builder fills the recurring details.** Around twenty per document: your agency name, a version, an effective date, a review date, an owner's role, a reviewer, a signing title. These appear over and over throughout a document, and typing them once instead of twenty times is the saving the builder exists to provide.
 
-**You supply what only your center knows.** Entries in the registers and matrices, a small number of bracketed prompts inside the prose such as _[Add Agency-specific systems.]_, and anything specific to how your center actually operates. Most documents have only one or two of these prompts; a few have a dozen.
+**You supply what only your center knows.** Entries in the tables that call for them, a small number of bracketed prompts inside the prose such as _[Add Agency-specific systems.]_, and anything specific to how your center actually operates. Most documents have only one or two of these prompts; a few have a dozen.
 
 **You remove the drafting guidance.** Every template carries notes written to help whoever fills it in, and those come out before you publish. Section 6.10 covers exactly what to look for.
 
@@ -555,9 +573,9 @@ So the shape of the job is this:
 
 > **The builder handles the repetition. The template handles the language. You handle the specifics, then clean up.**
 
-The one thing the builder will not do is fill in a table for you. If an artifact is a register, a matrix, or a log, expect to complete it in Word after downloading.
+The builder fills single values wherever they appear, including inside a table cell. What it will not do is add rows to a table, or fill a cell that has no field of its own, such as the Y / N / NA column on a checklist. Expect to add rows and complete those cells in Word after downloading.
 
-`[SCREENSHOT: the builder form beside the preview, showing a filled field and an empty table]`
+![The Build Document window: form fields on the left and a live preview of the document on the right, with the first Evidence cell of the table highlighted.](public/help/screenshots/builder-form-and-preview.png)
 
 ## 6.2 Which artifacts can be built
 
@@ -566,6 +584,8 @@ Word documents only, which is 100 of the 163 artifacts.
 The 63 spreadsheets have no **Build Document** action, by design: a register is filled in Excel, where you can sort it, filter it, and keep adding to it. Download the template and work in Excel.
 
 The marker on every row tells you which you are looking at before you click.
+
+![Two artifact rows on the Build Priority tab. Data Retention Schedule, marked Spreadsheet, offers Download Template and Worked Example (Small) but no Build Document. Data Labeling Procedures, marked Document, offers Build Document as well.](public/help/screenshots/assessment-spreadsheet-and-document-rows.png)
 
 ## 6.3 The builder window
 
@@ -583,6 +603,8 @@ One field fills itself: your **agency name**, taken from your assessment matrix.
 
 Version fields start at **1.0**. That is a sensible default for a document your center is adopting for the first time, not a value carried from anywhere. Change it if you are revising something you already have.
 
+![The top of the Build Document window for the Account Provisioning & Deprovisioning Checklist. Agency Name is filled in and tagged from your assessment, Signing Official & Title is empty, and Version is set to 1.0. In the preview beside it, the agency name and the version are highlighted in green, and the fields still empty show their names in brackets.](public/help/screenshots/builder-agency-name-and-highlights.png)
+
 Everything else you enter yourself.
 
 ## 6.5 The kinds of field you will meet
@@ -595,6 +617,8 @@ Everything else you enter yourself.
 
 **Suggestion lists**, where a dropdown offers common answers. These are **suggestions, not restrictions**. Pick one if it fits, or type your own value over it. If your center uses different terminology, use your own.
 
+![The IT Support Model field open as a suggestion list, offering County IT, Vendor, and In-house. In the preview beside it, the IT Support Model placeholder is highlighted in the Roles & Responsibilities table.](public/help/screenshots/builder-suggestion-list.png)
+
 Where a document uses the same kind of value in several places, the fields are numbered to tell them apart, for example a second and third effective date. If you are unsure which is which, click into the field and watch the preview: it will show you exactly where that value lands.
 
 ## 6.6 Seeing where your answers go
@@ -602,6 +626,8 @@ Where a document uses the same kind of value in several places, the fields are n
 Click into any field and the preview highlights every place that value appears, then scrolls to the first one.
 
 This is more useful than it sounds. A single answer often lands in five or six places across a document, and this is how you confirm that an owner's role or a review date is going where you expect. It is also the quickest way to understand a document you did not write.
+
+![The All Personnel (scope) field, clicked into and outlined in blue. In the preview beside it, the All Personnel (scope) placeholder is outlined in matching blue in the Roles & Responsibilities table.](public/help/screenshots/builder-field-highlight-plain.png)
 
 ## 6.7 Limits, and things that can interrupt you
 
@@ -615,9 +641,7 @@ Individual fields hold up to 5,000 characters, which is far more than any of the
 
 ## 6.8 If a template has nothing to fill
 
-A few templates offer no fillable fields. The builder will tell you so and point you to the download instead.
-
-Nothing is wrong. That artifact is simply one you complete entirely in Word.
+Every Word template has fields for the builder to fill. If you ever open one that has none, the builder says so and points you to the download instead. Nothing is wrong; that artifact is simply one you complete entirely in Word.
 
 ## 6.9 Downloading
 
@@ -629,31 +653,34 @@ Two things about that name. **COMPLETED** refers to the fields, not the document
 
 Open the file. Two jobs remain, and both matter.
 
-**First, add what only you can.** Complete the registers and matrices, answer any bracketed prompts left in the prose, and add anything specific to your center. This is the substance the template cannot supply.
+**First, add what only you can.** Complete any tables that call for entries, answer any bracketed prompts left in the prose, and add anything specific to your center. This is the substance the template cannot supply.
 
 **Second, remove the drafting guidance.** Every template carries material written for whoever fills it in, and none of it belongs in a published document:
 
-| What to look for                               | What it is                                                                                |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| A box headed **How to use this template**      | Instructions for filling the document in. It tells you to delete it                       |
-| A block headed **Drafter's note**              | Internal notes for whoever prepares the artifact. Marked internal, and it must not remain |
-| Notes between `«` and `»` marks                | Guidance on what to write in that spot. Typically eight or so per document                |
-| Rows offering Small, Medium, and Large options | Guidance tables. Keep the row matching your profile, delete the other two                 |
+| What to look for                                          | What it is                                                                                |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| A box headed **How to use this template**                 | Instructions for filling the document in. It tells you to delete it                       |
+| A block headed **Drafter's note**                         | Internal notes for whoever prepares the artifact. Marked internal, and it must not remain |
+| Notes between `«` and `»` marks                           | Guidance on what to write in that spot. Typically eight or so per document                |
+| Rows offering Small, Medium, and Large options            | Guidance tables. Keep the row matching your profile, delete the other two                 |
+| An italic line above the **Profile Scaling Notes** table  | Instructions for writing the profile rows. It is not part of the document, so delete it   |
+| An italic line at the top of the **Source Authority** box | Instructions for listing your authorities. Delete the line and keep the list beneath it   |
 
 **Checklist before you publish**
 
-- [ ] Every register, matrix, and table completed or marked as deliberately empty
+- [ ] Every table completed or marked as deliberately empty
 - [ ] Every bracketed prompt answered or removed
 - [ ] The **How to use this template** box deleted
 - [ ] The **Drafter's note** block deleted
 - [ ] Every `« »` guidance note deleted
 - [ ] Small / Medium / Large guidance rows reduced to your own
+- [ ] The italic instruction lines under **Profile Scaling Notes** and **Source Authority** deleted
 - [ ] Version, dates, and named roles checked
 - [ ] The classification line correct for your center, see Part 7
 
 This last step is not optional housekeeping. A document filed with its drafter's notes intact puts internal working material into your compliance record, where an auditor will read it.
 
-`[SCREENSHOT: a generated document open in Word, with each element to remove marked]`
+![Excerpts of a downloaded Word template with the material to remove outlined and labeled: « » guidance notes, the How to use this template box, italic instruction lines, the Small, Medium, and Large rows, and the Drafter's note.](public/help/screenshots/word-cleanup-annotated.png)
 
 ---
 
@@ -684,6 +711,8 @@ Read it as though you had received it from someone else, and check four things.
 ## 7.3 Approving and adopting
 
 Every artifact has a place for approval at the foot of the document, because approval is what makes it binding.
+
+![The foot of a downloaded Word template before it is filled in: a Sign-off table with Role, Name, Signature, and Date columns and rows for who completed it and who reviewed it, above a Revision History table with Version, Date, Author, and Summary of Change columns.](public/help/screenshots/word-sign-off-and-revision-history.png)
 
 How your center does that is yours to decide. What matters is that the answers exist:
 

@@ -7,7 +7,7 @@ import {
     DocSection,
     DocTable,
     Callout,
-    ScreenshotPlaceholder,
+    Screenshot,
     Checklist,
 } from "@/components/docs/DocPrimitives";
 
@@ -201,6 +201,10 @@ export default function GuidePage() {
                             library, so you are already signed in. Your 911 Authority site login
                             carries through: no second sign-in, no separate password.
                         </p>
+                        <Screenshot
+                            name="help-menu-open"
+                            alt="The library's Setup screen with the Help menu open at the right of the tab row, listing Quick Start, Quick Reference, and Full Guide."
+                        />
                         <p>
                             For the record, the library opens in a panel over the site, from{" "}
                             <strong>Tools</strong>, then <strong>PSAP Artifact Library</strong>.
@@ -243,7 +247,10 @@ export default function GuidePage() {
                             A fourth item, <strong>Help</strong>, holds this guide alongside the
                             quick start and the quick reference. It is where you are now.
                         </p>
-                        <ScreenshotPlaceholder label="the three tabs, Assessment greyed out" />
+                        <Screenshot
+                            name="nav-tabs-assessment-disabled"
+                            alt="The tab row at the top of the library: Setup, Assessment greyed out, Full Library, and the Help menu."
+                        />
                     </DocSection>
 
                     <DocSection id="1.7" title="What you will see when you open it">
@@ -265,7 +272,10 @@ export default function GuidePage() {
                             them. Your build list is ready under the <strong>Assessment</strong>{" "}
                             tab.
                         </p>
-                        <ScreenshotPlaceholder label="first-use upload panel and returning Current assessment bar, side by side" />
+                        <Screenshot
+                            name="setup-first-use-vs-returning"
+                            alt="Two versions of the Setup screen. Top: first use, with a dashed panel for uploading the assessment matrix. Bottom: a later visit, with the Current assessment bar, a Replace Assessment Matrix button, and the center's contact details."
+                        />
                         <p>
                             If you expected the second and got the first, your session may have
                             ended. Close the panel, reopen it from <strong>Tools</strong>, and check
@@ -311,6 +321,11 @@ export default function GuidePage() {
                             The scoring tables and charts are for your report. The library ignores
                             them.
                         </p>
+                        <Screenshot
+                            name="excel-psap-information-sheet"
+                            alt="A sample assessment matrix open in Excel on the PSAP Information sheet: the PSAP name, address, city and ZIP, and the director's name, phone, and email in the first rows. The sheet tabs along the bottom are General Information, PSAP Information, Question Set, Full Score Table, Domain-Level Score Table, Bar Chart, and Radar Chart."
+                            enlarge
+                        />
                         <Callout>
                             Upload the workbook as you received it. The library reads your contact
                             details from fixed positions on the PSAP Information sheet, so inserting
@@ -399,7 +414,10 @@ export default function GuidePage() {
                             files up to 250 KB. A matrix runs well under that, so the limit is
                             unlikely to trouble you.
                         </p>
-                        <ScreenshotPlaceholder label="the Setup screen with the upload panel" />
+                        <Screenshot
+                            name="setup-upload-panel"
+                            alt="The Setup screen on first use, showing the dashed panel to click to upload the assessment matrix."
+                        />
                         <p>
                             Uploading takes a moment. The library reads the workbook first and only
                             saves it if it can read it, so a file it rejects is never stored. When
@@ -421,7 +439,10 @@ export default function GuidePage() {
                             showing the file you have stored, with a{" "}
                             <strong>Replace Assessment Matrix</strong> button beside it.
                         </p>
-                        <ScreenshotPlaceholder label="the Current assessment bar with the Replace button" />
+                        <Screenshot
+                            name="setup-current-assessment-bar"
+                            alt="The Current assessment bar, showing the saved file name and the Replace Assessment Matrix button."
+                        />
                         <p>
                             Use it when your center is reassessed, or if you were sent a corrected
                             workbook. The new file takes the place of the old one. Each person
@@ -557,7 +578,10 @@ export default function GuidePage() {
                             assessment is loaded, below your center&apos;s details, under the
                             heading <strong>PSAP Profile</strong>.
                         </p>
-                        <ScreenshotPlaceholder label="the PSAP Profile panel, freshly loaded with nothing selected" />
+                        <Screenshot
+                            name="setup-profile-panel-empty"
+                            alt="The PSAP Profile panel as first loaded: questions 1 to 8 with nothing selected."
+                        />
                         <p>Two things to know before you start.</p>
                         <p>
                             <strong>You answer it yourself.</strong> The library does not work your
@@ -572,6 +596,10 @@ export default function GuidePage() {
                             If you try, the library outlines the unanswered questions in red and
                             tells you what is missing.
                         </p>
+                        <Screenshot
+                            name="setup-profile-validation"
+                            alt="The PSAP Profile panel after pressing Continue to Assessment with the questions unanswered: the seven required dropdowns are outlined in red, and a message below tells you to answer all required questions (1 to 7) before continuing."
+                        />
                         <p>
                             Question 8 is a pair of checkboxes and is optional. Leave both unticked
                             if neither applies.
@@ -628,6 +656,10 @@ export default function GuidePage() {
                             it tells you it is waiting on questions 1 to 3, so you are never given a
                             profile you did not choose.
                         </p>
+                        <Screenshot
+                            name="setup-profile-answered-baseline"
+                            alt="Questions 1 to 3 of the PSAP Profile answered (vendor-managed or no dedicated IT, no one formally assigned, manual checklists and spreadsheets), with the Baseline Profile box below reading Small."
+                        />
                     </DocSection>
 
                     <DocSection id="3.4" title="Questions 4 to 6: confirming and scaling up">
@@ -724,6 +756,10 @@ export default function GuidePage() {
                             your list. That comes from your assessment. The profile changes how you
                             should build them, not whether you need them.
                         </p>
+                        <Screenshot
+                            name="setup-profile-answered"
+                            alt="The PSAP Profile panel filled in: a Small baseline from questions 1 to 3, questions 5 and 6 answered Large, CJIS access set to Yes, and both structure boxes ticked."
+                        />
                     </DocSection>
 
                     <DocSection id="3.7" title="Saving it">
@@ -818,21 +854,23 @@ export default function GuidePage() {
                             many artifacts exist in the library altogether.
                         </p>
                         <p>
-                            The first two numbers will not match, and that is the point. A single
-                            well-written policy can answer several assessment questions at once, so
-                            the artifact count is almost always the smaller of the two.{" "}
-                            <strong>
-                                That difference is the first piece of good news the library gives
-                                you.
-                            </strong>{" "}
-                            A list of ninety gaps becomes a list of perhaps forty documents.
+                            The first two numbers measure different things, so do not expect them
+                            to match. Questions are what your assessment found; artifacts are the
+                            documents that answer them. One policy can answer several questions,
+                            and one question can call for several documents, so the counts can
+                            differ in either direction. The artifact count is the one to plan
+                            around: each document is listed once, however many gaps it closes, and
+                            the total can never exceed the library&apos;s 163.
                         </p>
                         <p>
                             Below the summary are three tabs: <strong>Build Priority</strong>,{" "}
                             <strong>By Question</strong>, and <strong>Reference</strong>. They show
                             the same findings arranged for three different jobs.
                         </p>
-                        <ScreenshotPlaceholder label="the Assessment screen with the summary line and three tabs" />
+                        <Screenshot
+                            name="assessment-summary-and-tabs"
+                            alt="The top of the Assessment screen: the summary line of gap questions and artifacts, and the Build Priority, By Question, and Reference tabs."
+                        />
                     </DocSection>
 
                     <DocSection id="4.2" title="Tiers, and why the order matters">
@@ -898,8 +936,12 @@ export default function GuidePage() {
                         <p>
                             Drafting past an open gate produces documents you will have to rewrite
                             once the decision lands. Sixteen of the 163 artifacts are gates, and
-                            they sort to the top of their tier for that reason.
+                            each one carries the <strong>Gate</strong> marker wherever it appears.
                         </p>
+                        <Screenshot
+                            name="assessment-artifact-row-actions"
+                            alt="One artifact on the Build Priority tab, Cybersecurity & Privacy Policy, carrying the Document marker and the Gate marker."
+                        />
                         <p>
                             A gate is a{" "}
                             <strong>decision checkpoint, not a source document others quote</strong>
@@ -959,8 +1001,9 @@ export default function GuidePage() {
                     <DocSection id="4.5" title="Build Priority: your working list">
                         <p>
                             This is the tab to work from. It takes every artifact your gaps point
-                            to, removes the duplicates, and puts them in build order: by tier, with
-                            gates first inside each tier.
+                            to, removes the duplicates, and puts them in build order: by tier, then
+                            by the tier&apos;s own sequence of assessment categories. Among
+                            artifacts for the same category, gates come first.
                         </p>
                         <p>
                             Each row shows the artifact name, whether it is a Word document or a
@@ -968,10 +1011,14 @@ export default function GuidePage() {
                             it closes.
                         </p>
                         <p>
-                            That last number is worth watching. An artifact closing six gaps earns
-                            its place ahead of one closing a single gap, all else being equal.
+                            That last number is worth watching, though the list is not ordered by
+                            it. An artifact closing six gaps is worth building ahead of one closing
+                            a single gap, all else being equal.
                         </p>
-                        <ScreenshotPlaceholder label="the Build Priority tab, Tier 1 expanded" />
+                        <Screenshot
+                            name="assessment-build-priority-tier1"
+                            alt="The Build Priority tab, showing the start of Tier 1: each artifact with its format marker, any Gate marker, its type and gap count, and its Download Template, Build Document, and Worked Example links."
+                        />
                     </DocSection>
 
                     <DocSection id="4.6" title="By Question: why something is on your list">
@@ -990,7 +1037,10 @@ export default function GuidePage() {
                             because it connects each document back to the assessment finding that
                             calls for it.
                         </p>
-                        <ScreenshotPlaceholder label="the By Question tab, one domain expanded" />
+                        <Screenshot
+                            name="assessment-by-question-domain"
+                            alt="The By Question tab, showing the first domain, Governance, Risk & Strategy. The first question, rated Planned, has its three artifacts opened to show Download Template, Build Document, and Example links; the next two questions, rated No, list their artifacts unopened."
+                        />
                     </DocSection>
 
                     <DocSection id="4.7" title="Reference: what you already have">
@@ -1009,6 +1059,10 @@ export default function GuidePage() {
                             That marker usually means you do not need to write a new document. You
                             need to extend the one you already have.
                         </p>
+                        <Screenshot
+                            name="assessment-reference-tab"
+                            alt="The Reference tab: a summary saying 49 questions were rated Yes or Not Applicable and 60 of 80 referenced artifacts also address an open gap, then each Yes question with its artifacts and the Also a gap marker."
+                        />
                     </DocSection>
 
                     <DocSection id="4.8" title="What the markers mean">
@@ -1071,6 +1125,10 @@ export default function GuidePage() {
                                 ],
                             ]}
                         />
+                        <Screenshot
+                            name="markers-on-artifact-rows"
+                            alt="Six artifact rows showing every marker: Document, Spreadsheet, Gate, Gap, Also a gap, CJIS, the Technical and Governance markers with their levels, Multi-agency, and Co-located."
+                        />
                         <p>
                             On the <strong>By Question</strong> and <strong>Reference</strong> tabs,
                             each question also carries its rating, so you can see at a glance which
@@ -1085,6 +1143,10 @@ export default function GuidePage() {
                             <strong>By Question</strong> and <strong>Reference</strong>, click the
                             artifact name to reveal them.
                         </p>
+                        <Screenshot
+                            name="assessment-artifact-row-actions"
+                            alt="One artifact on the Build Priority tab, Cybersecurity & Privacy Policy, with its three actions on the row: Download Template, Build Document, and Worked Example (Small)."
+                        />
                         <p>
                             <strong>Download Template.</strong> The blank document, with its
                             guidance notes intact. Use it when you would rather work in Word from
@@ -1140,7 +1202,10 @@ export default function GuidePage() {
                             gaps carry a <strong>Gap</strong> marker here, so you can tell your
                             priorities from the rest at a glance.
                         </p>
-                        <ScreenshotPlaceholder label="the Full Library with a type filter applied" />
+                        <Screenshot
+                            name="library-type-filter"
+                            alt="The Full Library with the type filter set to Checklist, showing 6 of 163 artifacts."
+                        />
                     </DocSection>
 
                     <DocSection id="5.2" title="Searching and filtering">
@@ -1258,8 +1323,8 @@ export default function GuidePage() {
                         </p>
                         <p>
                             <strong>You supply what only your center knows.</strong> Entries in the
-                            registers and matrices, a small number of bracketed prompts inside the
-                            prose such as <em>[Add Agency-specific systems.]</em>, and anything
+                            tables that call for them, a small number of bracketed prompts inside
+                            the prose such as <em>[Add Agency-specific systems.]</em>, and anything
                             specific to how your center actually operates. Most documents have only
                             one or two of these prompts; a few have a dozen.
                         </p>
@@ -1274,11 +1339,17 @@ export default function GuidePage() {
                             You handle the specifics, then clean up.
                         </Callout>
                         <p>
-                            The one thing the builder will not do is fill in a table for you. If an
-                            artifact is a register, a matrix, or a log, expect to complete it in
-                            Word after downloading.
+                            The builder fills single values wherever they appear, including inside
+                            a table cell. What it will not do is add rows to a table, or fill a cell
+                            that has no field of its own, such as the Y / N / NA column on a
+                            checklist. Expect to add rows and complete those cells in Word after
+                            downloading.
                         </p>
-                        <ScreenshotPlaceholder label="the builder form beside the preview, showing a filled field and an empty table" />
+                        <Screenshot
+                            name="builder-form-and-preview"
+                            alt="The Build Document window: form fields on the left and a live preview of the document on the right, with the first Evidence cell of the table highlighted."
+                            enlarge
+                        />
                     </DocSection>
 
                     <DocSection id="6.2" title="Which artifacts can be built">
@@ -1292,6 +1363,10 @@ export default function GuidePage() {
                             The marker on every row tells you which you are looking at before you
                             click.
                         </p>
+                        <Screenshot
+                            name="assessment-spreadsheet-and-document-rows"
+                            alt="Two artifact rows on the Build Priority tab. Data Retention Schedule, marked Spreadsheet, offers Download Template and Worked Example (Small) but no Build Document. Data Labeling Procedures, marked Document, offers Build Document as well."
+                        />
                     </DocSection>
 
                     <DocSection id="6.3" title="The builder window">
@@ -1327,6 +1402,11 @@ export default function GuidePage() {
                             carried from anywhere. Change it if you are revising something you
                             already have.
                         </p>
+                        <Screenshot
+                            name="builder-agency-name-and-highlights"
+                            alt="The top of the Build Document window for the Account Provisioning & Deprovisioning Checklist. Agency Name is filled in and tagged from your assessment, Signing Official & Title is empty, and Version is set to 1.0. In the preview beside it, the agency name and the version are highlighted in green, and the fields still empty show their names in brackets."
+                            enlarge
+                        />
                         <p>Everything else you enter yourself.</p>
                     </DocSection>
 
@@ -1346,6 +1426,11 @@ export default function GuidePage() {
                             one if it fits, or type your own value over it. If your center uses
                             different terminology, use your own.
                         </p>
+                        <Screenshot
+                            name="builder-suggestion-list"
+                            alt="The IT Support Model field open as a suggestion list, offering County IT, Vendor, and In-house. In the preview beside it, the IT Support Model placeholder is highlighted in the Roles & Responsibilities table."
+                            enlarge
+                        />
                         <p>
                             Where a document uses the same kind of value in several places, the
                             fields are numbered to tell them apart, for example a second and third
@@ -1365,6 +1450,11 @@ export default function GuidePage() {
                             owner&apos;s role or a review date is going where you expect. It is also
                             the quickest way to understand a document you did not write.
                         </p>
+                        <Screenshot
+                            name="builder-field-highlight-plain"
+                            alt="The All Personnel (scope) field, clicked into and outlined in blue. In the preview beside it, the All Personnel (scope) placeholder is outlined in matching blue in the Roles & Responsibilities table."
+                            enlarge
+                        />
                     </DocSection>
 
                     <DocSection id="6.7" title="Limits, and things that can interrupt you">
@@ -1398,12 +1488,10 @@ export default function GuidePage() {
 
                     <DocSection id="6.8" title="If a template has nothing to fill">
                         <p>
-                            A few templates offer no fillable fields. The builder will tell you so
-                            and point you to the download instead.
-                        </p>
-                        <p>
-                            Nothing is wrong. That artifact is simply one you complete entirely in
-                            Word.
+                            Every Word template has fields for the builder to fill. If you ever open
+                            one that has none, the builder says so and points you to the download
+                            instead. Nothing is wrong; that artifact is simply one you complete
+                            entirely in Word.
                         </p>
                     </DocSection>
 
@@ -1424,10 +1512,10 @@ export default function GuidePage() {
                     <DocSection id="6.10" title="Finishing the document in Word">
                         <p>Open the file. Two jobs remain, and both matter.</p>
                         <p>
-                            <strong>First, add what only you can.</strong> Complete the registers
-                            and matrices, answer any bracketed prompts left in the prose, and add
-                            anything specific to your center. This is the substance the template
-                            cannot supply.
+                            <strong>First, add what only you can.</strong> Complete any tables that
+                            call for entries, answer any bracketed prompts left in the prose, and
+                            add anything specific to your center. This is the substance the
+                            template cannot supply.
                         </p>
                         <p>
                             <strong>Second, remove the drafting guidance.</strong> Every template
@@ -1457,6 +1545,20 @@ export default function GuidePage() {
                                     "Rows offering Small, Medium, and Large options",
                                     "Guidance tables. Keep the row matching your profile, delete the other two",
                                 ],
+                                [
+                                    <>
+                                        An italic line above the <strong>Profile Scaling Notes</strong>{" "}
+                                        table
+                                    </>,
+                                    "Instructions for writing the profile rows. It is not part of the document, so delete it",
+                                ],
+                                [
+                                    <>
+                                        An italic line at the top of the <strong>Source Authority</strong>{" "}
+                                        box
+                                    </>,
+                                    "Instructions for listing your authorities. Delete the line and keep the list beneath it",
+                                ],
                             ]}
                         />
                         <p>
@@ -1464,7 +1566,7 @@ export default function GuidePage() {
                         </p>
                         <Checklist
                             items={[
-                                "Every register, matrix, and table completed or marked as deliberately empty",
+                                "Every table completed or marked as deliberately empty",
                                 "Every bracketed prompt answered or removed",
                                 <>
                                     The <strong>How to use this template</strong> box deleted
@@ -1474,6 +1576,10 @@ export default function GuidePage() {
                                 </>,
                                 "Every « » guidance note deleted",
                                 "Small / Medium / Large guidance rows reduced to your own",
+                                <>
+                                    The italic instruction lines under <strong>Profile Scaling Notes</strong>{" "}
+                                    and <strong>Source Authority</strong> deleted
+                                </>,
                                 "Version, dates, and named roles checked",
                                 "The classification line correct for your center, see Part 7",
                             ]}
@@ -1483,7 +1589,10 @@ export default function GuidePage() {
                             drafter&apos;s notes intact puts internal working material into your
                             compliance record, where an auditor will read it.
                         </p>
-                        <ScreenshotPlaceholder label="a generated document open in Word, with each element to remove marked" />
+                        <Screenshot
+                            name="word-cleanup-annotated"
+                            alt="Excerpts of a downloaded Word template with the material to remove outlined and labeled: « » guidance notes, the How to use this template box, italic instruction lines, the Small, Medium, and Large rows, and the Drafter's note."
+                        />
                     </DocSection>
 
                     {/* ---------------------------------------------------------------- Part 7 */}
@@ -1542,6 +1651,10 @@ export default function GuidePage() {
                             Every artifact has a place for approval at the foot of the document,
                             because approval is what makes it binding.
                         </p>
+                        <Screenshot
+                            name="word-sign-off-and-revision-history"
+                            alt="The foot of a downloaded Word template before it is filled in: a Sign-off table with Role, Name, Signature, and Date columns and rows for who completed it and who reviewed it, above a Revision History table with Version, Date, Author, and Summary of Change columns."
+                        />
                         <p>
                             How your center does that is yours to decide. What matters is that the
                             answers exist:

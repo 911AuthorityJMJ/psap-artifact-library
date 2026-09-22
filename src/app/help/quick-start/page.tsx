@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { HelpHeader, DocCard, DocH2, GuideRefs, GuideRef } from "@/components/docs/DocPrimitives";
+import {
+    HelpHeader,
+    DocCard,
+    DocH2,
+    GuideRefs,
+    GuideRef,
+    Screenshot,
+} from "@/components/docs/DocPrimitives";
 
 export const metadata: Metadata = {
     title: "Quick Start — PSAP Artifact Library",
@@ -23,10 +30,18 @@ export default function QuickStartPage() {
                             <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">.xlsx</code>{" "}
                             workbook from your deliverable package, exactly as you received it. It
                             stays saved to your login.
+                            <Screenshot
+                                name="setup-upload-panel"
+                                alt="The Setup screen on first use, showing the dashed panel to click to upload the assessment matrix."
+                            />
                         </li>
                         <li>
                             <strong>Complete your profile.</strong> Answer questions 1 to 7, then
                             press <strong>Continue to Assessment</strong>.
+                            <Screenshot
+                                name="setup-profile-answered-baseline"
+                                alt="The top of the PSAP Profile panel with questions 1 to 3 answered and the resulting baseline profile, Small, shown beneath them."
+                            />
                         </li>
                         <li>
                             <strong>Open Build Priority.</strong> Settle the artifacts marked{" "}
@@ -38,6 +53,10 @@ export default function QuickStartPage() {
                             For a spreadsheet, download it and complete it in Excel. If you have
                             never written one before, open the <strong>Worked Example</strong>{" "}
                             first.
+                            <Screenshot
+                                name="assessment-artifact-row-actions"
+                                alt="One artifact on the Build Priority tab: Cybersecurity & Privacy Policy, marked Document and Gate, with its Download Template, Build Document, and Worked Example (Small) links."
+                            />
                         </li>
                         <li>
                             <strong>Finish, then adopt.</strong> Complete the document in Word or

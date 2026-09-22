@@ -7,6 +7,7 @@ import {
     Checklist,
     GuideRefs,
     GuideRef,
+    Screenshot,
 } from "@/components/docs/DocPrimitives";
 
 export const metadata: Metadata = {
@@ -38,6 +39,10 @@ export default function QuickReferencePage() {
                             ],
                         ]}
                     />
+                    <Screenshot
+                        name="assessment-results-tabs"
+                        alt="The three results tabs: Build Priority, By Question, and Reference."
+                    />
                     <GuideRefs>
                         <GuideRef id="4.5">4.5</GuideRef> to <GuideRef id="4.7">4.7</GuideRef>.
                     </GuideRefs>
@@ -59,6 +64,10 @@ export default function QuickReferencePage() {
                                 "A completed specimen for a center your size",
                             ],
                         ]}
+                    />
+                    <Screenshot
+                        name="assessment-artifact-row-actions"
+                        alt="One artifact on the Build Priority tab: Cybersecurity & Privacy Policy, marked Document and Gate, with its Download Template, Build Document, and Worked Example (Small) links."
                     />
                     <GuideRefs>
                         <GuideRef id="4.9" />.
@@ -103,6 +112,10 @@ export default function QuickReferencePage() {
                             ],
                         ]}
                     />
+                    <Screenshot
+                        name="markers-on-artifact-rows"
+                        alt="Six artifact rows showing every marker: Document, Spreadsheet, Gate, Gap, Also a gap, CJIS, the Technical and Governance markers with their levels, Multi-agency, and Co-located."
+                    />
                     <GuideRefs>
                         <GuideRef id="4.8" />.
                     </GuideRefs>
@@ -125,7 +138,7 @@ export default function QuickReferencePage() {
                     <DocH2>Before you publish a document</DocH2>
                     <Checklist
                         items={[
-                            "Tables and registers completed",
+                            "Tables completed",
                             "Bracketed prompts answered or removed",
                             <>
                                 <strong>How to use this template</strong> box deleted
@@ -135,6 +148,10 @@ export default function QuickReferencePage() {
                             </>,
                             "Guidance notes between « and » deleted",
                             "Small, Medium, and Large guidance rows reduced to the one for your profile",
+                            <>
+                                Instruction lines under <strong>Profile Scaling Notes</strong> and{" "}
+                                <strong>Source Authority</strong> deleted
+                            </>,
                             "Version, dates, and named roles checked",
                             "Classification checked. You may raise it, never lower it",
                         ]}

@@ -874,12 +874,7 @@ export default function HomeClient() {
                                                         Gap
                                                     </span>
                                                 )}
-                                                {getScaleBadges(
-                                                    artifact.id,
-                                                    artifact.classification,
-                                                ).map((badge, i) => (
-                                                    <span key={i}>{badge}</span>
-                                                ))}
+                                                {getScaleBadges(artifact.id, artifact.classification)}
                                             </div>
                                             <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
                                                 <span>{artifact.type}</span>
@@ -1300,11 +1295,7 @@ export default function HomeClient() {
                                                                             {getScaleBadges(
                                                                                 artifact.id,
                                                                                 artifact.classification,
-                                                                            ).map((badge, i) => (
-                                                                                <span key={i}>
-                                                                                    {badge}
-                                                                                </span>
-                                                                            ))}
+                                                                            )}
                                                                         </div>
                                                                         <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
                                                                             <span>
