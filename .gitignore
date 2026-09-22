@@ -41,4 +41,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/docs
+/docs/
+
+# uncropped screenshot captures; only cropped finals belong in public/help/screenshots
+/screenshots-raw/
