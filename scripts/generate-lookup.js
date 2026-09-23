@@ -2,10 +2,7 @@ import * as XLSX from "xlsx";
 import * as fs from "fs";
 import * as path from "path";
 
-const trackerPath = path.join(
-    process.cwd(),
-    "Artifact_Development_Tracker.xlsx",
-);
+const trackerPath = path.join(process.cwd(), "Artifact_Development_Tracker.xlsx");
 const wb = XLSX.read(fs.readFileSync(trackerPath), { type: "buffer" });
 
 // Build artifact map from Tracker sheet
@@ -64,8 +61,7 @@ for (const row of traceRows.slice(3)) {
 const artifactCategories = {};
 for (const [, qData] of Object.entries(questionMap)) {
     for (const artifactId of qData.artifactIds) {
-        if (!artifactCategories[artifactId])
-            artifactCategories[artifactId] = new Set();
+        if (!artifactCategories[artifactId]) artifactCategories[artifactId] = new Set();
         artifactCategories[artifactId].add(qData.catId);
     }
 }

@@ -32,7 +32,9 @@ export function HelpHeader({
             </Link>
             <h1 className="text-2xl font-bold text-gray-900 mb-1">{title}</h1>
             {subtitle && <p className="text-gray-500 text-sm">{subtitle}</p>}
-            <nav className="flex gap-1 border-b mt-5" style={{ borderColor: "var(--ui-border)" }}>
+            <nav
+                className="flex gap-1 border-b mt-5"
+                style={{ borderColor: "var(--ui-border)" }}>
                 {DOCS.map((d) => (
                     <Link
                         key={d.href}
@@ -60,7 +62,9 @@ export function HelpHeader({
  *  Library, so doc content reads as separated from the page background. */
 export function DocCard({ children }: { children: ReactNode }) {
     return (
-        <div className="bg-white rounded-lg p-6" style={{ border: "1px solid var(--ui-border)" }}>
+        <div
+            className="bg-white rounded-lg p-6"
+            style={{ border: "1px solid var(--ui-border)" }}>
             {children}
         </div>
     );
@@ -90,7 +94,9 @@ export function DocSection({
     children: ReactNode;
 }) {
     return (
-        <section id={id} className="mb-6 scroll-mt-6">
+        <section
+            id={id}
+            className="mb-6 scroll-mt-6">
             <h3 className="text-base font-semibold text-gray-900 mb-2">
                 {id} {title}
             </h3>
@@ -131,7 +137,9 @@ export function DocTable({ headers, rows }: { headers: string[]; rows: ReactNode
                             className="border-b last:border-0"
                             style={{ borderColor: "var(--ui-border)" }}>
                             {row.map((cell, ci) => (
-                                <td key={ci} className="px-3 py-2 align-top text-gray-700">
+                                <td
+                                    key={ci}
+                                    className="px-3 py-2 align-top text-gray-700">
                                     {cell}
                                 </td>
                             ))}
@@ -213,7 +221,11 @@ export function Screenshot({
             className="my-4 mx-auto rounded-lg overflow-hidden"
             style={{ border: "1px solid var(--ui-border)", maxWidth: width / 2 + 2 }}>
             {enlarge ? (
-                <a href={src} target="_blank" rel="noopener noreferrer" className="block cursor-zoom-in">
+                <a
+                    href={src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block cursor-zoom-in">
                     {image}
                 </a>
             ) : (
@@ -234,7 +246,9 @@ export function Checklist({ items }: { items: ReactNode[] }) {
     return (
         <ul className="my-4 space-y-1.5">
             {items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-gray-700">
                     <span
                         className="mt-0.5 shrink-0 w-3.5 h-3.5 rounded-sm border"
                         style={{ borderColor: "var(--ui-border)" }}

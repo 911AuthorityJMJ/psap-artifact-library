@@ -11,11 +11,11 @@
  * Keep this value in sync with `basePath` in `next.config.ts` (that file
  * imports BASE_PATH from here, so this constant is authoritative).
  */
-export const BASE_PATH = '/artifacts';
+export const BASE_PATH = "/artifacts";
 
 /** Prefix an app-absolute path (e.g. `/api/parse-assessment`) with BASE_PATH. */
 export function apiUrl(path: string): string {
-  return `${BASE_PATH}${path.startsWith('/') ? path : `/${path}`}`;
+    return `${BASE_PATH}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 /**
@@ -26,5 +26,5 @@ export function apiUrl(path: string): string {
  * hard-coding `/artifacts`.
  */
 export function assetUrl(path: string): string {
-  return `${BASE_PATH}${path.startsWith('/') ? path : `/${path}`}`;
+    return `${BASE_PATH}${path.startsWith("/") ? path : `/${path}`}`;
 }

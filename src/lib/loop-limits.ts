@@ -11,5 +11,5 @@ export const MAX_ROWS_CEILING = 500;
 
 /** The effective row cap for a loop given its (optional) declared maxRows. */
 export function effectiveMaxRows(declared: number | undefined): number {
-  return Math.min(declared ?? DEFAULT_MAX_ROWS, MAX_ROWS_CEILING);
+    return Math.min(declared ?? DEFAULT_MAX_ROWS, MAX_ROWS_CEILING);
 }

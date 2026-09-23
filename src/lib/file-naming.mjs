@@ -19,11 +19,11 @@
  * @returns {string}
  */
 export function toFileNameStem(name) {
-  return String(name)
-    .replace(/\s*\([^)]*\)/g, '')
-    .replace(/[^a-zA-Z0-9\s]/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join('');
+    return String(name)
+        .replace(/\s*\([^)]*\)/g, "")
+        .replace(/[^a-zA-Z0-9\s]/g, " ")
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join("");
 }

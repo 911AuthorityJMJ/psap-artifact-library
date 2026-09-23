@@ -100,7 +100,13 @@ function FormatBadge({ form }: { form?: "docx" | "xlsx" | false }) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     aria-hidden="true">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <rect
+                        x="3"
+                        y="3"
+                        width="18"
+                        height="18"
+                        rx="2"
+                    />
                     <path d="M3 9h18" />
                     <path d="M3 15h18" />
                     <path d="M9 3v18" />
@@ -661,7 +667,9 @@ export default function HomeClient() {
         <div>
             {groups &&
                 Object.entries(groups).map(([domain, questions]) => (
-                    <div key={domain} className="mb-5">
+                    <div
+                        key={domain}
+                        className="mb-5">
                         <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
                             {domain}
                         </h3>
@@ -839,14 +847,18 @@ export default function HomeClient() {
                 {groups.map(([tierKey, { tierName, tierNumber, items }]) => {
                     const tc = TIER_COLORS[tierNumber];
                     return (
-                        <div key={tierKey} className="mb-6 last:mb-0">
+                        <div
+                            key={tierKey}
+                            className="mb-6 last:mb-0">
                             <div className="flex items-center gap-2 mb-3">
                                 <h3
                                     className="text-xs font-semibold uppercase tracking-wide"
                                     style={{ color: tc?.text ?? "#4B5563" }}>
                                     {tierKey}
                                 </h3>
-                                <span className="text-xs" style={{ color: tc?.muted ?? "#6B7280" }}>
+                                <span
+                                    className="text-xs"
+                                    style={{ color: tc?.muted ?? "#6B7280" }}>
                                     · {tierName}
                                 </span>
                                 <span className="text-gray-400 text-xs">
@@ -874,7 +886,10 @@ export default function HomeClient() {
                                                         Gap
                                                     </span>
                                                 )}
-                                                {getScaleBadges(artifact.id, artifact.classification)}
+                                                {getScaleBadges(
+                                                    artifact.id,
+                                                    artifact.classification,
+                                                )}
                                             </div>
                                             <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
                                                 <span>{artifact.type}</span>
@@ -1004,7 +1019,9 @@ export default function HomeClient() {
                             );
                         })}
 
-                        <div className="relative" ref={helpRef}>
+                        <div
+                            className="relative"
+                            ref={helpRef}>
                             <button
                                 type="button"
                                 onClick={() => setHelpOpen((o) => !o)}
@@ -1249,7 +1266,9 @@ export default function HomeClient() {
                                             ([tierKey, { tierName, tierNumber, items }]) => {
                                                 const tc = TIER_COLORS[tierNumber];
                                                 return (
-                                                    <div key={tierKey} className="mb-6 last:mb-0">
+                                                    <div
+                                                        key={tierKey}
+                                                        className="mb-6 last:mb-0">
                                                         <div className="flex items-center gap-2 mb-3">
                                                             <h3
                                                                 className="text-xs font-semibold uppercase tracking-wide"
@@ -1492,7 +1511,9 @@ export default function HomeClient() {
                                         style={{ border: "1px solid var(--ui-border)" }}>
                                         <option value="">All types</option>
                                         {libraryTypes.map((t) => (
-                                            <option key={t} value={t}>
+                                            <option
+                                                key={t}
+                                                value={t}>
                                                 {t}
                                             </option>
                                         ))}

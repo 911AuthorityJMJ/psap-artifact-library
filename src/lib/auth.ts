@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { jwtVerify, type JWTPayload } from 'jose';
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { jwtVerify, type JWTPayload } from "jose";
 
 /**
  * Authenticated session, derived from the signed JWT that the ASP.NET site
@@ -9,32 +9,32 @@ import { jwtVerify, type JWTPayload } from 'jose';
  * token — it never mints identity.
  */
 export interface Session {
-  /** ASP.NET Identity user id (JWT `sub`). Comes only from the validated token. */
-  subject: string;
-  /** Authenticated username / email (JWT `email`). */
-  email: string;
-  /** Display name when available (JWT `name`); may be empty. */
-  name: string;
-  /** ASP.NET Identity roles (JWT `roles`). */
-  roles: string[];
+    /** ASP.NET Identity user id (JWT `sub`). Comes only from the validated token. */
+    subject: string;
+    /** Authenticated username / email (JWT `email`). */
+    email: string;
+    /** Display name when available (JWT `name`); may be empty. */
+    name: string;
+    /** ASP.NET Identity roles (JWT `roles`). */
+    roles: string[];
 }
 
-const COOKIE_NAME = 'psap_session';
-const DEFAULT_ISSUER = 'in911-ngsec.911authority.com';
-const DEFAULT_AUDIENCE = 'psap-artifact-library';
+const COOKIE_NAME = "psap_session";
+const DEFAULT_ISSUER = "in911-ngsec.911authority.com";
+const DEFAULT_AUDIENCE = "psap-artifact-library";
 
 /** Read + decode the shared HS256 signing key from PSAP_BRIDGE_SECRET (base64). */
 function getSigningKey(): Uint8Array | null {
-  const secret = process.env.PSAP_BRIDGE_SECRET;
-  if (!secret) return null;
-  const key = Buffer.from(secret, 'base64');
-  // HS256 requires a 256-bit key; anything shorter is a misconfiguration.
-  if (key.length < 32) return null;
-  return key;
+    const secret = process.env.PSAP_BRIDGE_SECRET;
+    if (!secret) return null;
+    const key = Buffer.from(secret, "base64");
+    // HS256 requires a 256-bit key; anything shorter is a misconfiguration.
+    if (key.length < 32) return null;
+    return key;
 }
 
 function asString(value: unknown): string | null {
-  return typeof value === 'string' ? value : null;
+    return typeof value === "string" ? value : null;
 }
 
 /**
@@ -48,56 +48,56 @@ function asString(value: unknown): string | null {
  * ──────────────────────────────────────────────────────────────────────────────
  */
 export async function verifySessionToken(token: string): Promise<Session | null> {
-  const key = getSigningKey();
-  if (!key) return null;
+    const key = getSigningKey();
+    if (!key) return null;
 
-  let payload: JWTPayload;
-  try {
-    ({ payload } = await jwtVerify(token, key, {
-      algorithms: ['HS256'], // pin the algorithm — reject alg-confusion / "none"
-      issuer: process.env.PSAP_TOKEN_ISS ?? DEFAULT_ISSUER,
-      audience: process.env.PSAP_TOKEN_AUD ?? DEFAULT_AUDIENCE,
-      clockTolerance: 60, // seconds — allows minor clock skew on nbf/exp
-    }));
-  } catch {
-    // Malformed, expired, wrong signature, wrong algorithm, wrong issuer/audience,
-    // not-yet-valid — all collapse to "no session".
-    return null;
-  }
+    let payload: JWTPayload;
+    try {
+        ({ payload } = await jwtVerify(token, key, {
+            algorithms: ["HS256"], // pin the algorithm — reject alg-confusion / "none"
+            issuer: process.env.PSAP_TOKEN_ISS ?? DEFAULT_ISSUER,
+            audience: process.env.PSAP_TOKEN_AUD ?? DEFAULT_AUDIENCE,
+            clockTolerance: 60, // seconds — allows minor clock skew on nbf/exp
+        }));
+    } catch {
+        // Malformed, expired, wrong signature, wrong algorithm, wrong issuer/audience,
+        // not-yet-valid — all collapse to "no session".
+        return null;
+    }
 
-  // Validate claim TYPES rather than coercing malformed values to empty strings.
-  const subject = asString(payload.sub);
-  if (!subject) return null; // sub is required and must be a non-empty string
+    // Validate claim TYPES rather than coercing malformed values to empty strings.
+    const subject = asString(payload.sub);
+    if (!subject) return null; // sub is required and must be a non-empty string
 
-  const email = asString(payload.email);
-  if (email === null) return null; // present but wrong type → reject
+    const email = asString(payload.email);
+    if (email === null) return null; // present but wrong type → reject
 
-  // name is optional; when present it must be a string.
-  const rawName = payload.name;
-  if (rawName !== undefined && typeof rawName !== 'string') return null;
-  const name = (rawName as string | undefined) ?? '';
+    // name is optional; when present it must be a string.
+    const rawName = payload.name;
+    if (rawName !== undefined && typeof rawName !== "string") return null;
+    const name = (rawName as string | undefined) ?? "";
 
-  // roles: a JWT collapses a single-valued claim to a string and a multi-valued
-  // one to an array, so accept either form (normalizing to an array). Anything
-  // else present is malformed → reject.
-  const rawRoles = payload.roles;
-  let roles: string[] = [];
-  if (typeof rawRoles === 'string') {
-    roles = [rawRoles];
-  } else if (Array.isArray(rawRoles)) {
-    if (rawRoles.some((r) => typeof r !== 'string')) return null;
-    roles = rawRoles as string[];
-  } else if (rawRoles !== undefined) {
-    return null;
-  }
+    // roles: a JWT collapses a single-valued claim to a string and a multi-valued
+    // one to an array, so accept either form (normalizing to an array). Anything
+    // else present is malformed → reject.
+    const rawRoles = payload.roles;
+    let roles: string[] = [];
+    if (typeof rawRoles === "string") {
+        roles = [rawRoles];
+    } else if (Array.isArray(rawRoles)) {
+        if (rawRoles.some((r) => typeof r !== "string")) return null;
+        roles = rawRoles as string[];
+    } else if (rawRoles !== undefined) {
+        return null;
+    }
 
-  return { subject, email, name, roles };
+    return { subject, email, name, roles };
 }
 
 export async function getSession(request: NextRequest): Promise<Session | null> {
-  const token = request.cookies.get(COOKIE_NAME)?.value;
-  if (!token) return null;
-  return verifySessionToken(token);
+    const token = request.cookies.get(COOKIE_NAME)?.value;
+    if (!token) return null;
+    return verifySessionToken(token);
 }
 
 /**
@@ -112,23 +112,25 @@ export async function getSession(request: NextRequest): Promise<Session | null> 
  * accidentally wide open just because the secret wasn't configured.
  */
 export async function requireAuth(request: NextRequest): Promise<Session | NextResponse> {
-  const isProd = process.env.NODE_ENV === 'production';
-  const key = getSigningKey();
+    const isProd = process.env.NODE_ENV === "production";
+    const key = getSigningKey();
 
-  // Missing OR invalid (too-short) signing key = missing required configuration.
-  if (!key) {
-    if (isProd) {
-      console.error('PSAP_BRIDGE_SECRET missing or invalid — refusing API requests in production.');
-      return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
+    // Missing OR invalid (too-short) signing key = missing required configuration.
+    if (!key) {
+        if (isProd) {
+            console.error(
+                "PSAP_BRIDGE_SECRET missing or invalid — refusing API requests in production.",
+            );
+            return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
+        }
+        return { subject: "dev", email: "dev@local", name: "Local Dev", roles: [] };
     }
-    return { subject: 'dev', email: 'dev@local', name: 'Local Dev', roles: [] };
-  }
 
-  const session = await getSession(request);
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-  return session;
+    const session = await getSession(request);
+    if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    return session;
 }
 
 /**
@@ -146,27 +148,32 @@ export async function requireAuth(request: NextRequest): Promise<Session | NextR
  * `requireAuth` and the protected API contract are untouched.
  */
 export type PageAuth =
-  | { status: 'authenticated'; session: Session }
-  | { status: 'unauthenticated' }
-  | { status: 'unavailable' };
+    | { status: "authenticated"; session: Session }
+    | { status: "unauthenticated" }
+    | { status: "unavailable" };
 
 export async function getPageAuth(): Promise<PageAuth> {
-  const isProd = process.env.NODE_ENV === 'production';
-  const key = getSigningKey();
+    const isProd = process.env.NODE_ENV === "production";
+    const key = getSigningKey();
 
-  // Missing OR invalid (too-short) signing key = missing required configuration.
-  if (!key) {
-    if (isProd) {
-      console.error('PSAP_BRIDGE_SECRET missing or invalid — refusing to render authenticated page in production.');
-      return { status: 'unavailable' };
+    // Missing OR invalid (too-short) signing key = missing required configuration.
+    if (!key) {
+        if (isProd) {
+            console.error(
+                "PSAP_BRIDGE_SECRET missing or invalid — refusing to render authenticated page in production.",
+            );
+            return { status: "unavailable" };
+        }
+        // Dev-only bypass, matching requireAuth's synthetic principal.
+        return {
+            status: "authenticated",
+            session: { subject: "dev", email: "dev@local", name: "Local Dev", roles: [] },
+        };
     }
-    // Dev-only bypass, matching requireAuth's synthetic principal.
-    return { status: 'authenticated', session: { subject: 'dev', email: 'dev@local', name: 'Local Dev', roles: [] } };
-  }
 
-  // `cookies()` is async in this Next.js version — read the request cookie store.
-  const store = await cookies();
-  const token = store.get(COOKIE_NAME)?.value;
-  const session = token ? await verifySessionToken(token) : null;
-  return session ? { status: 'authenticated', session } : { status: 'unauthenticated' };
+    // `cookies()` is async in this Next.js version — read the request cookie store.
+    const store = await cookies();
+    const token = store.get(COOKIE_NAME)?.value;
+    const session = token ? await verifySessionToken(token) : null;
+    return session ? { status: "authenticated", session } : { status: "unauthenticated" };
 }

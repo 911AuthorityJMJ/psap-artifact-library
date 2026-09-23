@@ -31,7 +31,10 @@ export default function GuidePage() {
     return (
         <main className="min-h-screen p-8">
             <div className="max-w-3xl mx-auto">
-                <HelpHeader title="User Guide" current="/help/guide" />
+                <HelpHeader
+                    title="User Guide"
+                    current="/help/guide"
+                />
 
                 <DocCard>
                     <p className={prose}>
@@ -72,9 +75,14 @@ export default function GuidePage() {
                     </nav>
 
                     {/* ---------------------------------------------------------------- Part 1 */}
-                    <DocPart number={1} title="Getting oriented" />
+                    <DocPart
+                        number={1}
+                        title="Getting oriented"
+                    />
 
-                    <DocSection id="1.1" title="What the Artifact Library is">
+                    <DocSection
+                        id="1.1"
+                        title="What the Artifact Library is">
                         <p>
                             Your security assessment identified gaps. Most of those gaps close the
                             same way: your center needs a written policy, a documented procedure, a
@@ -108,7 +116,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="1.2" title="What it is not">
+                    <DocSection
+                        id="1.2"
+                        title="What it is not">
                         <p>Being clear about the boundaries will save you time later.</p>
                         <p>
                             It is <strong>not a compliance score</strong>. Your assessment report
@@ -133,7 +143,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="1.3" title="What the library remembers, and what it does not">
+                    <DocSection
+                        id="1.3"
+                        title="What the library remembers, and what it does not">
                         <p>
                             The short version:{" "}
                             <strong>
@@ -171,7 +183,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="1.4" title="What you need before you start">
+                    <DocSection
+                        id="1.4"
+                        title="What you need before you start">
                         <ul className="list-disc pl-5 space-y-2">
                             <li>
                                 <strong>Your completed assessment matrix</strong>, the{" "}
@@ -195,7 +209,9 @@ export default function GuidePage() {
                         </ul>
                     </DocSection>
 
-                    <DocSection id="1.5" title="Signing in, and your session">
+                    <DocSection
+                        id="1.5"
+                        title="Signing in, and your session">
                         <p>
                             You reached this guide from the <strong>Help</strong> menu inside the
                             library, so you are already signed in. Your 911 Authority site login
@@ -218,7 +234,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="1.6" title="The three screens">
+                    <DocSection
+                        id="1.6"
+                        title="The three screens">
                         <p>Everything in the library lives under three tabs across the top.</p>
                         <DocTable
                             headers={["Tab", "What it is for"]}
@@ -253,7 +271,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="1.7" title="What you will see when you open it">
+                    <DocSection
+                        id="1.7"
+                        title="What you will see when you open it">
                         <p>
                             You will land on one of two versions of the Setup screen. Which one
                             tells you where you are.
@@ -284,9 +304,14 @@ export default function GuidePage() {
                     </DocSection>
 
                     {/* ---------------------------------------------------------------- Part 2 */}
-                    <DocPart number={2} title="Your assessment matrix" />
+                    <DocPart
+                        number={2}
+                        title="Your assessment matrix"
+                    />
 
-                    <DocSection id="2.1" title="Where the matrix comes from">
+                    <DocSection
+                        id="2.1"
+                        title="Where the matrix comes from">
                         <p>
                             The assessment matrix is the{" "}
                             <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">.xlsx</code>{" "}
@@ -305,7 +330,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="2.2" title="What the library reads from it">
+                    <DocSection
+                        id="2.2"
+                        title="What the library reads from it">
                         <p>The workbook has several sheets. The library reads two.</p>
                         <p>
                             <strong>PSAP Information</strong> supplies your center&apos;s details:
@@ -335,7 +362,9 @@ export default function GuidePage() {
                         </Callout>
                     </DocSection>
 
-                    <DocSection id="2.3" title="The ratings, and what each one means here">
+                    <DocSection
+                        id="2.3"
+                        title="The ratings, and what each one means here">
                         <p>
                             Your assessment used six ratings. The library sorts them into two
                             groups.
@@ -375,7 +404,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="2.4" title="What the 198 questions cover">
+                    <DocSection
+                        id="2.4"
+                        title="What the 198 questions cover">
                         <p>
                             The assessment asks 198 questions, grouped into 51 categories across 13
                             domains. Every question maps to at least one artifact, which is how the
@@ -403,7 +434,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="2.5" title="Uploading it, the first time">
+                    <DocSection
+                        id="2.5"
+                        title="Uploading it, the first time">
                         <p>
                             On the Setup screen, click anywhere in the dashed panel and choose your
                             matrix.
@@ -433,7 +466,9 @@ export default function GuidePage() {
                         <p>Go to Part 3 to complete your profile.</p>
                     </DocSection>
 
-                    <DocSection id="2.6" title="Replacing it later">
+                    <DocSection
+                        id="2.6"
+                        title="Replacing it later">
                         <p>
                             Once a matrix is saved, the dashed panel is replaced by a compact bar
                             showing the file you have stored, with a{" "}
@@ -459,7 +494,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="2.7" title="If something goes wrong">
+                    <DocSection
+                        id="2.7"
+                        title="If something goes wrong">
                         <p>
                             Most problems here fall into three groups: the file, the session, or the
                             connection.
@@ -540,9 +577,14 @@ export default function GuidePage() {
                     </DocSection>
 
                     {/* ---------------------------------------------------------------- Part 3 */}
-                    <DocPart number={3} title="Your PSAP profile" />
+                    <DocPart
+                        number={3}
+                        title="Your PSAP profile"
+                    />
 
-                    <DocSection id="3.1" title="Why the library asks">
+                    <DocSection
+                        id="3.1"
+                        title="Why the library asks">
                         <p>
                             Two centers with the same gaps are not always in the same position to
                             close them. A five-seat center with no dedicated IT and a five-seat
@@ -572,7 +614,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="3.2" title="Finding it, and finishing it">
+                    <DocSection
+                        id="3.2"
+                        title="Finding it, and finishing it">
                         <p>
                             The profile appears on the <strong>Setup</strong> screen once an
                             assessment is loaded, below your center&apos;s details, under the
@@ -606,7 +650,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="3.3" title="Questions 1 to 3: your baseline">
+                    <DocSection
+                        id="3.3"
+                        title="Questions 1 to 3: your baseline">
                         <p>
                             These three set your profile. Answer them honestly rather than
                             aspirationally.
@@ -662,7 +708,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="3.4" title="Questions 4 to 6: confirming and scaling up">
+                    <DocSection
+                        id="3.4"
+                        title="Questions 4 to 6: confirming and scaling up">
                         <p>
                             <strong>4. Full-time-equivalent dispatchers?</strong> Choose 1 to 5, 6
                             to 25, or 25 and above.
@@ -705,7 +753,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="3.5" title="Questions 7 and 8: the two flags">
+                    <DocSection
+                        id="3.5"
+                        title="Questions 7 and 8: the two flags">
                         <p>
                             These are independent of size. A Small center and a Large center can
                             both carry them.
@@ -731,7 +781,9 @@ export default function GuidePage() {
                         </ul>
                     </DocSection>
 
-                    <DocSection id="3.6" title="What your profile changes">
+                    <DocSection
+                        id="3.6"
+                        title="What your profile changes">
                         <p>
                             Your profile affects two things, and it is worth being precise about
                             both so you are not looking for effects that are not there.
@@ -762,7 +814,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="3.7" title="Saving it">
+                    <DocSection
+                        id="3.7"
+                        title="Saving it">
                         <p>
                             Your profile is saved when you press{" "}
                             <strong>Continue to Assessment</strong>. The button shows that it is
@@ -787,7 +841,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="3.8" title="Changing it later">
+                    <DocSection
+                        id="3.8"
+                        title="Changing it later">
                         <p>
                             Return to <strong>Setup</strong> at any time, change any answer, and
                             press <strong>Continue to Assessment</strong> again to save.
@@ -800,7 +856,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="3.9" title="A worked example">
+                    <DocSection
+                        id="3.9"
+                        title="A worked example">
                         <p>
                             <strong>Wabash Valley Communications</strong> is a fictional
                             consolidated center serving two counties. Fourteen dispatchers across
@@ -845,22 +903,27 @@ export default function GuidePage() {
                     </DocSection>
 
                     {/* ---------------------------------------------------------------- Part 4 */}
-                    <DocPart number={4} title="Reading your results" />
+                    <DocPart
+                        number={4}
+                        title="Reading your results"
+                    />
 
-                    <DocSection id="4.1" title="What the Assessment screen tells you">
+                    <DocSection
+                        id="4.1"
+                        title="What the Assessment screen tells you">
                         <p>
                             The <strong>Assessment</strong> tab opens on a summary line: how many
                             questions were rated as gaps, how many artifacts address them, and how
                             many artifacts exist in the library altogether.
                         </p>
                         <p>
-                            The first two numbers measure different things, so do not expect them
-                            to match. Questions are what your assessment found; artifacts are the
-                            documents that answer them. One policy can answer several questions,
-                            and one question can call for several documents, so the counts can
-                            differ in either direction. The artifact count is the one to plan
-                            around: each document is listed once, however many gaps it closes, and
-                            the total can never exceed the library&apos;s 163.
+                            The first two numbers measure different things, so do not expect them to
+                            match. Questions are what your assessment found; artifacts are the
+                            documents that answer them. One policy can answer several questions, and
+                            one question can call for several documents, so the counts can differ in
+                            either direction. The artifact count is the one to plan around: each
+                            document is listed once, however many gaps it closes, and the total can
+                            never exceed the library&apos;s 163.
                         </p>
                         <p>
                             Below the summary are three tabs: <strong>Build Priority</strong>,{" "}
@@ -873,7 +936,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="4.2" title="Tiers, and why the order matters">
+                    <DocSection
+                        id="4.2"
+                        title="Tiers, and why the order matters">
                         <p>
                             Your artifacts are grouped into six tiers. The tiers are a sequence, not
                             categories: each one rests on the work of the one before it.
@@ -921,7 +986,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="4.3" title="Gates">
+                    <DocSection
+                        id="4.3"
+                        title="Gates">
                         <p>
                             Some artifacts carry a <strong>Gate</strong> marker. These deserve more
                             attention than the badge suggests.
@@ -950,7 +1017,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="4.4" title="The gate waves">
+                    <DocSection
+                        id="4.4"
+                        title="The gate waves">
                         <p>
                             Fourteen of the sixteen gates fall into two waves. Use them alongside
                             the tier order: the tiers tell you what belongs together, the waves tell
@@ -998,7 +1067,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="4.5" title="Build Priority: your working list">
+                    <DocSection
+                        id="4.5"
+                        title="Build Priority: your working list">
                         <p>
                             This is the tab to work from. It takes every artifact your gaps point
                             to, removes the duplicates, and puts them in build order: by tier, then
@@ -1021,7 +1092,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="4.6" title="By Question: why something is on your list">
+                    <DocSection
+                        id="4.6"
+                        title="By Question: why something is on your list">
                         <p>
                             The same artifacts, arranged by assessment question instead of by build
                             order, grouped under the 13 domains with each question&apos;s rating
@@ -1043,7 +1116,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="4.7" title="Reference: what you already have">
+                    <DocSection
+                        id="4.7"
+                        title="Reference: what you already have">
                         <p>
                             Questions you rated <strong>Yes</strong> or{" "}
                             <strong>Not Applicable</strong>, and the artifacts behind them.
@@ -1065,7 +1140,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="4.8" title="What the markers mean">
+                    <DocSection
+                        id="4.8"
+                        title="What the markers mean">
                         <DocTable
                             headers={["Marker", "Where it appears", "What it tells you"]}
                             rows={[
@@ -1136,7 +1213,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="4.9" title="What you can do with an artifact">
+                    <DocSection
+                        id="4.9"
+                        title="What you can do with an artifact">
                         <p>
                             Every artifact offers up to three actions. On{" "}
                             <strong>Build Priority</strong> they are on the row; on{" "}
@@ -1171,9 +1250,14 @@ export default function GuidePage() {
                     </DocSection>
 
                     {/* ---------------------------------------------------------------- Part 5 */}
-                    <DocPart number={5} title="The Full Library" />
+                    <DocPart
+                        number={5}
+                        title="The Full Library"
+                    />
 
-                    <DocSection id="5.1" title="What it is for">
+                    <DocSection
+                        id="5.1"
+                        title="What it is for">
                         <p>
                             <strong>Full Library</strong> shows all 163 artifacts, whether or not
                             you have an assessment loaded. Your build list is the shorter,
@@ -1208,7 +1292,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="5.2" title="Searching and filtering">
+                    <DocSection
+                        id="5.2"
+                        title="Searching and filtering">
                         <p>A search box and a type filter sit above the list.</p>
                         <p>
                             <strong>Search</strong> matches artifact names and types. It does not
@@ -1227,7 +1313,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="5.3" title="What each row offers">
+                    <DocSection
+                        id="5.3"
+                        title="What each row offers">
                         <p>
                             The same three actions described in section 4.9:{" "}
                             <strong>Download Template</strong>, <strong>Build Document</strong> for
@@ -1246,7 +1334,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="5.4" title="What is in the library">
+                    <DocSection
+                        id="5.4"
+                        title="What is in the library">
                         <p>
                             163 artifacts across 16 types. The type tells you the format, with no
                             exceptions:
@@ -1299,9 +1389,14 @@ export default function GuidePage() {
                     </DocSection>
 
                     {/* ---------------------------------------------------------------- Part 6 */}
-                    <DocPart number={6} title="Building a document" />
+                    <DocPart
+                        number={6}
+                        title="Building a document"
+                    />
 
-                    <DocSection id="6.1" title="What Build Document does, and what it leaves you">
+                    <DocSection
+                        id="6.1"
+                        title="What Build Document does, and what it leaves you">
                         <p>
                             Read this before you use the builder for the first time. The name
                             promises a finished document, and what you get is a strong draft.
@@ -1339,8 +1434,8 @@ export default function GuidePage() {
                             You handle the specifics, then clean up.
                         </Callout>
                         <p>
-                            The builder fills single values wherever they appear, including inside
-                            a table cell. What it will not do is add rows to a table, or fill a cell
+                            The builder fills single values wherever they appear, including inside a
+                            table cell. What it will not do is add rows to a table, or fill a cell
                             that has no field of its own, such as the Y / N / NA column on a
                             checklist. Expect to add rows and complete those cells in Word after
                             downloading.
@@ -1352,7 +1447,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="6.2" title="Which artifacts can be built">
+                    <DocSection
+                        id="6.2"
+                        title="Which artifacts can be built">
                         <p>Word documents only, which is 100 of the 163 artifacts.</p>
                         <p>
                             The 63 spreadsheets have no <strong>Build Document</strong> action, by
@@ -1369,7 +1466,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="6.3" title="The builder window">
+                    <DocSection
+                        id="6.3"
+                        title="The builder window">
                         <p>
                             <strong>Build Document</strong> opens a window with the form on the left
                             and a live preview on the right.
@@ -1390,7 +1489,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="6.4" title="Fields that fill themselves">
+                    <DocSection
+                        id="6.4"
+                        title="Fields that fill themselves">
                         <p>
                             One field fills itself: your <strong>agency name</strong>, taken from
                             your assessment matrix. It is marked <em>from your assessment</em> so
@@ -1410,7 +1511,9 @@ export default function GuidePage() {
                         <p>Everything else you enter yourself.</p>
                     </DocSection>
 
-                    <DocSection id="6.5" title="The kinds of field you will meet">
+                    <DocSection
+                        id="6.5"
+                        title="The kinds of field you will meet">
                         <p>
                             <strong>Single-line text</strong> for names, titles, and short values.
                         </p>
@@ -1439,7 +1542,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="6.6" title="Seeing where your answers go">
+                    <DocSection
+                        id="6.6"
+                        title="Seeing where your answers go">
                         <p>
                             Click into any field and the preview highlights every place that value
                             appears, then scrolls to the first one.
@@ -1457,7 +1562,9 @@ export default function GuidePage() {
                         />
                     </DocSection>
 
-                    <DocSection id="6.7" title="Limits, and things that can interrupt you">
+                    <DocSection
+                        id="6.7"
+                        title="Limits, and things that can interrupt you">
                         <p>
                             <strong>Nothing in the builder is saved.</strong> This is the one real
                             trap in the library. Close the window, lose your connection, or let your
@@ -1486,7 +1593,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="6.8" title="If a template has nothing to fill">
+                    <DocSection
+                        id="6.8"
+                        title="If a template has nothing to fill">
                         <p>
                             Every Word template has fields for the builder to fill. If you ever open
                             one that has none, the builder says so and points you to the download
@@ -1495,7 +1604,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="6.9" title="Downloading">
+                    <DocSection
+                        id="6.9"
+                        title="Downloading">
                         <p>
                             Press <strong>Download</strong>. The library generates the document and
                             your browser saves it, named after the artifact with{" "}
@@ -1509,13 +1620,15 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="6.10" title="Finishing the document in Word">
+                    <DocSection
+                        id="6.10"
+                        title="Finishing the document in Word">
                         <p>Open the file. Two jobs remain, and both matter.</p>
                         <p>
                             <strong>First, add what only you can.</strong> Complete any tables that
                             call for entries, answer any bracketed prompts left in the prose, and
-                            add anything specific to your center. This is the substance the
-                            template cannot supply.
+                            add anything specific to your center. This is the substance the template
+                            cannot supply.
                         </p>
                         <p>
                             <strong>Second, remove the drafting guidance.</strong> Every template
@@ -1547,15 +1660,15 @@ export default function GuidePage() {
                                 ],
                                 [
                                     <>
-                                        An italic line above the <strong>Profile Scaling Notes</strong>{" "}
-                                        table
+                                        An italic line above the{" "}
+                                        <strong>Profile Scaling Notes</strong> table
                                     </>,
                                     "Instructions for writing the profile rows. It is not part of the document, so delete it",
                                 ],
                                 [
                                     <>
-                                        An italic line at the top of the <strong>Source Authority</strong>{" "}
-                                        box
+                                        An italic line at the top of the{" "}
+                                        <strong>Source Authority</strong> box
                                     </>,
                                     "Instructions for listing your authorities. Delete the line and keep the list beneath it",
                                 ],
@@ -1577,8 +1690,9 @@ export default function GuidePage() {
                                 "Every « » guidance note deleted",
                                 "Small / Medium / Large guidance rows reduced to your own",
                                 <>
-                                    The italic instruction lines under <strong>Profile Scaling Notes</strong>{" "}
-                                    and <strong>Source Authority</strong> deleted
+                                    The italic instruction lines under{" "}
+                                    <strong>Profile Scaling Notes</strong> and{" "}
+                                    <strong>Source Authority</strong> deleted
                                 </>,
                                 "Version, dates, and named roles checked",
                                 "The classification line correct for your center, see Part 7",
@@ -1596,9 +1710,14 @@ export default function GuidePage() {
                     </DocSection>
 
                     {/* ---------------------------------------------------------------- Part 7 */}
-                    <DocPart number={7} title="After the download" />
+                    <DocPart
+                        number={7}
+                        title="After the download"
+                    />
 
-                    <DocSection id="7.1" title="What you have, and what you do not">
+                    <DocSection
+                        id="7.1"
+                        title="What you have, and what you do not">
                         <p>You have a draft. A good one, but a draft.</p>
                         <p>
                             A document becomes an artifact when your center has reviewed it,
@@ -1613,7 +1732,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="7.2" title="Reviewing it">
+                    <DocSection
+                        id="7.2"
+                        title="Reviewing it">
                         <p>
                             Assuming you have finished the work in section 6.10, this is a review
                             pass rather than a completion pass.
@@ -1646,7 +1767,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="7.3" title="Approving and adopting">
+                    <DocSection
+                        id="7.3"
+                        title="Approving and adopting">
                         <p>
                             Every artifact has a place for approval at the foot of the document,
                             because approval is what makes it binding.
@@ -1681,7 +1804,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="7.4" title="Classification, and what it requires of you">
+                    <DocSection
+                        id="7.4"
+                        title="Classification, and what it requires of you">
                         <p>
                             Every artifact carries a classification: <strong>Internal</strong>,{" "}
                             <strong>Restricted</strong>, or <strong>Confidential</strong>, some with{" "}
@@ -1748,7 +1873,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="7.5" title="Where to keep them">
+                    <DocSection
+                        id="7.5"
+                        title="Where to keep them">
                         <p>
                             The library does not store your finished documents, so your center needs
                             somewhere that it does.
@@ -1781,7 +1908,9 @@ export default function GuidePage() {
                         </ul>
                     </DocSection>
 
-                    <DocSection id="7.6" title="The spreadsheets are different">
+                    <DocSection
+                        id="7.6"
+                        title="The spreadsheets are different">
                         <p>
                             The 63 spreadsheet artifacts work on a different rhythm from the Word
                             documents.
@@ -1800,7 +1929,9 @@ export default function GuidePage() {
                         </p>
                     </DocSection>
 
-                    <DocSection id="7.7" title="Coming back">
+                    <DocSection
+                        id="7.7"
+                        title="Coming back">
                         <p>
                             Your assessment and your profile are saved, so returning costs you
                             nothing. Open the library from <strong>Tools</strong> and your build

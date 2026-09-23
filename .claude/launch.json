@@ -1,7 +1,6 @@
 {
     "version": "0.0.1",
-    "configurations":
-    [
+    "configurations": [
         {
             "name": "psap-dev",
             "runtimeExecutable": "/Users/jasonjeffares/.nvm/versions/node/v26.3.0/bin/npm",

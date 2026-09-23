@@ -18,7 +18,10 @@ export default function QuickReferencePage() {
     return (
         <main className="min-h-screen p-8">
             <div className="max-w-3xl mx-auto">
-                <HelpHeader title="Quick Reference" current="/help/quick-reference" />
+                <HelpHeader
+                    title="Quick Reference"
+                    current="/help/quick-reference"
+                />
 
                 <DocCard>
                     <DocH2>The three results tabs</DocH2>

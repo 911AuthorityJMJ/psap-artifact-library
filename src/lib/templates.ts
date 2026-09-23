@@ -1,13 +1,13 @@
-import { existsSync } from 'fs';
-import path from 'path';
-import traceabilityData from '@/data/traceability.json';
-import { toFileNameStem } from '@/lib/file-naming.mjs';
+import { existsSync } from "fs";
+import path from "path";
+import traceabilityData from "@/data/traceability.json";
+import { toFileNameStem } from "@/lib/file-naming.mjs";
 
 export { toFileNameStem };
 
 export interface Artifact {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 }
 
 const artifactMap = traceabilityData.artifactMap as Record<string, Artifact>;
@@ -34,23 +34,23 @@ const ARTIFACT_ID_RE = /^[A-Za-z]+-\d+$/;
  * public/templates/forms/ is served separately as the reference download.
  */
 export function resolveFormTemplate(
-  id: string,
+    id: string,
 ): { artifact: Artifact; templatePath: string } | null {
-  if (typeof id !== 'string' || !ARTIFACT_ID_RE.test(id)) return null;
-  if (!Object.hasOwn(artifactMap, id)) return null;
+    if (typeof id !== "string" || !ARTIFACT_ID_RE.test(id)) return null;
+    if (!Object.hasOwn(artifactMap, id)) return null;
 
-  const artifact = artifactMap[id];
-  const templatePath = path.join(
-    process.cwd(),
-    'public',
-    'templates',
-    'compiled',
-    'forms',
-    `${id}-${toFileNameStem(artifact.name)}-FORM.docx`,
-  );
+    const artifact = artifactMap[id];
+    const templatePath = path.join(
+        process.cwd(),
+        "public",
+        "templates",
+        "compiled",
+        "forms",
+        `${id}-${toFileNameStem(artifact.name)}-FORM.docx`,
+    );
 
-  if (!existsSync(templatePath)) return null;
-  return { artifact, templatePath };
+    if (!existsSync(templatePath)) return null;
+    return { artifact, templatePath };
 }
 
 /** Structural type for a compiled Docxtemplater instance's getTags(). */
@@ -64,8 +64,8 @@ type TagReader = { getTags: () => { document?: { tags: Record<string, unknown> }
  * (getTags() exists at runtime but is absent from the type definitions.)
  */
 export function getDocumentTagNames(doc: unknown): string[] {
-  const raw = (doc as TagReader).getTags();
-  return Object.keys(raw.document?.tags ?? {});
+    const raw = (doc as TagReader).getTags();
+    return Object.keys(raw.document?.tags ?? {});
 }
 
 /**
@@ -77,20 +77,20 @@ export function getDocumentTagNames(doc: unknown): string[] {
  * an empty `{#x}{/x}` section (no inner tags) reads as a scalar, which is fine.
  */
 export interface DocumentSchema {
-  /** scalar tag names, in document order */
-  scalars: string[];
-  /** loop section tag -> its per-row sub-field tag names */
-  loops: Record<string, string[]>;
+    /** scalar tag names, in document order */
+    scalars: string[];
+    /** loop section tag -> its per-row sub-field tag names */
+    loops: Record<string, string[]>;
 }
 
 export function getDocumentSchema(doc: unknown): DocumentSchema {
-  const tags = (doc as TagReader).getTags().document?.tags ?? {};
-  const scalars: string[] = [];
-  const loops: Record<string, string[]> = {};
-  for (const [name, value] of Object.entries(tags)) {
-    const sub = Object.keys((value ?? {}) as Record<string, unknown>);
-    if (sub.length) loops[name] = sub;
-    else scalars.push(name);
-  }
-  return { scalars, loops };
+    const tags = (doc as TagReader).getTags().document?.tags ?? {};
+    const scalars: string[] = [];
+    const loops: Record<string, string[]> = {};
+    for (const [name, value] of Object.entries(tags)) {
+        const sub = Object.keys((value ?? {}) as Record<string, unknown>);
+        if (sub.length) loops[name] = sub;
+        else scalars.push(name);
+    }
+    return { scalars, loops };
 }
