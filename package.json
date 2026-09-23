@@ -14,7 +14,7 @@
     "lint:templates:strict": "node scripts/lint-templates.mjs --strict"
   },
   "dependencies": {
-    "docxtemplater": "^3.70.0",
+    "docxtemplater": "^3.70.1",
     "jose": "^6.2.12",
     "next": "^16.3.5",
     "pizzip": "^3.2.0",
